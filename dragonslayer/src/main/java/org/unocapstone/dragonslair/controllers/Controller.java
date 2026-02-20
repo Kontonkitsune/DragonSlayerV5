@@ -1673,11 +1673,11 @@ public class Controller implements Initializable {
                     } else
                         delinqNoticeText.setVisible(false);
 
-                    newOrderButton.setDisable(false);
-                    editOrderButton.setDisable(false);
-                    deleteOrderButton.setDisable(false);
+                    newOrderButton.setDisable(viewMode);
+                    editOrderButton.setDisable(viewMode);
+                    deleteOrderButton.setDisable(viewMode);
                     exportSingleCustomerListButton.setDisable(false);
-                    editCustomerButton.setDisable(false);
+                    editCustomerButton.setDisable(viewMode);
 
                     updateOrdersTable(newSelection);
                 }
@@ -1709,7 +1709,7 @@ public class Controller implements Initializable {
                 // Re-enable the edit order button if and only if there are not multiple
                 // customers selected
                 if (selectedCustomers == null || selectedCustomers.size() == 1)
-                    editOrderButton.setDisable(false);
+                    editOrderButton.setDisable(viewMode);
 
             } else if (selectedOrders.size() > 0) {
                 editOrderButton.setDisable(true);
@@ -1772,7 +1772,7 @@ public class Controller implements Initializable {
                     }
                     titleNumberRequestsText.setText(numberRequests);
 
-                    editTitleButton.setDisable(false);
+                    editTitleButton.setDisable(viewMode);
 
                     titleOrderIssueColumn.setVisible(true);
 
