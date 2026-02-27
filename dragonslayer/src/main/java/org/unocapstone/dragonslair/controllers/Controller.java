@@ -1043,7 +1043,7 @@ public class Controller implements Initializable {
     private int getNumberRequests(int titleId) {
         int ordersCount = 0;
         ResultSet result;
-        Statement s = null;
+        Statement s;
         try {
             String sql = String.format("""
                     SELECT COUNT(*) FROM ORDERS
@@ -1073,7 +1073,7 @@ public class Controller implements Initializable {
 
         int numTitlesCurrentlyFlagged = 0;
 
-        Statement s = null;
+        Statement s;
         try {
             s = conn.createStatement();
             ResultSet results = s
@@ -1099,7 +1099,7 @@ public class Controller implements Initializable {
     private int getNumTitlesFlaggedNoRequests() {
         int numTitlesWithNoRequests = 0;
 
-        Statement s = null;
+        Statement s;
         try {
             s = conn.createStatement();
             ResultSet results = s.executeQuery("""
@@ -2226,8 +2226,14 @@ public class Controller implements Initializable {
                     PreparedStatement s = null;
                     String sql = "DELETE FROM TITLES WHERE TITLEID = ?";
                     String sql2 = "DELETE FROM ORDERS WHERE TITLEID = ?";
+                    String sql3 = "DELETE FROM CUSTOMERTITLES WHERE TITLEID = ?";
 
                     try {
+                        s = conn.prepareStatement(sql3);
+                        s.setString(1, Integer.toString(titleId));
+                        s.executeUpdate();
+                        s.close();
+
                         s = conn.prepareStatement(sql2);
                         s.setString(1, Integer.toString(titleId));
                         s.executeUpdate();
@@ -2511,10 +2517,8 @@ public class Controller implements Initializable {
      * Creates a pop-up that lets the user select which location the exported
      * information relates to and
      * returns that choice for file naming
-     * 
-     * @param event
+     *
      */
-
     private String showLocationChoiceDialog() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Select Store Location");
@@ -4707,7 +4711,6 @@ public class Controller implements Initializable {
 
     /**
      * Yet another helper function that gets the customerID from a selected name
-     * @param title
      * @param firstName The customer's first name
      * @param lastName The customer's last name
      * @return The customer ID, or -1 if not found
