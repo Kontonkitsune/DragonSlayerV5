@@ -1277,7 +1277,7 @@ public class Controller implements Initializable {
             copy.setNoRequest(t.getNoRequest());
 
             copy.flaggedProperty().addListener((obs, wasFlagged, isFlagged) -> {
-                if (isFlagged) {
+                if (isFlagged && !this.viewMode) {
                     t.setDateFlagged(LocalDate.now());
                     saveThisFlag(copy);
                     try {
@@ -1317,7 +1317,7 @@ public class Controller implements Initializable {
                     }
                     this.unsaved = true;
                 }
-                if (!isFlagged && wasFlagged) {
+                if (!isFlagged && wasFlagged && !this.viewMode) {
                     t.setDateFlagged(null);
                     this.unsaved = true;
                     unsaveThisFlag(copy);
@@ -3556,57 +3556,61 @@ public class Controller implements Initializable {
 
     @FXML
     void saveThisFlag(Title title) {
-        ZonedDateTime startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault());
-        long todayMillis = startOfToday.toEpochSecond() * 1000;
-        Date today = new Date(todayMillis);
-        PreparedStatement s = null;
-        String sql = """
-                UPDATE Titles
-                SET FLAGGED = TRUE, DATE_FLAGGED = ?, ISSUE_FLAGGED = ?
-                WHERE TITLEID = ?
-                """;
-        try {
-            s = conn.prepareStatement(sql);
-            s.setString(1, DateFormat.getDateInstance().format(today));
-            if (title.getIssueFlagged() == 0) {
-                s.setString(2, null);
-            } else {
-                s.setString(2, Integer.toString(title.getIssueFlagged()));
+        if (!this.viewMode) {
+            ZonedDateTime startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault());
+            long todayMillis = startOfToday.toEpochSecond() * 1000;
+            Date today = new Date(todayMillis);
+            PreparedStatement s = null;
+            String sql = """
+                    UPDATE Titles
+                    SET FLAGGED = TRUE, DATE_FLAGGED = ?, ISSUE_FLAGGED = ?
+                    WHERE TITLEID = ?
+                    """;
+            try {
+                s = conn.prepareStatement(sql);
+                s.setString(1, DateFormat.getDateInstance().format(today));
+                if (title.getIssueFlagged() == 0) {
+                    s.setString(2, null);
+                } else {
+                    s.setString(2, Integer.toString(title.getIssueFlagged()));
+                }
+                s.setString(3, Integer.toString(title.getId()));
+                s.executeUpdate();
+                s.close();
+            } catch (SQLException sqlExcept) {
+                Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+                sqlExcept.printStackTrace();
             }
-            s.setString(3, Integer.toString(title.getId()));
-            s.executeUpdate();
-            s.close();
-        } catch (SQLException sqlExcept) {
-            Log.LogEvent("SQL Exception", sqlExcept.getMessage());
-            sqlExcept.printStackTrace();
+            invalidateTitles();
+            this.loadReportsTab();
+            getDatabaseInfo();
+            Log.LogEvent("Save Flag", title.getTitle() + " has been flagged and saved!");
         }
-        invalidateTitles();
-        this.loadReportsTab();
-        getDatabaseInfo();
-        Log.LogEvent("Save Flag", title.getTitle() + " has been flagged and saved!");
     }
 
     @FXML
     void unsaveThisFlag(Title title) {
-        PreparedStatement s = null;
-        String sql = """
-                UPDATE Titles
-                SET FLAGGED = FALSE, ISSUE_FLAGGED = NULL
-                WHERE TITLEID = ?
-                """;
-        try {
-            s = conn.prepareStatement(sql);
-            s.setString(1, Integer.toString(title.getId()));
-            s.executeUpdate();
-            s.close();
-        } catch (SQLException sqlExcept) {
-            Log.LogEvent("SQL Exception", sqlExcept.getMessage());
-            sqlExcept.printStackTrace();
+        if (!this.viewMode) {
+            PreparedStatement s = null;
+            String sql = """
+                    UPDATE Titles
+                    SET FLAGGED = FALSE, ISSUE_FLAGGED = NULL
+                    WHERE TITLEID = ?
+                    """;
+            try {
+                s = conn.prepareStatement(sql);
+                s.setString(1, Integer.toString(title.getId()));
+                s.executeUpdate();
+                s.close();
+            } catch (SQLException sqlExcept) {
+                Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+                sqlExcept.printStackTrace();
+            }
+            invalidateTitles();
+            this.loadReportsTab();
+            getDatabaseInfo();
+            Log.LogEvent("Remove Save Flag", title.getTitle() + " has been UNflagged and saved!");
         }
-        invalidateTitles();
-        this.loadReportsTab();
-        getDatabaseInfo();
-        Log.LogEvent("Remove Save Flag", title.getTitle() + " has been UNflagged and saved!");
     }
 
     @FXML
@@ -3642,7 +3646,7 @@ public class Controller implements Initializable {
 
         if (event.isControlDown() && event.getCode() == KeyCode.M) {
             for (Title title : titleTable.getSelectionModel().getSelectedItems()) {
-                title.setFlagged(!title.isFlagged());
+                if (!this.viewMode) title.setFlagged(!title.isFlagged());
             }
         }
     }
@@ -4383,7 +4387,9 @@ public class Controller implements Initializable {
     public void flagKeyShortcut() {
         // titleTable.getSelectionModel().getSelectedItem().isFlagged()
         for (Title title : titleTable.getSelectionModel().getSelectedItems()) {
-            title.setFlagged(!title.isFlagged());
+            if (!this.viewMode) {
+                title.setFlagged(!title.isFlagged());
+            }
         }
 
         // titleTable.getSelectionModel().getSelectedItem().setFlagged(!titleTable.getSelectionModel().getSelectedItem().isFlagged());
