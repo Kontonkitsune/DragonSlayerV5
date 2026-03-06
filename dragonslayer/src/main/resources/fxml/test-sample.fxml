@@ -170,8 +170,10 @@
                 <TableColumn fx:id="titleProductIdColumn" editable="false" prefWidth="100.0" text="Product ID" />
                 <TableColumn fx:id="titlePriceColumn" editable="false" prefWidth="100.0" text="Price" />
                 <TableColumn fx:id="titleDateCreatedColumn" editable="false" prefWidth="100.0" text="Date Created" />
-                <TableColumn fx:id="titleLastFlaggedColumn" editable="false" prefWidth="100.0" text="Last Flagged" />
-                <TableColumn fx:id="titleNotesColumn" editable="false" prefWidth="100.0" text="Notes" />
+                <TableColumn fx:id="titleLastFlaggedColumn" editable="false" prefWidth="50.0" text="Last Flagged" />
+                <TableColumn fx:id="titleAliasesColumn" editable="false" prefWidth="50.0" text="Aliases" />
+                <TableColumn fx:id="titleTagsColumn" editable="false" prefWidth="50.0" text="Tags" />
+                <TableColumn fx:id="titleNotesColumn" editable="false" prefWidth="50.0" text="Notes" />
               </columns>
             </TableView>
             <VBox alignment="CENTER" prefHeight="749.0" prefWidth="476.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">

@@ -125,6 +125,10 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn<Title, String> titleLastFlaggedColumn;
     @FXML
+    private TableColumn<Title, String> titleAliasesColumn;
+    @FXML
+    private TableColumn<Title, String> titleTagsColumn;
+    @FXML
     private TableColumn<Title, String> titleNotesColumn;
 
     @FXML
@@ -1273,7 +1277,7 @@ public class Controller implements Initializable {
 
         for (Title t : storedTitles) {
             Title copy = new Title(t.getId(), t.getTitle(), t.getPrice(), t.getNotes(), t.getProductId(),
-                    t.getDateCreated(), t.isFlagged(), t.getDateFlagged(), t.getIssueFlagged());
+                    t.getDateCreated(), t.isFlagged(), t.getDateFlagged(), t.getIssueFlagged(), t.getTags(), t.getAliases());
             copy.setNoRequest(t.getNoRequest());
 
             copy.flaggedProperty().addListener((obs, wasFlagged, isFlagged) -> {
@@ -1531,6 +1535,8 @@ public class Controller implements Initializable {
             }
             return new SimpleStringProperty("Never");
         });
+        titleAliasesColumn.setCellValueFactory(new PropertyValueFactory<>("aliases"));
+        titleTagsColumn.setCellValueFactory(new PropertyValueFactory<>("tags"));
         titleNotesColumn.setCellValueFactory(new PropertyValueFactory<>("notes"));
         // Cell factories to control text color for yellow-highlighted rows on selection
         Callback<TableColumn<Title, String>, TableCell<Title, String>> titleCellFactory = col ->
@@ -4482,7 +4488,7 @@ public class Controller implements Initializable {
             return;
         }
 
-        final String sql = "select TITLEID, TITLE, PRICE, NOTES, PRODUCTID, DATECREATED, " +
+        final String sql = "select TITLEID, TITLE, PRICE, NOTES, PRODUCTID, ALIASES, TAGS, DATECREATED, " +
                 "       FLAGGED, DATE_FLAGGED, ISSUE_FLAGGED, " +
                 "       case when exists (select 1 from ORDERS where TITLES.TITLEID = ORDERS.TITLEID) " +
                 "            then 1 else 0 end as REQUESTS " +
@@ -4500,6 +4506,8 @@ public class Controller implements Initializable {
                 int price = results.getInt("PRICE");
                 String notes = results.getString("NOTES");
                 String productId = results.getString("PRODUCTID");
+                String aliases = results.getString("ALIASES");
+                String tags = results.getString("TAGS");
 
                 Date dateCreatedNew = results.getDate("DATECREATED");
                 java.time.LocalDate dateCreated = (dateCreatedNew == null ? null : dateCreatedNew.toLocalDate());
@@ -4511,7 +4519,7 @@ public class Controller implements Initializable {
                 boolean noRequest = results.getInt("REQUESTS") == 0;
 
                 Title t = new Title(titleId, title, price, notes, productId, dateCreated, flagged, dateFlagged,
-                        issueFlagged);
+                        issueFlagged, tags, aliases);
                 t.setNoRequest(noRequest);
 
                 t.flaggedProperty().addListener((obs, wasFlagged, isFlagged) -> {
@@ -4606,13 +4614,15 @@ public class Controller implements Initializable {
                 int price = results.getInt("PRICE");
                 String notes = results.getString("NOTES");
                 String productId = results.getString("PRODUCTID");
+                String tags = results.getString("TAGS");
+                String aliases = results.getString("ALIASES");
                 Date dateCreated = results.getDate("DATECREATED");
                 boolean flagged = results.getBoolean("FLAGGED");
                 Date dateFlagged = results.getDate("DATE_FLAGGED");
                 int issueFlagged = results.getInt("ISSUE_FLAGGED");
                 titles.add(new Title(titleId, title, price, notes, productId,
                         (dateCreated == null ? null : dateCreated.toLocalDate()),
-                        flagged, (dateFlagged == null ? null : dateFlagged.toLocalDate()), issueFlagged));
+                        flagged, (dateFlagged == null ? null : dateFlagged.toLocalDate()), issueFlagged, tags, aliases));
             }
             results.close();
             s.close();
@@ -4638,12 +4648,14 @@ public class Controller implements Initializable {
                 String notes = results.getString("NOTES");
                 String productId = results.getString("PRODUCTID");
                 Date dateCreated = results.getDate("DATECREATED");
+                String tags = results.getString("TAGS");
+                String aliases = results.getString("ALIASES");
                 boolean flagged = results.getBoolean("FLAGGED");
                 Date dateFlagged = results.getDate("DATE_FLAGGED");
                 int issueFlagged = results.getInt("ISSUE_FLAGGED");
                 titles.add(new Title(titleId, title, price, notes, productId,
                         (dateCreated == null ? null : dateCreated.toLocalDate()),
-                        flagged, (dateFlagged == null ? null : dateFlagged.toLocalDate()), issueFlagged));
+                        flagged, (dateFlagged == null ? null : dateFlagged.toLocalDate()), issueFlagged, tags, aliases));
             }
             results.close();
             s.close();
