@@ -3698,7 +3698,8 @@ public class Controller implements Initializable {
                 return true; // Show all when empty.
             return (t.getTitle() != null && t.getTitle().toLowerCase().contains(query))
                     || (t.getProductId() != null && t.getProductId().toLowerCase().contains(query))
-                    || (t.getNotes() != null && t.getNotes().toLowerCase().contains(query));
+                    || (t.getAliases() != null && t.getAliases().toLowerCase().contains(query))
+                    || (t.getTags() != null && t.getTags().toLowerCase().contains(query));
         });
     }
 
