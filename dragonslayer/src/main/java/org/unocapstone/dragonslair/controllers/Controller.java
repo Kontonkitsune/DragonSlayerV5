@@ -92,6 +92,11 @@ public class Controller implements Initializable {
 
     private boolean unsaved = false;
     private boolean viewMode = true;
+    public boolean titleSearchTitles = true;
+    public boolean titleSearchIDs = true;
+    public boolean titleSearchAliases = true;
+    public boolean titleSearchTags = true;
+    public boolean titleSearchNotes = true;
     private final String EDIT_MODE_PASSWORD = "admin";
     private File defaultFL;
     // Allows for an injectable function, useful for testing purposes
@@ -270,6 +275,8 @@ public class Controller implements Initializable {
 
     @FXML
     private TextField TitleSearch;
+    @FXML
+    private Button TitleSearchOptionsButton;
     @FXML
     private Button addRequestButton;
     @FXML
@@ -3696,11 +3703,48 @@ public class Controller implements Initializable {
         filteredTitles.setPredicate(t -> {
             if (query.isEmpty())
                 return true; // Show all when empty.
-            return (t.getTitle() != null && t.getTitle().toLowerCase().contains(query))
-                    || (t.getProductId() != null && t.getProductId().toLowerCase().contains(query))
-                    || (t.getAliases() != null && t.getAliases().toLowerCase().contains(query))
-                    || (t.getTags() != null && t.getTags().toLowerCase().contains(query));
+            return      (titleSearchTitles && t.getTitle() != null && t.getTitle().toLowerCase().contains(query))
+                    ||  (titleSearchIDs && t.getProductId() != null && t.getProductId().toLowerCase().contains(query))
+                    ||  (titleSearchAliases && t.getAliases() != null && t.getAliases().toLowerCase().contains(query))
+                    ||  (titleSearchTags && t.getTags() != null && t.getTags().toLowerCase().contains(query))
+                    ||  (titleSearchNotes && t.getNotes() != null && t.getNotes().toLowerCase().contains(query));
         });
+    }
+
+    @FXML
+    public void handleTitleSearchOptions(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/TitleSearchSettings.fxml"));
+            Parent root = fxmlLoader.load();
+
+            SearchTitleOptionsController localcontroller = fxmlLoader.getController();
+            localcontroller.setConnection(conn);
+            localcontroller.setParent(this);
+            localcontroller.getCurrent();
+
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Title Search Options");
+            window.setResizable(false);
+
+            window.setHeight(285);
+            window.setWidth(400);
+
+            window.setScene(new Scene(root));
+            window.show();
+        } catch (Exception e) {
+            System.out.println("Error when opening window. This is probably a bug");
+            e.printStackTrace();
+        }
+        
+    }
+
+    public void passTitleSearchOptions(boolean title, boolean tag, boolean notes, boolean aliases, boolean id) {
+        this.titleSearchTitles = title;
+        this.titleSearchTags = tag;
+        this.titleSearchNotes = notes;
+        this.titleSearchAliases = aliases;
+        this.titleSearchIDs = id;
     }
 
     @FXML

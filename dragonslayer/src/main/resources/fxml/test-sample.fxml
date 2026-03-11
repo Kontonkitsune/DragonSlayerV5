@@ -280,7 +280,8 @@
                 </HBox>
               </children>
             </VBox>
-            <TextField fx:id="TitleSearch" layoutX="10.0" layoutY="44.0" onKeyReleased="#handleTitleSearching" onMouseClicked="#handleTitleSearchDouble" prefHeight="26.0" prefWidth="690.0" promptText="Search..." />
+            <TextField fx:id="TitleSearch" layoutX="10.0" layoutY="44.0" onKeyReleased="#handleTitleSearching" onMouseClicked="#handleTitleSearchDouble" prefHeight="26.0" prefWidth="550.0" promptText="Search..." />
+            <Button fx:id="TitleSearchOptionsButton" layoutX="560.0" layoutY="44.0" onAction="#handleSearchOptions" prefHeight="26.0" prefWidth="50.0" promptText="Options" />
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0"
                   nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#passTitleKeyboardFocus"
                   prefHeight="30.0" prefWidth="690.0"
