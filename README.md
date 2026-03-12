@@ -1,4 +1,4 @@
-# DragonSlayerV4_ComicSans
+# DragonSlayerV5
 Capstone Project for UNO class CSCI4970.
 
 ## Prerequisites:
@@ -61,3 +61,16 @@ Run the command: `mvn clean package -DskipTests -Pdev`
 - Fixed performance searching performance issues
 - Fixed edge-case where names with hyphens will break the SQL query
 - Fixed titles not displaying after being created.
+
+#### Version 5.0
+- Changed management
+
+#### Version 5.0.1
+###### Bug Fixes
+- Fixed bug where the view-only mode could access Edit, Delete, Add, and other features.
+- Removed the ability to flag titles in View-only mode (It still checks, but this is a visual bug)
+- Fixed the issue where deleting a title after a request for it is made will not delete the title due to SQL foreign key constraint.
+
+#### Version 5.1
+- Added fields for Tags and Aliases
+- Added search options for titles (search by tag, title, id, aliases, etc.)
