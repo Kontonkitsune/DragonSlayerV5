@@ -30,6 +30,8 @@ public class NewTitleController{
     @FXML private TextField newTitleTitle;
     @FXML private TextField newTitlePrice;
     @FXML private TextField newTitleNotes;
+    @FXML private TextField newTitleTags;
+    @FXML private TextField newTitleAliases;
     @FXML private TextField newTitleProductId;
 
     @FXML private Text priceValidText;
@@ -43,6 +45,8 @@ public class NewTitleController{
     void addTitle(ActionEvent event) {
         String title = newTitleTitle.getText();
         String notes = newTitleNotes.getText();
+        String tags = newTitleTags.getText();
+        String aliases = newTitleAliases.getText();
         String productId = newTitleProductId.getText();
         Date dateCreated = new Date(System.currentTimeMillis());
 
@@ -51,7 +55,7 @@ public class NewTitleController{
 
             Statement get = null;
             PreparedStatement insert = null;
-            String sql = "INSERT INTO Titles (TITLE, PRICE, NOTES, PRODUCTID, DATECREATED) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Titles (TITLE, PRICE, NOTES, PRODUCTID, DATECREATED, ALIASES, TAGS) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             try {
                 get = conn.createStatement();
@@ -81,6 +85,8 @@ public class NewTitleController{
                 insert.setString(3, notes);
                 insert.setString(4, productId);
                 insert.setDate(5, dateCreated);
+                insert.setString(6, aliases);
+                insert.setString(7, tags);
                 rowsAffected = insert.executeUpdate();
 
                 insert.close();

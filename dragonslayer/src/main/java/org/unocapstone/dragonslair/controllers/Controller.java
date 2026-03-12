@@ -92,6 +92,11 @@ public class Controller implements Initializable {
 
     private boolean unsaved = false;
     private boolean viewMode = true;
+    public boolean titleSearchTitles = true;
+    public boolean titleSearchIDs = true;
+    public boolean titleSearchAliases = true;
+    public boolean titleSearchTags = true;
+    public boolean titleSearchNotes = true;
     private final String EDIT_MODE_PASSWORD = "admin";
     private File defaultFL;
     // Allows for an injectable function, useful for testing purposes
@@ -124,6 +129,10 @@ public class Controller implements Initializable {
     private TableColumn<Title, String> titleDateCreatedColumn;
     @FXML
     private TableColumn<Title, String> titleLastFlaggedColumn;
+    @FXML
+    private TableColumn<Title, String> titleAliasesColumn;
+    @FXML
+    private TableColumn<Title, String> titleTagsColumn;
     @FXML
     private TableColumn<Title, String> titleNotesColumn;
 
@@ -266,6 +275,8 @@ public class Controller implements Initializable {
 
     @FXML
     private TextField TitleSearch;
+    @FXML
+    private Button TitleSearchOptionsButton;
     @FXML
     private Button addRequestButton;
     @FXML
@@ -1273,7 +1284,7 @@ public class Controller implements Initializable {
 
         for (Title t : storedTitles) {
             Title copy = new Title(t.getId(), t.getTitle(), t.getPrice(), t.getNotes(), t.getProductId(),
-                    t.getDateCreated(), t.isFlagged(), t.getDateFlagged(), t.getIssueFlagged());
+                    t.getDateCreated(), t.isFlagged(), t.getDateFlagged(), t.getIssueFlagged(), t.getTags(), t.getAliases());
             copy.setNoRequest(t.getNoRequest());
 
             copy.flaggedProperty().addListener((obs, wasFlagged, isFlagged) -> {
@@ -1531,6 +1542,8 @@ public class Controller implements Initializable {
             }
             return new SimpleStringProperty("Never");
         });
+        titleAliasesColumn.setCellValueFactory(new PropertyValueFactory<>("aliases"));
+        titleTagsColumn.setCellValueFactory(new PropertyValueFactory<>("tags"));
         titleNotesColumn.setCellValueFactory(new PropertyValueFactory<>("notes"));
         // Cell factories to control text color for yellow-highlighted rows on selection
         Callback<TableColumn<Title, String>, TableCell<Title, String>> titleCellFactory = col ->
@@ -3694,10 +3707,48 @@ public class Controller implements Initializable {
         filteredTitles.setPredicate(t -> {
             if (query.isEmpty())
                 return true; // Show all when empty.
-            return (t.getTitle() != null && t.getTitle().toLowerCase().contains(query))
-                    || (t.getProductId() != null && t.getProductId().toLowerCase().contains(query))
-                    || (t.getNotes() != null && t.getNotes().toLowerCase().contains(query));
+            return      (titleSearchTitles && t.getTitle() != null && t.getTitle().toLowerCase().contains(query))
+                    ||  (titleSearchIDs && t.getProductId() != null && t.getProductId().toLowerCase().contains(query))
+                    ||  (titleSearchAliases && t.getAliases() != null && t.getAliases().toLowerCase().contains(query))
+                    ||  (titleSearchTags && t.getTags() != null && t.getTags().toLowerCase().contains(query))
+                    ||  (titleSearchNotes && t.getNotes() != null && t.getNotes().toLowerCase().contains(query));
         });
+    }
+
+    @FXML
+    public void handleTitleSearchOptions(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/TitleSearchSettings.fxml"));
+            Parent root = fxmlLoader.load();
+
+            SearchTitleOptionsController localcontroller = fxmlLoader.getController();
+            localcontroller.setConnection(conn);
+            localcontroller.setParent(this);
+            localcontroller.getCurrent();
+
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Title Search Options");
+            window.setResizable(false);
+
+            window.setHeight(285);
+            window.setWidth(400);
+
+            window.setScene(new Scene(root));
+            window.show();
+        } catch (Exception e) {
+            System.out.println("Error when opening window. This is probably a bug");
+            e.printStackTrace();
+        }
+        
+    }
+
+    public void passTitleSearchOptions(boolean title, boolean tag, boolean notes, boolean aliases, boolean id) {
+        this.titleSearchTitles = title;
+        this.titleSearchTags = tag;
+        this.titleSearchNotes = notes;
+        this.titleSearchAliases = aliases;
+        this.titleSearchIDs = id;
     }
 
     @FXML
@@ -4486,7 +4537,7 @@ public class Controller implements Initializable {
             return;
         }
 
-        final String sql = "select TITLEID, TITLE, PRICE, NOTES, PRODUCTID, DATECREATED, " +
+        final String sql = "select TITLEID, TITLE, PRICE, NOTES, PRODUCTID, ALIASES, TAGS, DATECREATED, " +
                 "       FLAGGED, DATE_FLAGGED, ISSUE_FLAGGED, " +
                 "       case when exists (select 1 from ORDERS where TITLES.TITLEID = ORDERS.TITLEID) " +
                 "            then 1 else 0 end as REQUESTS " +
@@ -4504,6 +4555,8 @@ public class Controller implements Initializable {
                 int price = results.getInt("PRICE");
                 String notes = results.getString("NOTES");
                 String productId = results.getString("PRODUCTID");
+                String aliases = results.getString("ALIASES");
+                String tags = results.getString("TAGS");
 
                 Date dateCreatedNew = results.getDate("DATECREATED");
                 java.time.LocalDate dateCreated = (dateCreatedNew == null ? null : dateCreatedNew.toLocalDate());
@@ -4515,7 +4568,7 @@ public class Controller implements Initializable {
                 boolean noRequest = results.getInt("REQUESTS") == 0;
 
                 Title t = new Title(titleId, title, price, notes, productId, dateCreated, flagged, dateFlagged,
-                        issueFlagged);
+                        issueFlagged, tags, aliases);
                 t.setNoRequest(noRequest);
 
                 t.flaggedProperty().addListener((obs, wasFlagged, isFlagged) -> {
@@ -4610,13 +4663,15 @@ public class Controller implements Initializable {
                 int price = results.getInt("PRICE");
                 String notes = results.getString("NOTES");
                 String productId = results.getString("PRODUCTID");
+                String tags = results.getString("TAGS");
+                String aliases = results.getString("ALIASES");
                 Date dateCreated = results.getDate("DATECREATED");
                 boolean flagged = results.getBoolean("FLAGGED");
                 Date dateFlagged = results.getDate("DATE_FLAGGED");
                 int issueFlagged = results.getInt("ISSUE_FLAGGED");
                 titles.add(new Title(titleId, title, price, notes, productId,
                         (dateCreated == null ? null : dateCreated.toLocalDate()),
-                        flagged, (dateFlagged == null ? null : dateFlagged.toLocalDate()), issueFlagged));
+                        flagged, (dateFlagged == null ? null : dateFlagged.toLocalDate()), issueFlagged, tags, aliases));
             }
             results.close();
             s.close();
@@ -4642,12 +4697,14 @@ public class Controller implements Initializable {
                 String notes = results.getString("NOTES");
                 String productId = results.getString("PRODUCTID");
                 Date dateCreated = results.getDate("DATECREATED");
+                String tags = results.getString("TAGS");
+                String aliases = results.getString("ALIASES");
                 boolean flagged = results.getBoolean("FLAGGED");
                 Date dateFlagged = results.getDate("DATE_FLAGGED");
                 int issueFlagged = results.getInt("ISSUE_FLAGGED");
                 titles.add(new Title(titleId, title, price, notes, productId,
                         (dateCreated == null ? null : dateCreated.toLocalDate()),
-                        flagged, (dateFlagged == null ? null : dateFlagged.toLocalDate()), issueFlagged));
+                        flagged, (dateFlagged == null ? null : dateFlagged.toLocalDate()), issueFlagged, tags, aliases));
             }
             results.close();
             s.close();

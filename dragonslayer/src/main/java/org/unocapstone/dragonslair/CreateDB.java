@@ -65,6 +65,8 @@ public class CreateDB {
                         FLAGGED boolean default false not null,
                         DATE_FLAGGED date,
                         ISSUE_FLAGGED int,
+                        Tags varchar(1024),
+                        Aliases varchar(1024),
                         ProductId varchar(255),
                         DateCreated date,
                         PRIMARY KEY (TitleID)

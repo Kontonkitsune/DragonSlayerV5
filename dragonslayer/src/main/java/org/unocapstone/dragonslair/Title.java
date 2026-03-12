@@ -16,6 +16,8 @@ public class Title {
     private int price;
     private String notes;
     private String productId;
+    private String aliases;
+    private String tags;
     private LocalDate dateCreated;
     private int id;
     private BooleanProperty flagged;
@@ -54,7 +56,7 @@ public class Title {
      * @param dateFlagged The date that this title was last flagged
      * @param issueFlagged The specific issue number that this title is flagged for
      */
-    public Title(int id, String title, int price, String notes, String productId, LocalDate dateCreated, boolean flagged, LocalDate dateFlagged, int issueFlagged) {
+    public Title(int id, String title, int price, String notes, String productId, LocalDate dateCreated, boolean flagged, LocalDate dateFlagged, int issueFlagged, String tags, String aliases) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -64,6 +66,8 @@ public class Title {
         this.flagged = new SimpleBooleanProperty(flagged);
         this.dateFlagged = dateFlagged;
         this.issueFlagged = issueFlagged;
+        this.tags = tags;
+        this.aliases = aliases;
     }
 
     /**
@@ -89,6 +93,39 @@ public class Title {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    /**
+     * Gets the tag for this tag
+     * @return The tag's tag
+     */
+    public String getTags() {
+        return tags;
+    }
+
+    /**
+     * Sets the tag for this tag
+     * @param tag The new tag for this tag
+     */
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    /**
+     * Gets the tag for this tag
+     * @return The tag's tag
+     */
+    public String getAliases() {
+        return aliases;
+    }
+
+    /**
+     * Sets the tag for this tag
+     * @param tag The new tag for this tag
+     */
+    public void setAliases(String aliases) {
+        this.aliases = aliases;
+    }
+
 
     /**
      * Gets the price for this title
@@ -239,8 +276,12 @@ public class Title {
 
     public boolean equals(Title t)
     {
-        return this.title.equals(t.getTitle()) && this.price == t.getPrice()
-                && this.notes.equals(t.getNotes()) && this.productId.equals(t.getProductId())
+        return this.title.equals(t.getTitle()) 
+                && this.price == t.getPrice()
+                && this.notes.equals(t.getNotes()) 
+                && this.productId.equals(t.getProductId())
+                && this.aliases.equals(t.getAliases())
+                && this.tags.equals(t.getTags())
                 && this.dateCreated.equals(t.getDateCreated());
     }
 }
