@@ -1,0 +1,112 @@
+\doxysection{org.\+unocapstone.\+dragonslair.\+Order Class Reference}
+\hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_order}{}\label{classorg_1_1unocapstone_1_1dragonslair_1_1_order}\index{org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_order_ad814f66fe18c87ee5db4cc7832824373}{Order}} (int customer\+Id, int title\+Id, String title, int quantity, int issue)
+\item 
+int \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_order_a9ce9e171fdc481dcd2c991a69a844888}{get\+Customer\+Id}} ()
+\item 
+int \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_order_a3c4b848faf3bad27ee3a4fad201f1517}{get\+Title\+Id}} ()
+\item 
+String \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_order_aafcbfc1675f5e27f756df1287750b32b}{get\+Title\+Name}} ()
+\item 
+int \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_order_ae6e33e1fbcc484f51faa8c55d81e737f}{get\+Quantity}} ()
+\item 
+int \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_order_a8456f6c2544ea0cf310ef0bf4de2f28b}{get\+Issue}} ()
+\item 
+void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_order_a8f8cb5039c24bb6f028526585d47749b}{set\+Quantity}} (int quantity)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_order}{Order} relating a \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title} and a customer. Every order has a customer that is requesting it and a title that is to be requested. Every order must also have a specified quantity and issue \#. 
+
+\label{doc-constructors}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_order_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_order_ad814f66fe18c87ee5db4cc7832824373}\index{org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}!Order@{Order}}
+\index{Order@{Order}!org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}}
+\doxysubsubsection{\texorpdfstring{Order()}{Order()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_order_ad814f66fe18c87ee5db4cc7832824373} 
+org.\+unocapstone.\+dragonslair.\+Order.\+Order (\begin{DoxyParamCaption}\item[{int}]{customer\+Id}{, }\item[{int}]{title\+Id}{, }\item[{String}]{title}{, }\item[{int}]{quantity}{, }\item[{int}]{issue}{}\end{DoxyParamCaption})}
+
+Constructor. Sets the values for the \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_order}{Order} equal to the values provided. 
+\begin{DoxyParams}{Parameters}
+{\em customer\+Id} & ID of the customer requesting the order \\
+\hline
+{\em title\+Id} & ID of the \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title} to be requested \\
+\hline
+{\em title} & Name of the \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title} being requested \\
+\hline
+{\em quantity} & Number of copies of the title that are requested \\
+\hline
+{\em issue} & Specific issue number to request \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_order_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_order_a9ce9e171fdc481dcd2c991a69a844888}\index{org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}!getCustomerId@{getCustomerId}}
+\index{getCustomerId@{getCustomerId}!org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}}
+\doxysubsubsection{\texorpdfstring{getCustomerId()}{getCustomerId()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_order_a9ce9e171fdc481dcd2c991a69a844888} 
+int org.\+unocapstone.\+dragonslair.\+Order.\+get\+Customer\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Gets ID of \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_customer}{Customer} for this \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_order}{Order} \begin{DoxyReturn}{Returns}
+\doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_customer}{Customer} ID for this \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_order}{Order} 
+\end{DoxyReturn}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_order_a8456f6c2544ea0cf310ef0bf4de2f28b}\index{org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}!getIssue@{getIssue}}
+\index{getIssue@{getIssue}!org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}}
+\doxysubsubsection{\texorpdfstring{getIssue()}{getIssue()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_order_a8456f6c2544ea0cf310ef0bf4de2f28b} 
+int org.\+unocapstone.\+dragonslair.\+Order.\+get\+Issue (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Gets the specific issue \# for this order \begin{DoxyReturn}{Returns}
+Issue \# for this order 
+\end{DoxyReturn}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_order_ae6e33e1fbcc484f51faa8c55d81e737f}\index{org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}!getQuantity@{getQuantity}}
+\index{getQuantity@{getQuantity}!org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}}
+\doxysubsubsection{\texorpdfstring{getQuantity()}{getQuantity()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_order_ae6e33e1fbcc484f51faa8c55d81e737f} 
+int org.\+unocapstone.\+dragonslair.\+Order.\+get\+Quantity (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Gets the quantity of copies for this order \begin{DoxyReturn}{Returns}
+Quantity for this order 
+\end{DoxyReturn}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_order_a3c4b848faf3bad27ee3a4fad201f1517}\index{org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}!getTitleId@{getTitleId}}
+\index{getTitleId@{getTitleId}!org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}}
+\doxysubsubsection{\texorpdfstring{getTitleId()}{getTitleId()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_order_a3c4b848faf3bad27ee3a4fad201f1517} 
+int org.\+unocapstone.\+dragonslair.\+Order.\+get\+Title\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Gets ID of \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title} for this order \begin{DoxyReturn}{Returns}
+\doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title} ID for this order 
+\end{DoxyReturn}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_order_aafcbfc1675f5e27f756df1287750b32b}\index{org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}!getTitleName@{getTitleName}}
+\index{getTitleName@{getTitleName}!org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}}
+\doxysubsubsection{\texorpdfstring{getTitleName()}{getTitleName()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_order_aafcbfc1675f5e27f756df1287750b32b} 
+String org.\+unocapstone.\+dragonslair.\+Order.\+get\+Title\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Gets name of the \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title} for this order \begin{DoxyReturn}{Returns}
+Name of the \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title} for this order 
+\end{DoxyReturn}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_order_a8f8cb5039c24bb6f028526585d47749b}\index{org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}!setQuantity@{setQuantity}}
+\index{setQuantity@{setQuantity}!org.unocapstone.dragonslair.Order@{org.unocapstone.dragonslair.Order}}
+\doxysubsubsection{\texorpdfstring{setQuantity()}{setQuantity()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_order_a8f8cb5039c24bb6f028526585d47749b} 
+void org.\+unocapstone.\+dragonslair.\+Order.\+set\+Quantity (\begin{DoxyParamCaption}\item[{int}]{quantity}{}\end{DoxyParamCaption})}
+
+Sets the quantity of copies for this order 
+\begin{DoxyParams}{Parameters}
+{\em quantity} & Quantity for this order \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+dragonslayer/\+src/\+main/\+java/\+org/\+unocapstone/\+dragonslair/\+Order.\+java\end{DoxyCompactItemize}

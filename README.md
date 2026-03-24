@@ -1,4 +1,4 @@
-# DragonSlayerV4_ComicSans
+# DragonSlayerV5
 Capstone Project for UNO class CSCI4970.
 
 ## Prerequisites:

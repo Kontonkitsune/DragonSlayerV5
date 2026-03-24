@@ -166,12 +166,14 @@
             <TableView fx:id="titleTable" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="80.0">
               <columns>
                 <TableColumn fx:id="titleFlaggedColumn" prefWidth="51.0" text="Flagged" />
-                <TableColumn fx:id="titleTitleColumn" editable="false" prefWidth="239.0" text="Title" />
-                <TableColumn fx:id="titleProductIdColumn" editable="false" prefWidth="100.0" text="Product ID" />
-                <TableColumn fx:id="titlePriceColumn" editable="false" prefWidth="100.0" text="Price" />
-                <TableColumn fx:id="titleDateCreatedColumn" editable="false" prefWidth="100.0" text="Date Created" />
-                <TableColumn fx:id="titleLastFlaggedColumn" editable="false" prefWidth="100.0" text="Last Flagged" />
-                <TableColumn fx:id="titleNotesColumn" editable="false" prefWidth="100.0" text="Notes" />
+                <TableColumn fx:id="titleTitleColumn" editable="false" prefWidth="139.0" text="Title" />
+                <TableColumn fx:id="titleProductIdColumn" editable="false" prefWidth="80.0" text="Product ID" />
+                <TableColumn fx:id="titlePriceColumn" editable="false" prefWidth="80.0" text="Price" />
+                <TableColumn fx:id="titleDateCreatedColumn" editable="false" prefWidth="80.0" text="Date Created" />
+                <TableColumn fx:id="titleLastFlaggedColumn" editable="false" prefWidth="80.0" text="Last Flagged" />
+                <TableColumn fx:id="titleAliasesColumn" editable="false" prefWidth="80.0" text="Aliases" />
+                <TableColumn fx:id="titleTagsColumn" editable="false" prefWidth="80.0" text="Tags" />
+                <TableColumn fx:id="titleNotesColumn" editable="false" prefWidth="40.0" text="Notes" />
               </columns>
             </TableView>
             <VBox alignment="CENTER" prefHeight="749.0" prefWidth="476.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -276,7 +278,8 @@
                 </HBox>
               </children>
             </VBox>
-            <TextField fx:id="TitleSearch" layoutX="10.0" layoutY="44.0" onKeyReleased="#handleTitleSearching" onMouseClicked="#handleTitleSearchDouble" prefHeight="26.0" prefWidth="690.0" promptText="Search..." />
+            <TextField fx:id="TitleSearch" layoutX="10.0" layoutY="44.0" onKeyReleased="#handleTitleSearching" onMouseClicked="#handleTitleSearchDouble" prefHeight="26.0" prefWidth="590.0" promptText="Search..." />
+            <Button fx:id="TitleSearchOptionsButton" mnemonicParsing="false" layoutX="600.0" layoutY="44.0" onAction="#handleTitleSearchOptions" prefHeight="26.0" prefWidth="100.0" text="Options" />
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#passTitleKeyboardFocus" prefHeight="30.0" prefWidth="690.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                 <children>
                     <Button fx:id="addTitleButtonMain" mnemonicParsing="false" onAction="#handleAddTitle" prefWidth="94.0" text="Add New Title" />
