@@ -1,0 +1,59 @@
+\doxysection{org.\+unocapstone.\+dragonslair.\+Log Class Reference}
+\hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_log}{}\label{classorg_1_1unocapstone_1_1dragonslair_1_1_log}\index{org.unocapstone.dragonslair.Log@{org.unocapstone.dragonslair.Log}}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_log_a164ae6e6671e85e80bc8d5b22fd5f677}{Log\+Message}} (String message)
+\item 
+static void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_log_abed349d9d9979c830605fa91770807c7}{Log\+Event}} (String event\+Name, String event)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_log_acfd305e5588bd360079da40e3ff3d75d}\label{classorg_1_1unocapstone_1_1dragonslair_1_1_log_acfd305e5588bd360079da40e3ff3d75d} 
+static boolean {\bfseries prompt\+User} = false
+\item 
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_log_a41a3d1b5a21b155f186b91b1393e0393}\label{classorg_1_1unocapstone_1_1dragonslair_1_1_log_a41a3d1b5a21b155f186b91b1393e0393} 
+static final boolean {\bfseries print\+Debug\+Info} = true
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for outputting to and adding onto a monthly log file. The filename of the log file is in the format "{}\+MON-\/\+YEAR.\+log"{}.
+
+If a log file for the current month doesn\textquotesingle{}t exist, a new file will be generated. If a file does exist, any logs will be appended to that file. 
+
+\label{doc-func-members}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_log_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_log_abed349d9d9979c830605fa91770807c7}\index{org.unocapstone.dragonslair.Log@{org.unocapstone.dragonslair.Log}!LogEvent@{LogEvent}}
+\index{LogEvent@{LogEvent}!org.unocapstone.dragonslair.Log@{org.unocapstone.dragonslair.Log}}
+\doxysubsubsection{\texorpdfstring{LogEvent()}{LogEvent()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_log_abed349d9d9979c830605fa91770807c7} 
+void org.\+unocapstone.\+dragonslair.\+Log.\+Log\+Event (\begin{DoxyParamCaption}\item[{String}]{event\+Name}{, }\item[{String}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Saves a log for an event displaying what the event was followed by it\textquotesingle{}s description. The format for these logs are "{}\+\#\+\#\+\# NAME \+\#\+\#\+\# -\/ EVENT"{}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event\+Name} & Name of the event being logged. \\
+\hline
+{\em event} & Description of the event. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_log_a164ae6e6671e85e80bc8d5b22fd5f677}\index{org.unocapstone.dragonslair.Log@{org.unocapstone.dragonslair.Log}!LogMessage@{LogMessage}}
+\index{LogMessage@{LogMessage}!org.unocapstone.dragonslair.Log@{org.unocapstone.dragonslair.Log}}
+\doxysubsubsection{\texorpdfstring{LogMessage()}{LogMessage()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_log_a164ae6e6671e85e80bc8d5b22fd5f677} 
+void org.\+unocapstone.\+dragonslair.\+Log.\+Log\+Message (\begin{DoxyParamCaption}\item[{String}]{message}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Saves a specific message to the log file. 
+\begin{DoxyParams}{Parameters}
+{\em message} & The message to be saved. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+dragonslayer/\+src/\+main/\+java/\+org/\+unocapstone/\+dragonslair/\+Log.\+java\end{DoxyCompactItemize}
