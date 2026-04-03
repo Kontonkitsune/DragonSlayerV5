@@ -3657,7 +3657,7 @@ public class Controller implements Initializable {
                     }
                     // titleTable.getItems().setAll(getTitles()); <- Original code
                     invalidateTitles();
-                    titleTable.setItems(getTitles());
+                    //titleTable.setItems(getTitles());
                     titleTable.refresh();
                     this.loadReportsTab();
                 });
