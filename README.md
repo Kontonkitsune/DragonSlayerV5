@@ -82,6 +82,7 @@ Run the command: `mvn clean package -DskipTests -Pdev`
 - Changed the Add Order menu to allow for changing the customer after selecting it from a customer.
 - Changed the Add Order submenu from the Titles Tab to execute the same menu as the one from the Customers Tab, rather than outdated code.
 - Set the Add order menu to autofill customer or title, depending on where you're adding the order from.
+- You can now just press "Enter" to confirm the password box for edit mode.
 ###### Bug Fixes
 - Fixed "Reset all flags" causing pretty much every feature of the Titles tab to break... probably.
 

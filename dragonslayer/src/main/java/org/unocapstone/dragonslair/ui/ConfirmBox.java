@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -86,7 +87,16 @@ public class ConfirmBox {
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Password");
         passwordField.setId("passwordField");
-        
+        passwordField.setOnKeyPressed( event -> {
+            if( event.getCode() == KeyCode.ENTER ) {
+                if (passwordField.getText().equals(requiredPassword)) {
+                    answer = true;
+                } else {
+                    answer = false;
+                }
+                window.close();
+            }
+        } );
         Button yesButton = new Button("Confirm");
         yesButton.setId("yesButton");
         
