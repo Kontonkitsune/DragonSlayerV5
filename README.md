@@ -71,3 +71,17 @@ Run the command: `mvn clean package -DskipTests -Pdev`
 - Fixed bug where the view-only mode could access Edit, Delete, Add, and other features.
 - Removed the ability to flag titles in View-only mode (It still checks, but this is a visual bug)
 - Fixed the issue where deleting a title after a request for it is made will not delete the title due to SQL foreign key constraint.
+
+#### Version 5.1
+##### Features
+- Added Tags and Aliases to Titles.
+- Added an options menu for title-searching. You can now search by title, ID, tag, notes, and aliases all at once or separately.
+
+#### Version 5.2
+##### Features
+- Changed the Add Order menu to allow for changing the customer after selecting it from a customer.
+- Changed the Add Order submenu from the Titles Tab to execute the same menu as the one from the Customers Tab, rather than outdated code.
+- Set the Add order menu to autofill customer or title, depending on where you're adding the order from.
+###### Bug Fixes
+- Fixed "Reset all flags" causing pretty much every feature of the Titles tab to break... probably.
+
