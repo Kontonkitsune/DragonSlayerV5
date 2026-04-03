@@ -93,7 +93,7 @@
                     </TableView>
                     <VBox alignment="TOP_CENTER" onMouseClicked="#passCustomerKeyboardFocus" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
                       <children>
-                        <Button fx:id="newOrderButton" mnemonicParsing="false" onAction="#handleNewOrder" prefWidth="100.0" text="Add Request" wrapText="true">
+                        <Button fx:id="newOrderButton" mnemonicParsing="false" onAction="#handleNewOrderFromCustomer" prefWidth="100.0" text="Add Request" wrapText="true">
                           <VBox.margin>
                             <Insets />
                           </VBox.margin>
@@ -233,7 +233,7 @@
                                        text="Add"
                                        prefWidth="100.0"
                                        mnemonicParsing="false"
-                                       onAction="#handleAddRequest">
+                                       onAction="#handleNewOrderFromTitle">
                                     <font>
                                        <Font size="11.0"/>
                                     </font>
