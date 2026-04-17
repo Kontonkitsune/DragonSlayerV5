@@ -134,7 +134,8 @@
                 </HBox>
               </children>
             </VBox>
-            <TextField fx:id="CustomerSearch" layoutX="10.0" layoutY="44.0" onKeyReleased="#handleCustomerSearching" prefHeight="26.0" prefWidth="690.0" promptText="Search..." />
+            <TextField fx:id="CustomerSearch" layoutX="10.0" layoutY="44.0" onKeyReleased="#handleCustomerSearching" prefHeight="26.0" prefWidth="590.0" promptText="Search..." />
+            <Button fx:id="CustomerSearchOptionsButton" mnemonicParsing="false" layoutX="600.0" layoutY="44.0" onAction="#handleCustomerSearchOptions" prefHeight="26.0" prefWidth="100.0" text="Options" />
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" onMouseClicked="#passCustomerKeyboardFocus" prefHeight="30.0" prefWidth="690.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
               <children>
                 <Button fx:id="addCustomerButtonMain" mnemonicParsing="false" onAction="#handleAddCustomer" text="Add New Customer" />

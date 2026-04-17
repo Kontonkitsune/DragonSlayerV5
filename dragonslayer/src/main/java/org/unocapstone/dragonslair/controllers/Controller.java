@@ -130,6 +130,12 @@ public class Controller implements Initializable {
     public boolean titleSearchAliases = true;
     public boolean titleSearchTags = true;
     public boolean titleSearchNotes = true;
+    public boolean customerSearchFirstName = true;
+    public boolean customerSearchLastName = true;
+    public boolean customerSearchFullName = true;
+    public boolean customerSearchPhoneNumber = true;
+    public boolean customerSearchEmail = true;
+    public boolean customerSearchNotes = true;
     private final String EDIT_MODE_PASSWORD = "admin";
     private File defaultFL;
     // Allows for an injectable function, useful for testing purposes
@@ -310,6 +316,8 @@ public class Controller implements Initializable {
     private TextField TitleSearch;
     @FXML
     private Button TitleSearchOptionsButton;
+    @FXML
+    private Button CustomerSearchOptionsButton;
     @FXML
     private Button addRequestButton;
     @FXML
@@ -2047,8 +2055,6 @@ public class Controller implements Initializable {
             window.initModality(Modality.APPLICATION_MODAL);
             window.setTitle("Add Title");
             window.setResizable(false);
-            window.setHeight(285);
-            window.setWidth(400);
             window.setScene(new Scene(root));
             window.setOnHidden(e -> {
                 if (newTitleController.titleWasAdded) {
@@ -2474,9 +2480,6 @@ public class Controller implements Initializable {
                 window.initModality(Modality.APPLICATION_MODAL);
                 window.setTitle("Edit Title");
                 window.setResizable(false);
-
-                window.setHeight(285);
-                window.setWidth(400);
 
                 window.setScene(new Scene(root));
                 window.setOnHidden(e -> {
@@ -3870,12 +3873,49 @@ public class Controller implements Initializable {
         
     }
 
+    @FXML
+    public void handleCustomerSearchOptions(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/CustomerSearchSettings.fxml"));
+            Parent root = fxmlLoader.load();
+
+            SearchCustomerOptionsController localcontroller = fxmlLoader.getController();
+            localcontroller.setConnection(conn);
+            localcontroller.setParent(this);
+            localcontroller.getCurrent();
+
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Title Search Options");
+            window.setResizable(false);
+
+            window.setHeight(285);
+            window.setWidth(400);
+
+            window.setScene(new Scene(root));
+            window.show();
+        } catch (Exception e) {
+            System.out.println("Error when opening window. This is probably a bug");
+            e.printStackTrace();
+        }
+        
+    }
+
     public void passTitleSearchOptions(boolean title, boolean tag, boolean notes, boolean aliases, boolean id) {
         this.titleSearchTitles = title;
         this.titleSearchTags = tag;
         this.titleSearchNotes = notes;
         this.titleSearchAliases = aliases;
         this.titleSearchIDs = id;
+    }
+
+    public void passCustomerSearchOptions(boolean firstName, boolean lastName, boolean fullName, boolean phoneNumber, boolean email, boolean notes) {
+        this.customerSearchFirstName = firstName;
+        this.customerSearchLastName = lastName;
+        this.customerSearchFullName = fullName;
+        this.customerSearchPhoneNumber = phoneNumber;
+        this.customerSearchEmail = email;
+        this.customerSearchNotes = notes;
     }
 
     @FXML
@@ -3910,12 +3950,22 @@ public class Controller implements Initializable {
         ObservableList<Customer> sortedCustomers = FXCollections.observableArrayList();
 
         for (Customer customer : customers) {
-            if (customer.getFullName().toLowerCase().contains(search)) {
+            if (
+                        (customerSearchFirstName && customer.getFirstName() != null && customer.getFirstName().toLowerCase().contains(search))
+                    ||  (customerSearchLastName && customer.getLastName() != null && customer.getLastName().toLowerCase().contains(search))
+                    ||  (customerSearchFullName && customer.getRealName() != null && customer.getRealName().toLowerCase().contains(search))
+                    ||  (customerSearchFullName && customer.getFullName() != null && customer.getFullName().toLowerCase().contains(search))
+                    ||  (customerSearchPhoneNumber && customer.getPhone() != null && customer.getPhone().contains(search))
+                    ||  (customerSearchEmail && customer.getEmail() != null && customer.getEmail().toLowerCase().contains(search))
+                    ||  (customerSearchNotes && customer.getNotes() != null && customer.getNotes().toLowerCase().contains(search))
+            ) {
                 sortedCustomers.add(customer);
             }
         }
 
         customerTable.getItems().setAll(sortedCustomers);
+
+        
     }
 
     @FXML

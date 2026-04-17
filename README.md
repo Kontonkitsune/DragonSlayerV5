@@ -86,3 +86,11 @@ Run the command: `mvn clean package -DskipTests -Pdev`
 ###### Bug Fixes
 - Fixed "Reset all flags" causing pretty much every feature of the Titles tab to break... probably.
 
+
+#### Version 5.3
+##### Features
+- The program is now compatible with earlier versions of the database, and will add the Aliases and Tags column if the database doesn't already have them.
+- Parity for the title searching feature for the Customers tab. New search options menu!
+- Can now search by full name in FirstName LastName or Lastname, Firstname formats and both are accepted if Full name is selected under options
+###### Bug fixes
+- Fixed the sizing of some windows: edit/add title, and search options.
