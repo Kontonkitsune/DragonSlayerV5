@@ -717,6 +717,34 @@ public class Controller implements Initializable {
                 return false;
             }
         }
+        // make sure Titles table has aliases
+        try {
+            sql = "ALTER TABLE Titles ADD Aliases VARCHAR(255)";
+            s = conn.createStatement();
+            s.execute(sql);
+        } catch (SQLException sqlExcept) {
+            if (sqlExcept.getSQLState().equals("X0Y32")) {
+                System.out.println("Titles table already contains Aliases");
+            } else {
+                Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+                sqlExcept.printStackTrace();
+                return false;
+            }
+        }
+        // make sure Titles table has tags
+        try {
+            sql = "ALTER TABLE Titles ADD Tags VARCHAR(255)";
+            s = conn.createStatement();
+            s.execute(sql);
+        } catch (SQLException sqlExcept) {
+            if (sqlExcept.getSQLState().equals("X0Y32")) {
+                System.out.println("Titles table already contains Tags");
+            } else {
+                Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+                sqlExcept.printStackTrace();
+                return false;
+            }
+        }
         // make sure Titles table contains date created
         try {
             sql = "ALTER TABLE Titles ADD DateCreated DATE";
@@ -4638,18 +4666,17 @@ public class Controller implements Initializable {
             return;
         }
 
-        final String sql = "select TITLEID, TITLE, PRICE, NOTES, PRODUCTID, ALIASES, TAGS, DATECREATED, " +
+        
+        String sql = "select TITLEID, TITLE, PRICE, NOTES, PRODUCTID, ALIASES, TAGS, DATECREATED, " +
                 "       FLAGGED, DATE_FLAGGED, ISSUE_FLAGGED, " +
                 "       case when exists (select 1 from ORDERS where TITLES.TITLEID = ORDERS.TITLEID) " +
                 "            then 1 else 0 end as REQUESTS " +
                 "from TITLES " +
                 "order by UPPER(TITLE)";
-
         final ObservableList<Title> fresh = FXCollections.observableArrayList();
-
         try (Statement s = conn.createStatement();
-                ResultSet results = s.executeQuery(sql)) {
-
+            
+            ResultSet results = s.executeQuery(sql)) {
             while (results.next()) {
                 int titleId = results.getInt("TITLEID");
                 String title = results.getString("TITLE");
@@ -4696,12 +4723,14 @@ public class Controller implements Initializable {
 
                 fresh.add(t);
             }
+            
         } catch (SQLException sqlExcept) {
-            Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+            Log.LogEvent("SQL Exception, falling back on former database schema.", sqlExcept.getMessage());
             sqlExcept.printStackTrace();
             return;
         }
 
+        
         storedTitles.setAll(fresh);
     }
 
