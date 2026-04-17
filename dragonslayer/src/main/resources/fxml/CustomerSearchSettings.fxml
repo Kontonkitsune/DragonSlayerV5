@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.unocapstone.dragonslair.controllers.SearchTitleOptionsController">
+<AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.unocapstone.dragonslair.controllers.SearchCustomerOptionsController">
     <children>
         <Label alignment="CENTER" focusTraversable="false" layoutX="264.0" layoutY="77.0" text="Title Search Options" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
         <GridPane AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
@@ -28,57 +28,67 @@
                 <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="Title: "  GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                <Label text="First Name: "  GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets left="5.0" />
                     </GridPane.margin>
                 </Label>
-                <CheckBox fx:id="TitleCheckBox" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                <CheckBox fx:id="FirstNameCheckbox" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets right="5.0" />
                     </GridPane.margin>
                 </CheckBox>
-                <Label text="Tag: " GridPane.rowIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                <Label text="Last Name: " GridPane.rowIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets left="5.0" />
                     </GridPane.margin>
                 </Label>
-                <CheckBox fx:id="TagCheckBox"  GridPane.rowIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                <CheckBox fx:id="LastNameCheckbox"  GridPane.rowIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets right="5.0" />
                     </GridPane.margin>
                 </CheckBox>
-                <Label text="Aliases: " GridPane.rowIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                <Label text="Full Name: " GridPane.rowIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets left="5.0" />
                     </GridPane.margin>
                 </Label>
-                <CheckBox fx:id="AliasesCheckBox"  GridPane.rowIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                <CheckBox fx:id="FullNameCheckbox"  GridPane.rowIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets right="5.0" />
                     </GridPane.margin>
                 </CheckBox>
-                <Label text="Notes: " GridPane.rowIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                <Label text="Phone Number: " GridPane.rowIndex="3" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets left="5.0" />
                     </GridPane.margin>
                 </Label>
-                <CheckBox fx:id="NotesCheckBox"  GridPane.rowIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                <CheckBox fx:id="PhoneNumberCheckbox"  GridPane.rowIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets right="5.0" />
                     </GridPane.margin>
                 </CheckBox>
-                <Label text="Product ID: " GridPane.rowIndex="4" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                <Label text="Email Address: " GridPane.rowIndex="4" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets left="5.0" />
                     </GridPane.margin>
                 </Label>
-                <CheckBox fx:id="IDCheckBox"  GridPane.rowIndex="4" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                <CheckBox fx:id="EmailCheckbox"  GridPane.rowIndex="4" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets right="5.0" />
                     </GridPane.margin>
                 </CheckBox>
-                <Button fx:id="AcceptButton" text="Accept" onAction="#handleAcceptButton" GridPane.rowIndex="5" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                <Label text="Notes: " GridPane.rowIndex="5" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets left="5.0" />
+                    </GridPane.margin>
+                </Label>
+                <CheckBox fx:id="NotesCheckbox"  GridPane.rowIndex="5" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </CheckBox>
+                <Button fx:id="AcceptButton" text="Accept" onAction="#handleAcceptButton" GridPane.rowIndex="6" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                     <GridPane.margin>
                         <Insets left="5.0" />
                     </GridPane.margin>

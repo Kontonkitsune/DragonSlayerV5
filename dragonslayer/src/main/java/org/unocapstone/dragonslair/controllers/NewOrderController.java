@@ -1,5 +1,20 @@
 package org.unocapstone.dragonslair.controllers;
 
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
+import java.util.ResourceBundle;
+
+import org.unocapstone.dragonslair.Customer;
+import org.unocapstone.dragonslair.FxUtilTest;
+import org.unocapstone.dragonslair.Log;
+import org.unocapstone.dragonslair.NewCustomerTitleManager;
+import org.unocapstone.dragonslair.Title;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,15 +29,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.sql.*;
-import java.util.ResourceBundle;
-
-import org.unocapstone.dragonslair.FxUtilTest;
-import org.unocapstone.dragonslair.Log;
-import org.unocapstone.dragonslair.NewCustomerTitleManager;
-import org.unocapstone.dragonslair.Title;
-
 /**
  * This Controller controls the New Order window. It allows the window
  * to get the text that is entered in the fields and save it in the
@@ -34,19 +40,26 @@ public class NewOrderController implements Initializable{
     public int lastTitleAdded;
     private Connection conn;
     private int customerId;
+    private int titleId;
     private String customer;
+    private String title;
     private boolean noRequestsFlag;
 
     @FXML private Button addOrderButton;
     @FXML private ComboBox<String> setTitle;
+    @FXML private ComboBox<String> setName;
     @FXML private TextField setQuantity;
     @FXML private TextField setIssue;
 
     @FXML private Text orderTitleErrorText;
+    @FXML private Text orderCustomerErrorText;
     @FXML private Text orderQuantityErrorText;
 
     private ObservableList<Title> titles  = FXCollections.observableArrayList();
     private ObservableList<String> titlesStr  = FXCollections.observableArrayList();
+    
+    private ObservableList<Customer> customers  = FXCollections.observableArrayList();
+    private ObservableList<String> customerNames = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -73,9 +86,15 @@ public class NewOrderController implements Initializable{
         String sql = "INSERT INTO Orders (customerId, titleId, quantity, issue) VALUES (?, ?, ?, ?)";
         orderQuantityErrorText.setVisible(false);
         orderTitleErrorText.setVisible(false);
-
-        if (getChoice(setTitle) == -1) {
+        int chosenTitleID = getChoice(setTitle);
+        int chosenCustomerID = getChoice2(setName);
+        
+        if ( chosenTitleID == -1) {
             orderTitleErrorText.setVisible(true);
+            return;
+        }
+        else if (chosenCustomerID == -1) {
+            orderCustomerErrorText.setVisible(true);
             return;
         }
         else if (setQuantity.getText().equals("")) {
@@ -83,14 +102,15 @@ public class NewOrderController implements Initializable{
             return;
         }
         else {
-            boolean noRequestsFlag = this.noRequestsFlag;
-            int titleID = getChoice(setTitle);
+            int titleID = chosenTitleID;
+            int customerID = chosenCustomerID;
             String issue = setIssue.getText();
+            
+            //boolean noRequestsFlag = this.noRequestsFlag;
             if (issue.isBlank()) {
                 issue = null;
             }
             String quantity = setQuantity.getText();
-            int customerId = this.customerId;
             Statement get = null;
 
             try {
@@ -99,7 +119,7 @@ public class NewOrderController implements Initializable{
                 while (result.next()) {
                     Integer testTitle = result.getInt("TITLEID");
                     Integer testCust = result.getInt("CUSTOMERID");
-                    if (testTitle == titleID && testCust == customerId)
+                    if (testTitle == titleID && testCust == customerID)
                     {
                         String testIssue = result.getString("ISSUE");
                         if ((testIssue == null && issue == null) ||
@@ -115,7 +135,7 @@ public class NewOrderController implements Initializable{
                 }
 
                 s = conn.prepareStatement(sql);
-                s.setString(1, Integer.toString(customerId));
+                s.setString(1, Integer.toString(customerID));
                 s.setString(2, Integer.toString(titleID));
                 s.setString(3, quantity);
                 s.setObject(4, issue == null ? issue : Integer.valueOf(setIssue.getText()), Types.INTEGER);
@@ -134,7 +154,7 @@ public class NewOrderController implements Initializable{
                 lastTitleAdded = titleID;
 
                 // add the customer to the CustomerTitle relationship
-                if(NewCustomerTitleManager.handleNewCustomerTitleOrder(conn, customerId, titleID)) {
+                if(NewCustomerTitleManager.handleNewCustomerTitleOrder(conn, customerID, titleID)) {
                     System.out.println("Succesfully added relationship!");
                 }
 
@@ -155,6 +175,17 @@ public class NewOrderController implements Initializable{
         setTitle.setItems(this.titlesStr);
         setTitle.getSelectionModel().selectFirst();
         setTitle.setEditable(true);
+        FxUtilTest.autoCompleteComboBoxPlus(setTitle, (typedText, itemToCompare) -> itemToCompare.toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.equals(typedText));
+        
+    }
+
+    /**
+     * Populate the ComboBox with the titles in titlesStr, add listener to handle typing over selection
+     */
+    public void setNewOrderCustomers(){
+        setName.setItems(this.customerNames);
+        setName.getSelectionModel().selectFirst();
+        setName.setEditable(true);
         FxUtilTest.autoCompleteComboBoxPlus(setTitle, (typedText, itemToCompare) -> itemToCompare.toLowerCase().contains(typedText.toLowerCase()) || itemToCompare.equals(typedText));
         
     }
@@ -181,6 +212,24 @@ public class NewOrderController implements Initializable{
      */
     public void setCustomer(String customer) {
         this.customer = customer;
+        setName.setValue(customer);
+    }
+
+    /**
+     * Sets the title ID for this controller
+     * @param id ID of the title to set
+     */
+    public void setTitleID(int id) {
+        this.titleId = id;
+    }
+
+    /**
+     * Sets the customer for this controller
+     * @param customer name of the customer to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
+        setTitle.setValue(title);
     }
 
     /**
@@ -195,6 +244,17 @@ public class NewOrderController implements Initializable{
     }
 
     /**
+     * Populates customerNames based off of an ObservableList of Titles
+     * @param getNames ObservableList of Customers to add to customerNames
+     */
+    public void populateCustomers(ObservableList<Customer> getNames){
+        this.customers = getNames;
+        for(int i=0; i < customers.size(); i++){
+            customerNames.add(customers.get(i).getFullName());
+        }
+    }
+
+    /**
      * Gets the choice from the ComboBox
      * @param setTitle ComboBox containing the title value
      * @return the ID of the title selected
@@ -205,6 +265,22 @@ public class NewOrderController implements Initializable{
         for(int i=0; i < titles.size(); i++){
             if (titles.get(i).getTitle().equals(name)){
                 return titles.get(i).getId();
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Gets the choice from the ComboBox
+     * @param setTitle ComboBox containing the title value
+     * @return the ID of the title selected
+     */
+    public int getChoice2(ComboBox<String> setName ){
+        String name = FxUtilTest.getComboBoxValue(setName);
+
+        for(int i=0; i < customers.size(); i++){
+            if (customers.get(i).getFullName().equals(name)){
+                return customers.get(i).getId();
             }
         }
         return -1;

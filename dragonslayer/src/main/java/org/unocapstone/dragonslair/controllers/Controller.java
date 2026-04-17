@@ -2,45 +2,43 @@ package org.unocapstone.dragonslair.controllers;
 
 //import org.apache.poi.ss.formula.functions.T;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.TableView.TableViewSelectionModel;
-import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Screen;
-import javafx.scene.layout.HBox;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import org.unocapstone.dragonslair.CreateDB;
 import org.unocapstone.dragonslair.Customer;
 import org.unocapstone.dragonslair.FlaggedTable;
@@ -53,21 +51,56 @@ import org.unocapstone.dragonslair.Settings;
 import org.unocapstone.dragonslair.Title;
 import org.unocapstone.dragonslair.ui.AlertBox;
 import org.unocapstone.dragonslair.ui.ConfirmBox;
-
 import org.zeroturnaround.zip.ZipUtil;
 
-import java.io.*;
-import java.net.URL;
-import java.sql.Date;
-import java.sql.*;
-import java.text.DateFormat;
-import java.time.LocalDate;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import javafx.util.Callback;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.*;
 
 public class Controller implements Initializable {
 
@@ -97,6 +130,12 @@ public class Controller implements Initializable {
     public boolean titleSearchAliases = true;
     public boolean titleSearchTags = true;
     public boolean titleSearchNotes = true;
+    public boolean customerSearchFirstName = true;
+    public boolean customerSearchLastName = true;
+    public boolean customerSearchFullName = true;
+    public boolean customerSearchPhoneNumber = true;
+    public boolean customerSearchEmail = true;
+    public boolean customerSearchNotes = true;
     private final String EDIT_MODE_PASSWORD = "admin";
     private File defaultFL;
     // Allows for an injectable function, useful for testing purposes
@@ -277,6 +316,8 @@ public class Controller implements Initializable {
     private TextField TitleSearch;
     @FXML
     private Button TitleSearchOptionsButton;
+    @FXML
+    private Button CustomerSearchOptionsButton;
     @FXML
     private Button addRequestButton;
     @FXML
@@ -678,6 +719,34 @@ public class Controller implements Initializable {
         } catch (SQLException sqlExcept) {
             if (sqlExcept.getSQLState().equals("X0Y32")) {
                 System.out.println("Titles table already contains ProductId");
+            } else {
+                Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+                sqlExcept.printStackTrace();
+                return false;
+            }
+        }
+        // make sure Titles table has aliases
+        try {
+            sql = "ALTER TABLE Titles ADD Aliases VARCHAR(255)";
+            s = conn.createStatement();
+            s.execute(sql);
+        } catch (SQLException sqlExcept) {
+            if (sqlExcept.getSQLState().equals("X0Y32")) {
+                System.out.println("Titles table already contains Aliases");
+            } else {
+                Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+                sqlExcept.printStackTrace();
+                return false;
+            }
+        }
+        // make sure Titles table has tags
+        try {
+            sql = "ALTER TABLE Titles ADD Tags VARCHAR(255)";
+            s = conn.createStatement();
+            s.execute(sql);
+        } catch (SQLException sqlExcept) {
+            if (sqlExcept.getSQLState().equals("X0Y32")) {
+                System.out.println("Titles table already contains Tags");
             } else {
                 Log.LogEvent("SQL Exception", sqlExcept.getMessage());
                 sqlExcept.printStackTrace();
@@ -1986,8 +2055,6 @@ public class Controller implements Initializable {
             window.initModality(Modality.APPLICATION_MODAL);
             window.setTitle("Add Title");
             window.setResizable(false);
-            window.setHeight(285);
-            window.setWidth(400);
             window.setScene(new Scene(root));
             window.setOnHidden(e -> {
                 if (newTitleController.titleWasAdded) {
@@ -2414,9 +2481,6 @@ public class Controller implements Initializable {
                 window.setTitle("Edit Title");
                 window.setResizable(false);
 
-                window.setHeight(285);
-                window.setWidth(400);
-
                 window.setScene(new Scene(root));
                 window.setOnHidden(e -> {
                     if (editTitleController.titleWasEdited) {
@@ -2444,7 +2508,7 @@ public class Controller implements Initializable {
      * @param event Event that triggered the method call.
      */
     @FXML
-    void handleNewOrder(ActionEvent event) {
+    void handleNewOrderFromCustomer(ActionEvent event) {
         if (customerTable.getSelectionModel().getSelectedItem() == null) {
             AlertBox.display("New Order", "Please select a customer.");
         } else {
@@ -2454,17 +2518,19 @@ public class Controller implements Initializable {
 
                 NewOrderController newOrderController = fxmlLoader.getController();
                 newOrderController.setConnection(conn);
+                newOrderController.populate(this.getTitles());
+                newOrderController.populateCustomers(this.getCustomers());
+                newOrderController.setNewOrder();
+                newOrderController.setNewOrderCustomers();
                 newOrderController.setCustomerID(customerTable.getSelectionModel().getSelectedItem().getId());
                 newOrderController.setCustomer(customerTable.getSelectionModel().getSelectedItem().getFullName());
-                newOrderController.populate(this.getTitles());
-                newOrderController.setNewOrder();
 
                 Stage window = new Stage();
                 window.initModality(Modality.APPLICATION_MODAL);
                 window.setTitle("New Order");
                 window.setResizable(false);
-                window.setHeight(250);
-                window.setWidth(400);
+                //window.setHeight(250);
+                //window.setWidth(400);
                 window.setScene(new Scene(root));
                 window.setOnHidden(e -> {
                     if (newOrderController.orderWasAdded) {
@@ -2478,6 +2544,66 @@ public class Controller implements Initializable {
                             titleTable.refresh();
                         }
 
+                        if (titleTable.getSelectionModel().getSelectedItem() != null) {
+                            Title title = titleTable.getSelectionModel().getSelectedItem();
+                            titleOrdersTable.getItems().setAll(this.getRequests(title.getId(), -9));
+                        }
+                    }
+                });
+                window.show();
+
+            } catch (Exception e) {
+                System.out.println("Error when opening window. This is probably a bug");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Runs when the Add Request button is pressed. Creates a new window for
+     * the user to enter information and create an Order. Re-renders the
+     * Orders table on window close.
+     * 
+     * @param event Event that triggered the method call.
+     */
+    @FXML
+    void handleNewOrderFromTitle(ActionEvent event) {
+        if (titleTable.getSelectionModel().getSelectedItem() == null) {
+            AlertBox.display("New Order", "Please select a title.");
+        } else {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddOrderBox.fxml"));
+                Parent root = fxmlLoader.load();
+
+                NewOrderController newOrderController = fxmlLoader.getController();
+                newOrderController.setConnection(conn);
+                newOrderController.populate(this.getTitles());
+                newOrderController.populateCustomers(this.getCustomers());
+                newOrderController.setNewOrder();
+                newOrderController.setNewOrderCustomers();
+                newOrderController.setTitleID(titleTable.getSelectionModel().getSelectedItem().getId());
+                newOrderController.setTitle(titleTable.getSelectionModel().getSelectedItem().getTitle());
+
+                Stage window = new Stage();
+                window.initModality(Modality.APPLICATION_MODAL);
+                window.setTitle("New Order");
+                window.setResizable(false);
+                //window.setHeight(250);
+                //window.setWidth(400);
+                window.setScene(new Scene(root));
+                window.setOnHidden(e -> {
+                    if (newOrderController.orderWasAdded) {
+                        invalidateOrders();
+                        updateOrdersTable(customerTable.getSelectionModel().getSelectedItems());
+                        getTitleOrders(titleTable.getSelectionModel().getSelectedItems());
+                        this.loadReportsTab();
+                        Title t = titleTable.getItems().stream()
+                                .filter(tl -> tl.getId() == newOrderController.lastTitleAdded).findFirst().get();
+                        if (t.getNoRequest()) {
+                            t.setNoRequest(false);
+                            titleTable.refresh();
+                        }
+                        
                         if (titleTable.getSelectionModel().getSelectedItem() != null) {
                             Title title = titleTable.getSelectionModel().getSelectedItem();
                             titleOrdersTable.getItems().setAll(this.getRequests(title.getId(), -9));
@@ -3562,7 +3688,7 @@ public class Controller implements Initializable {
                     }
                     // titleTable.getItems().setAll(getTitles()); <- Original code
                     invalidateTitles();
-                    titleTable.setItems(getTitles());
+                    //titleTable.setItems(getTitles());
                     titleTable.refresh();
                     this.loadReportsTab();
                 });
@@ -3747,12 +3873,49 @@ public class Controller implements Initializable {
         
     }
 
+    @FXML
+    public void handleCustomerSearchOptions(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/CustomerSearchSettings.fxml"));
+            Parent root = fxmlLoader.load();
+
+            SearchCustomerOptionsController localcontroller = fxmlLoader.getController();
+            localcontroller.setConnection(conn);
+            localcontroller.setParent(this);
+            localcontroller.getCurrent();
+
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Title Search Options");
+            window.setResizable(false);
+
+            window.setHeight(285);
+            window.setWidth(400);
+
+            window.setScene(new Scene(root));
+            window.show();
+        } catch (Exception e) {
+            System.out.println("Error when opening window. This is probably a bug");
+            e.printStackTrace();
+        }
+        
+    }
+
     public void passTitleSearchOptions(boolean title, boolean tag, boolean notes, boolean aliases, boolean id) {
         this.titleSearchTitles = title;
         this.titleSearchTags = tag;
         this.titleSearchNotes = notes;
         this.titleSearchAliases = aliases;
         this.titleSearchIDs = id;
+    }
+
+    public void passCustomerSearchOptions(boolean firstName, boolean lastName, boolean fullName, boolean phoneNumber, boolean email, boolean notes) {
+        this.customerSearchFirstName = firstName;
+        this.customerSearchLastName = lastName;
+        this.customerSearchFullName = fullName;
+        this.customerSearchPhoneNumber = phoneNumber;
+        this.customerSearchEmail = email;
+        this.customerSearchNotes = notes;
     }
 
     @FXML
@@ -3787,12 +3950,22 @@ public class Controller implements Initializable {
         ObservableList<Customer> sortedCustomers = FXCollections.observableArrayList();
 
         for (Customer customer : customers) {
-            if (customer.getFullName().toLowerCase().contains(search)) {
+            if (
+                        (customerSearchFirstName && customer.getFirstName() != null && customer.getFirstName().toLowerCase().contains(search))
+                    ||  (customerSearchLastName && customer.getLastName() != null && customer.getLastName().toLowerCase().contains(search))
+                    ||  (customerSearchFullName && customer.getRealName() != null && customer.getRealName().toLowerCase().contains(search))
+                    ||  (customerSearchFullName && customer.getFullName() != null && customer.getFullName().toLowerCase().contains(search))
+                    ||  (customerSearchPhoneNumber && customer.getPhone() != null && customer.getPhone().contains(search))
+                    ||  (customerSearchEmail && customer.getEmail() != null && customer.getEmail().toLowerCase().contains(search))
+                    ||  (customerSearchNotes && customer.getNotes() != null && customer.getNotes().toLowerCase().contains(search))
+            ) {
                 sortedCustomers.add(customer);
             }
         }
 
         customerTable.getItems().setAll(sortedCustomers);
+
+        
     }
 
     @FXML
@@ -4543,18 +4716,17 @@ public class Controller implements Initializable {
             return;
         }
 
-        final String sql = "select TITLEID, TITLE, PRICE, NOTES, PRODUCTID, ALIASES, TAGS, DATECREATED, " +
+        
+        String sql = "select TITLEID, TITLE, PRICE, NOTES, PRODUCTID, ALIASES, TAGS, DATECREATED, " +
                 "       FLAGGED, DATE_FLAGGED, ISSUE_FLAGGED, " +
                 "       case when exists (select 1 from ORDERS where TITLES.TITLEID = ORDERS.TITLEID) " +
                 "            then 1 else 0 end as REQUESTS " +
                 "from TITLES " +
                 "order by UPPER(TITLE)";
-
         final ObservableList<Title> fresh = FXCollections.observableArrayList();
-
         try (Statement s = conn.createStatement();
-                ResultSet results = s.executeQuery(sql)) {
-
+            
+            ResultSet results = s.executeQuery(sql)) {
             while (results.next()) {
                 int titleId = results.getInt("TITLEID");
                 String title = results.getString("TITLE");
@@ -4601,12 +4773,14 @@ public class Controller implements Initializable {
 
                 fresh.add(t);
             }
+            
         } catch (SQLException sqlExcept) {
-            Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+            Log.LogEvent("SQL Exception, falling back on former database schema.", sqlExcept.getMessage());
             sqlExcept.printStackTrace();
             return;
         }
 
+        
         storedTitles.setAll(fresh);
     }
 

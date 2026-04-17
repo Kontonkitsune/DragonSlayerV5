@@ -64,6 +64,14 @@ public class Customer {
     }
 
     /**
+     * Gets the full name of the customer
+     * @return The customer's full name
+     */
+    public String getRealName() {
+        return this.firstName + " " + this.lastName;
+    }
+
+    /**
      * Sets the full name of the customer in Last, First notation
      * @param firstName First name of the customer
      * @param lastName Last name of the customer

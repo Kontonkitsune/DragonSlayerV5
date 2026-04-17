@@ -1,4 +1,5 @@
 package org.unocapstone.dragonslair;
+
 import java.util.ArrayList;
 
 import javafx.collections.ObservableList;
@@ -8,40 +9,40 @@ import javafx.collections.ObservableList;
  * that is requesting it and a title that is to be requested. Every
  * order must also have a specified quantity and issue #.
  */
-public class Order implements OrderDisplay {
+public class TagOrder implements OrderDisplay {
 
-    private String title;
+    private int customerId;
+    private String tagQuery;
     private int quantity;
     private int issue;
-    private int customerId;
-    private int titleId;
 
 
     /**
      * Constructor. Sets the values for the Order equal to the values provided.
      * @param customerId ID of the customer requesting the order
-     * @param titleId ID of the Title to be requested
-     * @param title Name of the Title being requested
+     * @param tagQuery ID of the Title to be requested
      * @param quantity Number of copies of the title that are requested
      * @param issue Specific issue number to request
      */
-    public Order(int customerId, int titleId, String title, int quantity, int issue) {
+    public TagOrder(int customerId, String tagQuery, int quantity, int issue) {
         this.customerId = customerId;
-        this.titleId = titleId;
-        this.title = title;
+        this.tagQuery = tagQuery;
         this.quantity = quantity;
         this.issue = issue;
     }
 
     public ArrayList<Integer> getTargets(ObservableList<Title> titles) {
         ArrayList<Integer> returnarr = new ArrayList<>();
-        returnarr.add(this.titleId);
+        for (Title title : titles) {
+
+        }
         return returnarr;
     }
 
     public String getTargetDisplay() {
-        return this.getTitleName();
+        return "Tag Search: " + this.tagQuery;
     }
+
     /**
      * Gets ID of Customer for this Order
      * @return Customer ID for this Order
@@ -54,16 +55,16 @@ public class Order implements OrderDisplay {
      * Gets ID of Title for this order
      * @return Title ID for this order
      */
-    public int getTitleId() {
-        return this.titleId;
+    public String getTitleIds() {
+        return this.tagQuery;
     }
 
     /**
      * Gets name of the Title for this order
      * @return Name of the Title for this order
      */
-    public String getTitleName() {
-        return this.title;
+    public String getTag() {
+        return this.tagQuery;
     }
 
     /**
