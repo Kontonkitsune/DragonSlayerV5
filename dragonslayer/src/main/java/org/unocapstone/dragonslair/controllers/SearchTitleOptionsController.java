@@ -60,6 +60,24 @@ public class SearchTitleOptionsController implements Initializable {
         window.close();
     }
 
+    @FXML
+    private void handleEnableAllButton(ActionEvent event) {
+        TitleCheckBox.setSelected(      true);
+        TagCheckBox.setSelected(        true);
+        NotesCheckBox.setSelected(      true);
+        AliasesCheckBox.setSelected(    true);
+        IDCheckBox.setSelected(         true);
+    }
+    
+    @FXML
+    private void handleDisableAllButton(ActionEvent event) {
+        TitleCheckBox.setSelected(      false);
+        TagCheckBox.setSelected(        false);
+        NotesCheckBox.setSelected(      false);
+        AliasesCheckBox.setSelected(    false);
+        IDCheckBox.setSelected(         false);
+    }
+
     public void setParent(Controller parent) {
         this.parent = parent;
     }

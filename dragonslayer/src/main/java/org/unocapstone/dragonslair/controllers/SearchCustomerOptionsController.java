@@ -62,6 +62,26 @@ public class SearchCustomerOptionsController implements Initializable {
         window.close();
     }
 
+    @FXML
+    private void handleEnableAllButton(ActionEvent event) {
+        FirstNameCheckbox.setSelected(      true);
+        LastNameCheckbox.setSelected(       true);
+        FullNameCheckbox.setSelected(       true);
+        PhoneNumberCheckbox.setSelected(    true);
+        EmailCheckbox.setSelected(          true);
+        NotesCheckbox.setSelected(          true);
+    }
+    
+    @FXML
+    private void handleDisableAllButton(ActionEvent event) {
+        FirstNameCheckbox.setSelected(      false);
+        LastNameCheckbox.setSelected(       false);
+        FullNameCheckbox.setSelected(       false);
+        PhoneNumberCheckbox.setSelected(    false);
+        EmailCheckbox.setSelected(          false);
+        NotesCheckbox.setSelected(          false);
+    }
+
     public void setParent(Controller parent) {
         this.parent = parent;
     }
