@@ -1032,17 +1032,18 @@ public class Controller implements Initializable {
         try {
             s = conn.createStatement();
 
-            ResultSet results = s.executeQuery(
-                    """
-                            SELECT TITLEID, TITLE, ISSUE_FLAGGED, PRICE, SUM(QUANTITY) AS QUANTITY, COUNT(CUSTOMERID) AS NUM_REQUESTS FROM (
-                                                                                                                                       SELECT TITLES.TITLEID, TITLES.TITLE, TITLES.ISSUE_FLAGGED, ORDERS.CUSTOMERID, ORDERS.ISSUE, TITLES.PRICE, ORDERS.QUANTITY
-                                                                                                                                       from TITLES
-                                                                                                                                                INNER JOIN ORDERS ON ORDERS.TITLEID = TITLES.TITLEID
-                                                                                                                                       WHERE TITLES.FLAGGED = true AND (ISSUE = ISSUE_FLAGGED OR ISSUE IS NULL)
-                                                                                                                                   ) AS FLAGGED_ORDERS
-                            GROUP BY TITLEID, TITLE, PRICE, ISSUE_FLAGGED
-                            ORDER BY TITLE
-                            """);
+            ResultSet results = s.executeQuery("""
+                SELECT TITLEID, TITLE, ISSUE_FLAGGED, PRICE, SUM(QUANTITY) AS QUANTITY, COUNT(CUSTOMERID) AS NUM_REQUESTS FROM (
+                        SELECT TITLES.TITLEID, TITLES.TITLE, TITLES.ISSUE_FLAGGED, ORDERS.CUSTOMERID, ORDERS.ISSUE, TITLES.PRICE, ORDERS.QUANTITY
+                        from TITLES
+                                INNER JOIN ORDERS ON ORDERS.TITLEID = TITLES.TITLEID
+                        WHERE TITLES.FLAGGED = true AND (ISSUE = ISSUE_FLAGGED OR ISSUE IS NULL)
+                    ) AS FLAGGED_ORDERS
+                GROUP BY TITLEID, TITLE, PRICE, ISSUE_FLAGGED
+                ORDER BY TITLE
+                """);
+
+            // Some bs cuz I'm not good at SQL and this is a bunch of NONSENSE
 
             while (results.next()) {
                 int titleId = results.getInt("TITLEID");
@@ -1052,7 +1053,79 @@ public class Controller implements Initializable {
                 int quantity = results.getInt("QUANTITY");
                 int numRequests = results.getInt("NUM_REQUESTS");
 
+
+                
+                s = conn.createStatement();
+                ResultSet results2 = s.executeQuery("""
+                        SELECT 
+                                CUSTOMERS.CUSTOMERID,
+                                CUSTOMERS.LASTNAME,
+                                CUSTOMERS.FIRSTNAME,
+                                TAGORDERS.QUANTITY,
+                                TAGORDERS.AND_INCLUDE_TAGS,
+                                TAGORDERS.OR_INCLUDE_TAGS,
+                                TAGORDERS.EXCLUDE_TAGS
+                        FROM CUSTOMERS
+                        INNER JOIN TAGORDERS ON TAGORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+                        ORDER BY CUSTOMERS.LASTNAME
+                        """);
+                while (results2.next()) {
+                    boolean includetitle;
+                    boolean temp;
+                    String[] titletagslist;
+                    String[] ordertagslist;
+                    
+                    includetitle = true;
+                    titletagslist = getTitleByID(titleId).getTags().split(";");
+                    
+                    // AND logic
+                    ordertagslist = results2.getString("AND_INCLUDE_TAGS").split(";");
+                    if (ordertagslist.length > 0 && !ordertagslist[0].equals("")) {
+                        for (String currenttag : ordertagslist) {
+                            temp = false;
+                            for (String titletag : titletagslist) {
+                                if (titletag.trim().toLowerCase().equals(currenttag.trim().toLowerCase())) {
+                                    temp = true;
+                                }
+                            }
+                            if (!temp) {
+                                includetitle = false;
+                                break;
+                            }
+                        }
+                    }
+                    // OR logic
+                    ordertagslist = results2.getString("OR_INCLUDE_TAGS").split(";");
+                    if (ordertagslist.length > 0 && !ordertagslist[0].equals("")) {
+                        temp = false;
+                        for (String currenttag : ordertagslist) {
+                            for (String titletag : titletagslist) {
+                                if (titletag.trim().toLowerCase().equals(currenttag.trim().toLowerCase())) {
+                                    temp = true;
+                                }
+                            }
+                        }
+                        if (!temp) includetitle = false;
+                    }
+                    // EXCLUSION logic
+                    ordertagslist = results2.getString("EXCLUDE_TAGS").split(";");
+                    if (ordertagslist.length > 0 && !ordertagslist[0].equals("")) {
+                        for (String currenttag : ordertagslist) {
+                            for (String titletag : titletagslist) {
+                                if (titletag.trim().toLowerCase().equals(currenttag.trim().toLowerCase())) {
+                                    includetitle = false;
+                                }
+                            }
+                        }
+                    }
+                    if (includetitle) {
+                        quantity += results2.getInt("QUANTITY");
+                        numRequests += 1;
+                    }
+                }
+
                 flaggedTitles.add(new FlaggedTable(titleId, title, issue, price, quantity, numRequests));
+                results2.close();
 
             }
             results.close();
@@ -4755,6 +4828,90 @@ public class Controller implements Initializable {
                 totalQuantity += quantity;
                 i++;
             }
+
+            s = conn.createStatement();
+            result = s.executeQuery("""
+                    SELECT 
+                            CUSTOMERS.CUSTOMERID,
+                            CUSTOMERS.LASTNAME,
+                            CUSTOMERS.FIRSTNAME,
+                            TAGORDERS.QUANTITY,
+                            TAGORDERS.AND_INCLUDE_TAGS,
+                            TAGORDERS.OR_INCLUDE_TAGS,
+                            TAGORDERS.EXCLUDE_TAGS
+                    FROM CUSTOMERS
+                    INNER JOIN TAGORDERS ON TAGORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+                    ORDER BY CUSTOMERS.LASTNAME
+                    """);
+            while (result.next()) {
+                boolean includetitle;
+                boolean temp;
+                String[] titletagslist;
+                String[] ordertagslist;
+                
+                includetitle = true;
+                titletagslist = title.getTags().split(";");
+                
+                // AND logic
+                ordertagslist = result.getString("AND_INCLUDE_TAGS").split(";");
+                if (ordertagslist.length > 0 && !ordertagslist[0].equals("")) {
+                    for (String currenttag : ordertagslist) {
+                        temp = false;
+                        for (String titletag : titletagslist) {
+                            if (titletag.trim().toLowerCase().equals(currenttag.trim().toLowerCase())) {
+                                temp = true;
+                            }
+                        }
+                        if (!temp) {
+                            includetitle = false;
+                            break;
+                        }
+                    }
+                }
+                // OR logic
+                ordertagslist = result.getString("OR_INCLUDE_TAGS").split(";");
+                if (ordertagslist.length > 0 && !ordertagslist[0].equals("")) {
+                    temp = false;
+                    for (String currenttag : ordertagslist) {
+                        for (String titletag : titletagslist) {
+                            if (titletag.trim().toLowerCase().equals(currenttag.trim().toLowerCase())) {
+                                temp = true;
+                            }
+                        }
+                    }
+                    if (!temp) includetitle = false;
+                }
+                // EXCLUSION logic
+                ordertagslist = result.getString("EXCLUDE_TAGS").split(";");
+                if (ordertagslist.length > 0 && !ordertagslist[0].equals("")) {
+                    for (String currenttag : ordertagslist) {
+                        for (String titletag : titletagslist) {
+                            if (titletag.trim().toLowerCase().equals(currenttag.trim().toLowerCase())) {
+                                includetitle = false;
+                            }
+                        }
+                    }
+                }
+                if (includetitle) {
+                    int quantity = result.getInt("QUANTITY");
+                    row = sheet.createRow(i);
+
+                    cell = row.createCell(0);
+                    cell.setCellValue(result.getString("LASTNAME") + " " + result.getString("FIRSTNAME"));
+
+                    cell = row.createCell(1);
+                    cell.setCellValue("N/A");
+                    
+                    cell.setCellStyle(rightAlign);
+
+                    cell = row.createCell(2);
+                    cell.setCellValue(quantity);
+                    cell.setCellStyle(rightAlign);
+
+                    totalQuantity += quantity;
+                    i++;
+                }
+            }
             result.close();
             s.close();
 
@@ -4773,6 +4930,10 @@ public class Controller implements Initializable {
             alert.setTitle("Database Error");
             alert.show();
         }
+
+
+
+
 
         return rowIndex;
     }
