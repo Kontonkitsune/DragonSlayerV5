@@ -42,7 +42,7 @@
                 <TableColumn fx:id="customerFirstNameColumn" prefWidth="100.0" text="First Name" />
                 <TableColumn fx:id="customerPhoneColumn" prefWidth="125.0" text="Phone Number" />
                 <TableColumn fx:id="customerEmailColumn" prefWidth="165.0" text="Email" />
-                <TableColumn fx:id="customerNotesColumn" prefWidth="200.0" text="Notes" />
+                <TableColumn fx:id="customerNotesColumn" prefWidth="150.0" text="Notes" />
               </columns>
             </TableView>
             <VBox alignment="CENTER" prefHeight="749.0" prefWidth="476.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -89,7 +89,7 @@
                         <TableColumn fx:id="customerOrderReqItemsColumn" prefWidth="180.0" text="Request" />
                         <TableColumn fx:id="customerOrderQuantityColumn" prefWidth="40.0" text="Qty" />
                         <TableColumn fx:id="customerOrderIssueColumn" prefWidth="40.0" text="Issue" />
-                        <TableColumn fx:id="customerOrderNotesColumn" prefWidth="100.0" text="Notes" />
+                        <TableColumn fx:id="customerOrderNotesColumn" prefWidth="150.0" text="Notes" />
                       </columns>
                     </TableView>
                     <VBox alignment="TOP_CENTER" onMouseClicked="#passCustomerKeyboardFocus" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
@@ -175,7 +175,7 @@
                 <TableColumn fx:id="titleLastFlaggedColumn" editable="false" prefWidth="80.0" text="Last Flagged" />
                 <TableColumn fx:id="titleAliasesColumn" editable="false" prefWidth="80.0" text="Aliases" />
                 <TableColumn fx:id="titleTagsColumn" editable="false" prefWidth="80.0" text="Tags" />
-                <TableColumn fx:id="titleNotesColumn" editable="false" prefWidth="40.0" text="Notes" />
+                <TableColumn fx:id="titleNotesColumn" editable="false" prefWidth="150.0" text="Notes" />
               </columns>
             </TableView>
             <VBox alignment="CENTER" prefHeight="749.0" prefWidth="476.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -226,7 +226,7 @@
                         <TableColumn fx:id="titleOrderQuantityColumn" prefWidth="40.0" text="Qty" />
                         <TableColumn fx:id="titleOrderIssueColumn" prefWidth="40.0" text="Issue" />
                         <TableColumn fx:id="titleOrderDelinquentColumn" prefWidth="50.0" text="Status" />
-                        <TableColumn fx:id="titleOrderNotesColumn" prefWidth="80.0" text="Notes" />
+                        <TableColumn fx:id="titleOrderNotesColumn" prefWidth="150.0" text="Notes" />
                       </columns>
                     </TableView>
                      <VBox onMouseClicked="#passTitleKeyboardFocus" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
@@ -409,7 +409,7 @@
                                                     <TableColumn fx:id="requestQuantityColumn" prefWidth="40" text="Qty" />
                                                     <TableColumn fx:id="requestIssueColumn" prefWidth="40" text="Issue" />
                                                     <TableColumn fx:id="requestDelinquencyColumn" prefWidth="50" text="Status" />
-                                                    <TableColumn fx:id="requestNotesColumn" prefWidth="120" text="Notes" />
+                                                    <TableColumn fx:id="requestNotesColumn" prefWidth="150" text="Notes" />
                                                 </columns>
                                             </TableView>
                                         </children>

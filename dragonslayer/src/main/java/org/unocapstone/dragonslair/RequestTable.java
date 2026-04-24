@@ -102,9 +102,9 @@ public class RequestTable {
      */
     public void setRequestIssue(int issue) { this.requestIssue = issue; }
 
-    public int getIssue() { return requestIssue; }
+    public int getIssue() { return this.requestIssue; }
 
-    public int getQuantity() { return requestQuantity; }
+    public int getQuantity() { return this.requestQuantity; }
 
     public boolean equals(RequestTable t)
     {
