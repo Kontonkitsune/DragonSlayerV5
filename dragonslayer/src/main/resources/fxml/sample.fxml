@@ -102,6 +102,14 @@
                                           <Font size="11.0" />
                                        </font>
                         </Button>
+                        <Button fx:id="newTagOrderButton" mnemonicParsing="false" onAction="#handleNewTagOrderFromCustomer" prefWidth="100.0" text="Add Tag Request" wrapText="true">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                        </Button>
                         <Button fx:id="deleteOrderButton" mnemonicParsing="false" onAction="#handleDeleteOrder" prefWidth="100.0" text="Delete Selected" wrapText="true">
                                        <font>
                                           <Font size="11.0" />

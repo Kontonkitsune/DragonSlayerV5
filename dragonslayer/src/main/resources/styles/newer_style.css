@@ -56,7 +56,18 @@
 .table-row-cell.delinquent .text {
     -fx-fill: black;
 }
-.table-row-cell.delinquent:delinquent .text {
+.table-row-cell.delinquent:selected .text {
+    -fx-fill: blue;
+}
+
+/* Rows with the no-requests marker (yellow background) */
+.table-row-cell.tag-order {
+    -fx-background-color: #8bff74;
+}
+.table-row-cell.tag-order .text {
+    -fx-fill: black;
+}
+.table-row-cell.tag-order:selected .text {
     -fx-fill: blue;
 }
 

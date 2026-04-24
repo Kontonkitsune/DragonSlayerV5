@@ -94,6 +94,18 @@ public class CreateDB {
                     )""");
             System.out.println("Created table Order");
 
+            s.execute("""
+                    CREATE TABLE TagOrders
+                    (
+                        CUSTOMERID int REFERENCES Customers(CustomerID),
+                        AND_INCLUDE_TAGS varchar(1024),
+                        OR_INCLUDE_TAGS varchar(1024),
+                        EXCLUDE_TAGS varchar(1024),
+                        Quantity int,
+                        Issue int
+                    )""");
+            System.out.println("Created table TagOrders");
+
             conn.commit();
             System.out.println("Committed the transaction");
 

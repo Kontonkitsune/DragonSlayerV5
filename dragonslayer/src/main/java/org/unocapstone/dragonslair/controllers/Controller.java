@@ -48,6 +48,7 @@ import org.unocapstone.dragonslair.NewCustomerTitleManager;
 import org.unocapstone.dragonslair.Order;
 import org.unocapstone.dragonslair.RequestTable;
 import org.unocapstone.dragonslair.Settings;
+import org.unocapstone.dragonslair.TagOrder;
 import org.unocapstone.dragonslair.Title;
 import org.unocapstone.dragonslair.ui.AlertBox;
 import org.unocapstone.dragonslair.ui.ConfirmBox;
@@ -828,7 +829,31 @@ public class Controller implements Initializable {
             
         } catch (SQLException sqlExcept) {
             if (sqlExcept.getSQLState().equals("X0Y32")) {
-                System.out.println("Customer table already contains CustomerTitle");
+                System.out.println("CustomerTitle table already exists");
+            } else {
+                Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+                sqlExcept.printStackTrace();
+                return false;
+            }
+        }
+
+        // make sure that CustomerTitles exists
+        try {
+        s = conn.createStatement();
+            s.execute("""
+                    CREATE TABLE TagOrders
+                    (
+                        CustomerID int REFERENCES Customers(CustomerID),
+                        AND_INCLUDE_TAGS varchar(1024),
+                        OR_INCLUDE_TAGS varchar(1024),
+                        EXCLUDE_TAGS varchar(1024),
+                        Quantity int,
+                        Issue int
+                    )""");
+            System.out.println("Created table TagOrders");
+        } catch (SQLException sqlExcept) {
+            if (sqlExcept.getSQLState().equals("X0Y32")) {
+                System.out.println("TagOrders table already exists");
             } else {
                 Log.LogEvent("SQL Exception", sqlExcept.getMessage());
                 sqlExcept.printStackTrace();
@@ -1174,6 +1199,22 @@ public class Controller implements Initializable {
     }
 
     /**
+     * Gets the number of Orders for a specified Title
+     * 
+     * @param titleId The title to count orders for
+     * @return The number of orders
+     */
+    private Title getTitleByID(int titleId) {
+        for (Title title : getTitles()) {
+            if (title.getId() == titleId) {
+                return title;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * helper method to get the first piece of summary info on "new week pulls" tab:
      * the total # of flagged titles
      */
@@ -1281,7 +1322,7 @@ public class Controller implements Initializable {
         }
 
         for (Order o : storedOrders) {
-            Order copy = new Order(o.getCustomerId(), o.getTitleId(), o.getTitleName(), o.getQuantity(), o.getIssue(), o.getNotes());
+            Order copy = new Order(o.getCustomerId(), o.getTitleId(), o.getTitleName(), o.getQuantity(), o.getIssue(), o.getNotes(), o.getTagOrder());
             orders.add(copy);
         }
 
@@ -1299,7 +1340,7 @@ public class Controller implements Initializable {
     public ObservableList<RequestTable> getRequests(int titleId, int issue) {
         ObservableList<RequestTable> rows = FXCollections.observableArrayList();
 
-        final String sql;
+        String sql;
         if (issue > 0) {
             sql = String.format("""
                     SELECT CUSTOMERS.LASTNAME,
@@ -1360,8 +1401,112 @@ public class Controller implements Initializable {
                         quantity,
                         issueNum == null ? 0 : issueNum,
                         notes,
-                    this));
+                        this,
+                    null));
             }
+        } catch (SQLException sqlExcept) {
+            Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+            sqlExcept.printStackTrace();
+        }
+
+
+        sql = String.format("""
+                SELECT 
+                        CUSTOMERS.CUSTOMERID,
+                        CUSTOMERS.LASTNAME,
+                        CUSTOMERS.FIRSTNAME,
+                        TAGORDERS.QUANTITY,
+                        TAGORDERS.AND_INCLUDE_TAGS,
+                        TAGORDERS.OR_INCLUDE_TAGS,
+                        TAGORDERS.EXCLUDE_TAGS
+                FROM CUSTOMERS
+                INNER JOIN TAGORDERS ON TAGORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
+                ORDER BY CUSTOMERS.LASTNAME
+                """);
+        
+        try (Statement s = conn.createStatement();
+            ResultSet results = s.executeQuery(sql)) {
+
+            while (results.next()) {
+                int custID = results.getInt("CUSTOMERID");
+                String lastName = results.getString("LASTNAME");
+                String firstName = results.getString("FIRSTNAME");
+                int quantity = results.getInt("QUANTITY");
+                boolean includetitle;
+                boolean temp;
+                String[] titletagslist;
+                String[] ordertagslist;
+
+                Title title = getTitleByID(titleId);
+                includetitle = true;
+                titletagslist = title.getTags().split(";");
+
+
+                // AND logic
+                ordertagslist = results.getString("AND_INCLUDE_TAGS").split(";");
+                
+                if (ordertagslist.length > 0 && !ordertagslist[0].equals("")) {
+                    for (String currenttag : ordertagslist) {
+                        temp = false;
+                        for (String titletag : titletagslist) {
+                            if (titletag.trim().toLowerCase().equals(currenttag.trim().toLowerCase())) {
+                                temp = true;
+                            }
+                        }
+                        if (!temp) {
+                            includetitle = false;
+                            break;
+                        }
+                    }
+                }
+
+                // OR logic
+                ordertagslist = results.getString("OR_INCLUDE_TAGS").split(";");
+                if (ordertagslist.length > 0 && !ordertagslist[0].equals("")) {
+                    temp = false;
+                    for (String currenttag : ordertagslist) {
+                        for (String titletag : titletagslist) {
+                            if (titletag.trim().toLowerCase().equals(currenttag.trim().toLowerCase())) {
+                                temp = true;
+                            }
+                        }
+                    }
+                    if (!temp) includetitle = false;
+                }
+
+                // EXCLUSION logic
+                ordertagslist = results.getString("EXCLUDE_TAGS").split(";");
+                if (ordertagslist.length > 0 && !ordertagslist[0].equals("")) {
+                    for (String currenttag : ordertagslist) {
+                        for (String titletag : titletagslist) {
+                            if (titletag.trim().toLowerCase().equals(currenttag.trim().toLowerCase())) {
+                                includetitle = false;
+                            }
+                        }
+                    }
+                }
+                if (includetitle) {
+                    rows.add(new RequestTable(
+                        0,
+                        lastName,
+                        firstName,
+                        quantity,
+                        0,
+                        "TAG ORDER",
+                        this,
+                        new TagOrder(
+                            results.getInt("CUSTOMERID"),
+                            results.getString("AND_INCLUDE_TAGS"),
+                            results.getString("OR_INCLUDE_TAGS"),
+                            results.getString("EXCLUDE_TAGS"),
+                            quantity
+                        )));
+                    }
+                }
+
+
+                
+                
         } catch (SQLException sqlExcept) {
             Log.LogEvent("SQL Exception", sqlExcept.getMessage());
             sqlExcept.printStackTrace();
@@ -1607,7 +1752,28 @@ public class Controller implements Initializable {
             }
         });
         customerOrderNotesColumn.setCellValueFactory(new PropertyValueFactory<>("Notes"));
+        customerOrderTable.setRowFactory(requesttableeof -> {
+            TableRow<Order> row = new TableRow<Order>() {
+                @Override
+                public void updateItem(Order o, boolean empty) {
+                    super.updateItem(o, empty);
+                    // Manage style-class for rows with no requests; CSS will handle colors.
+                    if (o == null) {
+                        getStyleClass().remove("tag-order");
+                    }
+                    else if (o.getTagOrderStatus()) {
+                        if (!getStyleClass().contains("tag-order")) {
+                            getStyleClass().add("tag-order");
+                        }
+                    } else {
+                        getStyleClass().remove("tag-order");
+                    }
+                }
+            };
 
+            return row;
+
+        });
         // Comparator to sort by price, set to columns that contain price information
         Comparator<String> priceComparator = new Comparator<String>() {
             @Override
@@ -1757,18 +1923,25 @@ public class Controller implements Initializable {
                     for (Customer cust : getCustomerList()) {
                         if (o == null ) {
                             getStyleClass().remove("delinquent");
+                            getStyleClass().remove("tag-order");
                         }
                         else if ((
                                 cust.getFirstName().equals(o.getRequestFirstName()) 
                                 && cust.getLastName().equals(o.getRequestLastName())
                         )) {
                             if (cust.getDelinquent()) {
+                                getStyleClass().remove("tag-order");
                                 if (!getStyleClass().contains("delinquent")) {
                                     getStyleClass().add("delinquent");
                                 }
                             }
-                            else {
+                            else if (o.getTagOrderStatus()) {
+                                if (!getStyleClass().contains("tag-order")) {
+                                    getStyleClass().add("tag-order");
+                                }
+                            } else {
                                 getStyleClass().remove("delinquent");
+                                getStyleClass().remove("tag-order");
                             }
                             break;
                         }
@@ -1817,18 +1990,25 @@ public class Controller implements Initializable {
                     for (Customer cust : getCustomerList()) {
                         if (o == null ) {
                             getStyleClass().remove("delinquent");
+                            getStyleClass().remove("tag-order");
                         }
                         else if ((
                                 cust.getFirstName().equals(o.getRequestFirstName()) 
                                 && cust.getLastName().equals(o.getRequestLastName())
                         )) {
                             if (cust.getDelinquent()) {
+                                getStyleClass().remove("tag-order");
                                 if (!getStyleClass().contains("delinquent")) {
                                     getStyleClass().add("delinquent");
                                 }
                             }
-                            else {
+                            else if (o.getTagOrderStatus()) {
+                                if (!getStyleClass().contains("tag-order")) {
+                                    getStyleClass().add("tag-order");
+                                }
+                            } else {
                                 getStyleClass().remove("delinquent");
+                                getStyleClass().remove("tag-order");
                             }
                             break;
                         }
@@ -2303,45 +2483,69 @@ public class Controller implements Initializable {
 
             if (confirmDelete) {
                 for (Order order : selectedOrders) {
-                    int customerId = order.getCustomerId();
-                    int titleId = order.getTitleId();
-                    int quantity = order.getQuantity();
-                    int issue = order.getIssue();
 
-                    PreparedStatement s = null;
-                    String sql;
-                    if (issue == 0) {
-                        sql = "DELETE FROM ORDERS WHERE CUSTOMERID = ? AND TITLEID = ? AND ISSUE IS NULL";
-                    } else {
-                        sql = "DELETE FROM ORDERS WHERE CUSTOMERID = ? AND TITLEID = ? AND ISSUE = ?";
-                    }
-                    try {
-                        s = conn.prepareStatement(sql);
-                        s.setInt(1, customerId);
-                        s.setInt(2, titleId);
-                        if (issue != 0) {
-                            s.setInt(3, issue);
+                    if (order.getTagOrderStatus()) {
+                        int customerId = order.getCustomerId();
+                        int quantity = order.getQuantity();
+                        TagOrder tagorder = order.getTagOrder();
+                        PreparedStatement s = null;
+                        String sql  = "DELETE FROM TAGORDERS WHERE CUSTOMERID = ? AND AND_INCLUDE_TAGS = ? AND OR_INCLUDE_TAGS = ? AND EXCLUDE_TAGS = ?";
+                        try {
+                            s = conn.prepareStatement(sql);
+                            s.setInt(1, customerId);
+                            s.setString(2, tagorder.getAndIncludeTags());
+                            s.setString(3, tagorder.getOrIncludeTags());
+                            s.setString(4, tagorder.getExcludeTags());
+
+                            s.executeUpdate();
+                            s.close();
+
+                            Log.LogEvent("Deleted TagOrder",
+                                    "Deleted order - CustomerID: " + customerId + " - Tags: " + tagorder.getTags() + " - Quantity: " + quantity);
+
+                        } catch (SQLException sqlExcept) {
+                            Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+                            sqlExcept.printStackTrace();
                         }
-                        s.executeUpdate();
-                        s.close();
+                    } else {
+                        int customerId = order.getCustomerId();
+                        int titleId = order.getTitleId();
+                        int quantity = order.getQuantity();
+                        int issue = order.getIssue();
+                        PreparedStatement s = null;
+                        String sql;
+                        if (issue == 0) {
+                            sql = "DELETE FROM ORDERS WHERE CUSTOMERID = ? AND TITLEID = ? AND ISSUE IS NULL";
+                        } else {
+                            sql = "DELETE FROM ORDERS WHERE CUSTOMERID = ? AND TITLEID = ? AND ISSUE = ?";
+                        }
+                        try {
+                            s = conn.prepareStatement(sql);
+                            s.setInt(1, customerId);
+                            s.setInt(2, titleId);
+                            if (issue != 0) {
+                                s.setInt(3, issue);
+                            }
+                            s.executeUpdate();
+                            s.close();
 
-                        Log.LogEvent("Deleted Order",
-                                "Deleted order - CustomerID: " + customerId + " - Title: " + order.getTitleName()
-                                        + " - Quantity: " + quantity + " - Issue: " + Integer.valueOf(issue));
-                        
-                        // Add an end date to the order
-                        NewCustomerTitleManager.handleDeleteCustomerTitle(conn, customerId, titleId);
+                            Log.LogEvent("Deleted Order",
+                                    "Deleted order - CustomerID: " + customerId + " - Title: " + order.getTitleName()
+                                            + " - Quantity: " + quantity + " - Issue: " + Integer.valueOf(issue));
+                            
+                            // Add an end date to the order
+                            NewCustomerTitleManager.handleDeleteCustomerTitle(conn, customerId, titleId);
 
-                    } catch (SQLException sqlExcept) {
-                        Log.LogEvent("SQL Exception", sqlExcept.getMessage());
-                        sqlExcept.printStackTrace();
-                    }
-
-                    int numRequests = getNumberRequests(order.getTitleId());
-                    if (numRequests == 0) {
-                        titleTable.getItems().stream().filter(t -> t.getId() == (order.getTitleId())).findFirst().get()
-                                .setNoRequest(true);
-                        titleTable.refresh();
+                        } catch (SQLException sqlExcept) {
+                            Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+                            sqlExcept.printStackTrace();
+                        }
+                        int numRequests = getNumberRequests(order.getTitleId());
+                        if (numRequests == 0) {
+                            titleTable.getItems().stream().filter(t -> t.getId() == (order.getTitleId())).findFirst().get()
+                                    .setNoRequest(true);
+                            titleTable.refresh();
+                        }
                     }
                 }
 
@@ -2653,6 +2857,57 @@ public class Controller implements Initializable {
                             t.setNoRequest(false);
                             titleTable.refresh();
                         }
+
+                        if (titleTable.getSelectionModel().getSelectedItem() != null) {
+                            Title title = titleTable.getSelectionModel().getSelectedItem();
+                            titleOrdersTable.getItems().setAll(this.getRequests(title.getId(), -9));
+                        }
+                    }
+                });
+                window.show();
+
+            } catch (Exception e) {
+                System.out.println("Error when opening window. This is probably a bug");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Runs when the Add Request button is pressed. Creates a new window for
+     * the user to enter information and create an Order. Re-renders the
+     * Orders table on window close.
+     * 
+     * @param event Event that triggered the method call.
+     */
+    @FXML
+    void handleNewTagOrderFromCustomer(ActionEvent event) {
+        if (customerTable.getSelectionModel().getSelectedItem() == null) {
+            AlertBox.display("New Tag Order", "Please select a customer.");
+        } else {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddTagOrderBox.fxml"));
+                Parent root = fxmlLoader.load();
+
+                NewTagOrderController newOrderController = fxmlLoader.getController();
+                newOrderController.setConnection(conn);
+                newOrderController.populateCustomers(this.getCustomers());
+                newOrderController.setNewOrderCustomers();
+                newOrderController.setCustomerID(customerTable.getSelectionModel().getSelectedItem().getId());
+                newOrderController.setCustomer(customerTable.getSelectionModel().getSelectedItem().getFullName());
+
+                Stage window = new Stage();
+                window.initModality(Modality.APPLICATION_MODAL);
+                window.setTitle("New Tag Order");
+                window.setResizable(false);
+                //window.setHeight(250);
+                //window.setWidth(400);
+                window.setScene(new Scene(root));
+                window.setOnHidden(e -> {
+                    if (newOrderController.orderWasAdded) {
+                        invalidateOrders();
+                        updateOrdersTable(customerTable.getSelectionModel().getSelectedItem());
+                        this.loadReportsTab();
 
                         if (titleTable.getSelectionModel().getSelectedItem() != null) {
                             Title title = titleTable.getSelectionModel().getSelectedItem();
@@ -4807,8 +5062,39 @@ public class Controller implements Initializable {
                 int issue = results.getInt(5);
                 String notes = results.getString(6);
 
-                storedOrders.add(new Order(customerId, titleId, title, quantity, issue, notes));
+                storedOrders.add(new Order(customerId, titleId, title, quantity, issue, notes, null));
             }
+
+            
+            s = conn.createStatement();
+            results = s.executeQuery(
+                    "SELECT CUSTOMERID, AND_INCLUDE_TAGS, OR_INCLUDE_TAGS, EXCLUDE_TAGS, QUANTITY FROM TagOrders");
+
+            while (results.next()) {
+                int customerId = results.getInt(1);
+                String andIncludeTags = results.getString(2);
+                String orIncludeTags = results.getString(3);
+                String excludeTags = results.getString(4);
+                int quantity = results.getInt(5);
+                String displayString = "Tag: ";
+                if (!andIncludeTags.equals("")) {
+                    displayString += "AND(" + andIncludeTags + ") ";
+                }
+                if (!orIncludeTags.equals("")) {
+                    displayString += "OR(" + orIncludeTags + ") ";
+                }
+                if (!excludeTags.equals("")) {
+                    displayString += "NOT(" + excludeTags + ") ";
+                }
+
+                Order neworder = new Order(customerId, -9, 
+                    displayString, 
+                    quantity, -1, "TAG ORDER", 
+                    new TagOrder(customerId, orIncludeTags, andIncludeTags, excludeTags, quantity)
+                );
+                storedOrders.add(neworder);
+            }
+
             results.close();
             s.close();
         } catch (SQLException sqlExcept) {
@@ -5018,6 +5304,7 @@ public class Controller implements Initializable {
             ResultSet customers = ps.executeQuery();
             customers.next();
             int customerId = customers.getInt("CUSTOMERID");
+
             s = conn.createStatement();
             ResultSet results = s
                     .executeQuery("SELECT * FROM ORDERS o INNER JOIN TITLES t ON o.TITLEID=t.TITLEID where CUSTOMERID="
@@ -5029,8 +5316,24 @@ public class Controller implements Initializable {
                 int quantity = results.getInt("QUANTITY");
                 int issue = results.getInt("ISSUE");
                 String notes = results.getString("NOTES");
-                orders.add(new Order(customerId, titleId, title, quantity, issue, notes));
+                orders.add(new Order(customerId, titleId, title, quantity, issue, notes, null));
             }
+
+            results = s.executeQuery("SELECT * FROM TagOrders where CUSTOMERID=" + customerId);
+            
+            while (results.next()) {
+                String title = "AND " + results.getString("AND_INCLUDE_TAGS") + " OR " + results.getString("OR_INCLUDE_TAGS") + " NOT " + results.getString("EXCLUDE_TAGS");
+                int quantity = results.getInt("QUANTITY");
+                orders.add(new Order(customerId, 0, title, quantity, 0, "TAG ORDER", 
+                    new TagOrder(customerId, 
+                        results.getString("AND_INCLUDE_TAGS"), 
+                        results.getString("OR_INCLUDE_TAGS"), 
+                        results.getString("EXCLUDE_TAGS"), 
+                        quantity
+                    )
+                ));
+            }
+
             results.close();
             s.close();
             if (ps != null) ps.close();
@@ -5102,8 +5405,12 @@ public class Controller implements Initializable {
                 int quantity = results.getInt("QUANTITY");
                 int issue = results.getInt("ISSUE");
                 String notes = results.getString("NOTES");
-                orders.add(new RequestTable(0, lastname, firstname, quantity, issue, notes, this));
+                orders.add(new RequestTable(0, lastname, firstname, quantity, issue, notes, this, null));
             }
+
+
+
+
             results.close();
             s.close();
             if (ps != null) ps.close();
@@ -5175,6 +5482,7 @@ public class Controller implements Initializable {
         Statement s = null;
         s = conn.createStatement();
         s.execute("DELETE FROM Orders");
+        s.execute("DELETE FROM TagOrders");
         s.execute("DELETE FROM Customers");
         s.execute("DELETE FROM Titles");
         conn.commit();

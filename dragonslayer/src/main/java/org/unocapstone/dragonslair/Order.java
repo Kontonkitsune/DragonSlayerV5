@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
  * that is requesting it and a title that is to be requested. Every
  * order must also have a specified quantity and issue #.
  */
-public class Order implements OrderDisplay {
+public class Order {
 
     private String title;
     private int quantity;
@@ -16,6 +16,7 @@ public class Order implements OrderDisplay {
     private int customerId;
     private int titleId;
     private String notes;
+    private TagOrder fromTags;
 
 
     /**
@@ -26,13 +27,14 @@ public class Order implements OrderDisplay {
      * @param quantity Number of copies of the title that are requested
      * @param issue Specific issue number to request
      */
-    public Order(int customerId, int titleId, String title, int quantity, int issue, String notes) {
+    public Order(int customerId, int titleId, String title, int quantity, int issue, String notes, TagOrder fromTags) {
         this.customerId = customerId;
         this.titleId = titleId;
         this.title = title;
         this.quantity = quantity;
         this.issue = issue;
         this.notes = notes;
+        this.fromTags = fromTags;
     }
 
     public ArrayList<Integer> getTargets(ObservableList<Title> titles) {
@@ -57,6 +59,20 @@ public class Order implements OrderDisplay {
      */
     public String getNotes(){
         return this.notes;
+    }
+    /**
+     * Gets the notes of this order
+     * @return notes for this Order
+     */
+    public TagOrder getTagOrder(){
+        return this.fromTags;
+    }
+    /**
+     * Gets the notes of this order
+     * @return notes for this Order
+     */
+    public boolean getTagOrderStatus(){
+        return this.fromTags != null;
     }
 
     /**

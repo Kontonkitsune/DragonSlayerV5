@@ -5,7 +5,7 @@ import org.unocapstone.dragonslair.controllers.Controller;
 /**
  * Helper class to create and display customer requests in a table
  */
-public class RequestTable {
+public class TagRequestTable {
 
     private final int orderId;
     private String requestLastName;
@@ -14,7 +14,9 @@ public class RequestTable {
     private int requestIssue;
     private String requestNotes;
     private Controller parent;
-    private TagOrder fromTags;
+    private String orIncludeTags;
+    private String andIncludeTags;
+    private String excludeTags;
 
     /**
      * Creates a RequestTable object based on the parameters provided
@@ -22,16 +24,14 @@ public class RequestTable {
      * @param requestFirstName the first name of the requestign customer
      * @param requestQuantity the quantity of the customer's order
      */
-    public RequestTable(int orderId, String requestLastName, String requestFirstName, int requestQuantity, int issueNumber, String requestNotes, Controller parent, TagOrder fromTags){
+    public TagRequestTable(int orderId, String requestLastName, String requestFirstName, int requestQuantity, String requestNotes, Controller parent){
 
         this.orderId = orderId;
         this.requestLastName = requestLastName;
         this.requestFirstName = requestFirstName;
         this.requestQuantity = requestQuantity;
-        this.requestIssue = issueNumber;
         this.requestNotes = requestNotes;
         this.parent = parent;
-        this.fromTags = fromTags;
     }
 
     /**
@@ -70,14 +70,6 @@ public class RequestTable {
      */
     public String getRequestNotes() { 
         return this.requestNotes; 
-    }
-
-    public boolean getTagOrderStatus() { 
-        return (this.fromTags != null);
-    }
-
-    public TagOrder getTagOrder() { 
-        return this.fromTags;
     }
 
     /**
