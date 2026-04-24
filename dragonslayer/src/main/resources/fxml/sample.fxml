@@ -407,7 +407,7 @@
                                                     <TableColumn fx:id="requestLastNameColumn" prefWidth="90" text="Last Name" />
                                                     <TableColumn fx:id="requestFirstNameColumn" prefWidth="90" text="First Name" />
                                                     <TableColumn fx:id="requestQuantityColumn" prefWidth="40" text="Qty" />
-                                                    <TableColumn fx:id="requestQuantityColumn" prefWidth="40" text="Issue" />
+                                                    <TableColumn fx:id="requestIssueColumn" prefWidth="40" text="Issue" />
                                                     <TableColumn fx:id="requestDelinquencyColumn" prefWidth="50" text="Status" />
                                                     <TableColumn fx:id="requestNotesColumn" prefWidth="120" text="Notes" />
                                                 </columns>

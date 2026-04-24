@@ -1770,6 +1770,7 @@ public class Controller implements Initializable {
                             else {
                                 getStyleClass().remove("delinquent");
                             }
+                            break;
                         }
                     }
                 }
@@ -1829,6 +1830,7 @@ public class Controller implements Initializable {
                             else {
                                 getStyleClass().remove("delinquent");
                             }
+                            break;
                         }
                     }
                 }
