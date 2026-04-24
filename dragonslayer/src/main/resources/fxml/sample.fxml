@@ -86,9 +86,10 @@
                   <children>
                     <TableView fx:id="customerOrderTable" prefHeight="317.0" prefWidth="375.0">
                       <columns>
-                        <TableColumn fx:id="customerOrderReqItemsColumn" prefWidth="157.0" text="Requested Items" />
-                        <TableColumn fx:id="customerOrderQuantityColumn" prefWidth="89.0" text="Quantity" />
-                        <TableColumn fx:id="customerOrderIssueColumn" prefWidth="75.0" text="Issue" />
+                        <TableColumn fx:id="customerOrderReqItemsColumn" prefWidth="180.0" text="Request" />
+                        <TableColumn fx:id="customerOrderQuantityColumn" prefWidth="40.0" text="Qty" />
+                        <TableColumn fx:id="customerOrderIssueColumn" prefWidth="40.0" text="Issue" />
+                        <TableColumn fx:id="customerOrderNotesColumn" prefWidth="100.0" text="Notes" />
                       </columns>
                     </TableView>
                     <VBox alignment="TOP_CENTER" onMouseClicked="#passCustomerKeyboardFocus" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
@@ -220,10 +221,12 @@
                   <children>
                     <TableView fx:id="titleOrdersTable" prefHeight="317.0" prefWidth="375.0">
                       <columns>
-                        <TableColumn fx:id="titleOrderLastNameColumn" prefWidth="120.0" text="Last Name" />
-                        <TableColumn fx:id="titleOrderFirstNameColumn" prefWidth="115.0" text="First Name" />
-                        <TableColumn fx:id="titleOrderQuantityColumn" prefWidth="60.0" text="Quantity" />
-                        <TableColumn fx:id="titleOrderIssueColumn" text="Issue" />
+                        <TableColumn fx:id="titleOrderLastNameColumn" prefWidth="80.0" text="Last Name" />
+                        <TableColumn fx:id="titleOrderFirstNameColumn" prefWidth="80.0" text="First Name" />
+                        <TableColumn fx:id="titleOrderQuantityColumn" prefWidth="40.0" text="Qty" />
+                        <TableColumn fx:id="titleOrderIssueColumn" prefWidth="40.0" text="Issue" />
+                        <TableColumn fx:id="titleOrderDelinquentColumn" prefWidth="50.0" text="Status" />
+                        <TableColumn fx:id="titleOrderNotesColumn" prefWidth="80.0" text="Notes" />
                       </columns>
                     </TableView>
                      <VBox onMouseClicked="#passTitleKeyboardFocus" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
@@ -401,9 +404,12 @@
                                             </HBox>
                                             <TableView fx:id="requestsTable" prefHeight="498.0" prefWidth="482.0">
                                                 <columns>
-                                                    <TableColumn fx:id="requestLastNameColumn" prefWidth="171.54254150390625" text="Last Name" />
-                                                    <TableColumn fx:id="requestFirstNameColumn" prefWidth="174.45745849609375" text="First Name" />
-                                                    <TableColumn fx:id="requestQuantityColumn" prefWidth="63.6175537109375" text="Quantity" />
+                                                    <TableColumn fx:id="requestLastNameColumn" prefWidth="90" text="Last Name" />
+                                                    <TableColumn fx:id="requestFirstNameColumn" prefWidth="90" text="First Name" />
+                                                    <TableColumn fx:id="requestQuantityColumn" prefWidth="40" text="Qty" />
+                                                    <TableColumn fx:id="requestQuantityColumn" prefWidth="40" text="Issue" />
+                                                    <TableColumn fx:id="requestDelinquencyColumn" prefWidth="50" text="Status" />
+                                                    <TableColumn fx:id="requestNotesColumn" prefWidth="120" text="Notes" />
                                                 </columns>
                                             </TableView>
                                         </children>

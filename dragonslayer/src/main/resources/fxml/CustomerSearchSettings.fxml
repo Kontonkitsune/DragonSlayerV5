@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.unocapstone.dragonslair.controllers.SearchCustomerOptionsController">
     <children>
-        <Label alignment="CENTER" focusTraversable="false" layoutX="264.0" layoutY="77.0" text="Title Search Options" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
+        <Label alignment="CENTER" focusTraversable="false" layoutX="264.0" layoutY="77.0" text="Customer Search Options" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
         <GridPane AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="50.0" prefWidth="158.0" />

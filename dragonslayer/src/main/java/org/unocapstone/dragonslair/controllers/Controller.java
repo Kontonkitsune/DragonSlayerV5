@@ -183,6 +183,8 @@ public class Controller implements Initializable {
     private TableColumn<Order, String> customerOrderQuantityColumn;
     @FXML
     private TableColumn<Order, String> customerOrderIssueColumn;
+    @FXML
+    private TableColumn<Order, String> customerOrderNotesColumn;
 
     @FXML
     private TableView<FlaggedTable> flaggedTable;
@@ -205,6 +207,10 @@ public class Controller implements Initializable {
     private TableColumn<RequestTable, String> requestFirstNameColumn;
     @FXML
     private TableColumn<RequestTable, Integer> requestQuantityColumn;
+    @FXML
+    private TableColumn<RequestTable, Integer> requestDelinquencyColumn;
+    @FXML
+    private TableColumn<RequestTable, Integer> requestNotesColumn;
 
     @FXML
     private TableView<Title> monthlyBreakdownTable;
@@ -227,6 +233,10 @@ public class Controller implements Initializable {
     private TableColumn<RequestTable, Integer> titleOrderQuantityColumn;
     @FXML
     private TableColumn<RequestTable, Integer> titleOrderIssueColumn;
+    @FXML
+    private TableColumn<RequestTable, Integer> titleOrderDelinquentColumn;
+    @FXML
+    private TableColumn<RequestTable, Integer> titleOrderNotesColumn;
 
     @FXML
     private Text customerFirstNameText;
@@ -571,6 +581,7 @@ public class Controller implements Initializable {
         TextField tfFirst = new TextField();
         TextField tfQty = new TextField("1");
         TextField tfIssue = new TextField("0");
+        TextField tfNotes = new TextField();
 
         GridPane gp = new GridPane();
         gp.setHgap(8);
@@ -579,6 +590,7 @@ public class Controller implements Initializable {
         gp.addRow(1, new Label("First Name:"), tfFirst);
         gp.addRow(2, new Label("Quantity:"), tfQty);
         gp.addRow(3, new Label("Issue #:"), tfIssue);
+        gp.addRow(4, new Label("Notes:"), tfNotes);
         dialog.getDialogPane().setContent(gp);
 
         Button okBtn = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
@@ -616,6 +628,7 @@ public class Controller implements Initializable {
         String firstName = tfFirst.getText().trim().toUpperCase();
         int quantity = Integer.parseInt(tfQty.getText().trim());
         int issueInput = Integer.parseInt(tfIssue.getText().trim());
+        String notes = tfNotes.getText().trim();
         Integer issueToStore = (issueInput <= 0) ? null : issueInput;
 
         Integer customerId = null;
@@ -657,7 +670,7 @@ public class Controller implements Initializable {
         }
 
         try (PreparedStatement psOrder = conn.prepareStatement(
-                "INSERT INTO ORDERS (CUSTOMERID, TITLEID, QUANTITY, ISSUE) VALUES (?, ?, ?, ?)")) {
+                "INSERT INTO ORDERS (CUSTOMERID, TITLEID, QUANTITY, ISSUE, NOTES) VALUES (?, ?, ?, ?, ?)")) {
             psOrder.setInt(1, customerId);
             psOrder.setInt(2, selectedTitle.getId());
             psOrder.setInt(3, quantity);
@@ -666,6 +679,7 @@ public class Controller implements Initializable {
             } else {
                 psOrder.setInt(4, issueToStore);
             }
+            psOrder.setString(5, notes);
             psOrder.executeUpdate();
 
             // Add relationship to CustomerTitles junction table
@@ -761,6 +775,20 @@ public class Controller implements Initializable {
         } catch (SQLException sqlExcept) {
             if (sqlExcept.getSQLState().equals("X0Y32")) {
                 System.out.println("Titles table already contains DateCreated");
+            } else {
+                Log.LogEvent("SQL Exception", sqlExcept.getMessage());
+                sqlExcept.printStackTrace();
+                return false;
+            }
+        }
+        // make sure Orders table contains notes
+        try {
+            sql = "ALTER TABLE ORDERS ADD Notes VARCHAR(255)";
+            s = conn.createStatement();
+            s.execute(sql);
+        } catch (SQLException sqlExcept) {
+            if (sqlExcept.getSQLState().equals("X0Y32")) {
+                System.out.println("Orders table already contains Notes");
             } else {
                 Log.LogEvent("SQL Exception", sqlExcept.getMessage());
                 sqlExcept.printStackTrace();
@@ -1253,7 +1281,7 @@ public class Controller implements Initializable {
         }
 
         for (Order o : storedOrders) {
-            Order copy = new Order(o.getCustomerId(), o.getTitleId(), o.getTitleName(), o.getQuantity(), o.getIssue());
+            Order copy = new Order(o.getCustomerId(), o.getTitleId(), o.getTitleName(), o.getQuantity(), o.getIssue(), o.getNotes());
             orders.add(copy);
         }
 
@@ -1277,7 +1305,8 @@ public class Controller implements Initializable {
                     SELECT CUSTOMERS.LASTNAME,
                            CUSTOMERS.FIRSTNAME,
                            ORDERS.QUANTITY,
-                           ORDERS.ISSUE
+                           ORDERS.ISSUE,
+                           ORDERS.NOTES
                     FROM CUSTOMERS
                     INNER JOIN ORDERS ON ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
                     WHERE ORDERS.TITLEID = %s
@@ -1290,7 +1319,8 @@ public class Controller implements Initializable {
                     SELECT CUSTOMERS.LASTNAME,
                            CUSTOMERS.FIRSTNAME,
                            ORDERS.QUANTITY,
-                           ORDERS.ISSUE
+                           ORDERS.ISSUE,
+                           ORDERS.NOTES
                     FROM CUSTOMERS
                     INNER JOIN ORDERS ON ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
                     WHERE ORDERS.TITLEID = %s
@@ -1302,7 +1332,8 @@ public class Controller implements Initializable {
                     SELECT CUSTOMERS.LASTNAME,
                            CUSTOMERS.FIRSTNAME,
                            ORDERS.QUANTITY,
-                           ORDERS.ISSUE
+                           ORDERS.ISSUE,
+                           ORDERS.NOTES
                     FROM CUSTOMERS
                     INNER JOIN ORDERS ON ORDERS.CUSTOMERID = CUSTOMERS.CUSTOMERID
                     WHERE ORDERS.TITLEID = %s
@@ -1320,13 +1351,16 @@ public class Controller implements Initializable {
                 String firstName = results.getString("FIRSTNAME");
                 int quantity = results.getInt("QUANTITY");
                 Integer issueNum = (Integer) results.getObject("ISSUE"); // may be null
+                String notes = results.getString("NOTES");
 
                 rows.add(new RequestTable(
                         0,
                         lastName,
                         firstName,
                         quantity,
-                        issueNum == null ? 0 : issueNum));
+                        issueNum == null ? 0 : issueNum,
+                        notes,
+                    this));
             }
         } catch (SQLException sqlExcept) {
             Log.LogEvent("SQL Exception", sqlExcept.getMessage());
@@ -1530,6 +1564,14 @@ public class Controller implements Initializable {
                             getStyleClass().add("no-requests");
                         }
                     }
+                    if (c == null || !c.getDelinquent()) {
+                        
+                        getStyleClass().remove("delinquent");
+                    } else {
+                        if (!getStyleClass().contains("delinquent")) {
+                            getStyleClass().add("delinquent");
+                        }
+                    }
                 }
             };
 
@@ -1564,6 +1606,7 @@ public class Controller implements Initializable {
                 return new SimpleStringProperty("");
             }
         });
+        customerOrderNotesColumn.setCellValueFactory(new PropertyValueFactory<>("Notes"));
 
         // Comparator to sort by price, set to columns that contain price information
         Comparator<String> priceComparator = new Comparator<String>() {
@@ -1639,12 +1682,12 @@ public class Controller implements Initializable {
                     }
                 };
 
-    titleTitleColumn.setCellFactory(titleCellFactory);
-    titleProductIdColumn.setCellFactory(titleCellFactory);
-    titlePriceColumn.setCellFactory(titleCellFactory);
-    // titleDateCreatedColumn and titleLastFlaggedColumn contain LocalDate values
-    // (not String). Leave their default cell factories to avoid class cast issues.
-    titleNotesColumn.setCellFactory(titleCellFactory);
+        titleTitleColumn.setCellFactory(titleCellFactory);
+        titleProductIdColumn.setCellFactory(titleCellFactory);
+        titlePriceColumn.setCellFactory(titleCellFactory);
+        // titleDateCreatedColumn and titleLastFlaggedColumn contain LocalDate values
+        // (not String). Leave their default cell factories to avoid class cast issues.
+        titleNotesColumn.setCellFactory(titleCellFactory);
         titleTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         titleTable.setRowFactory(title -> {
             TableRow<Title> row = new TableRow<Title>() {
@@ -1702,6 +1745,39 @@ public class Controller implements Initializable {
         requestLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("RequestLastName"));
         requestFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("RequestFirstName"));
         requestQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("RequestQuantity"));
+        requestDelinquencyColumn.setCellValueFactory(new PropertyValueFactory<>("RequestDelinquency"));
+        requestNotesColumn.setCellValueFactory(new PropertyValueFactory<>("RequestNotes"));
+        
+        requestsTable.setRowFactory(requesttableeof -> {
+            TableRow<RequestTable> row = new TableRow<RequestTable>() {
+                @Override
+                public void updateItem(RequestTable o, boolean empty) {
+                    super.updateItem(o, empty);
+                    // Manage style-class for rows with no requests; CSS will handle colors.
+                    for (Customer cust : getCustomerList()) {
+                        if (o == null ) {
+                            getStyleClass().remove("delinquent");
+                        }
+                        else if ((
+                                cust.getFirstName().equals(o.getRequestFirstName()) 
+                                && cust.getLastName().equals(o.getRequestLastName())
+                        )) {
+                            if (cust.getDelinquent()) {
+                                if (!getStyleClass().contains("delinquent")) {
+                                    getStyleClass().add("delinquent");
+                                }
+                            }
+                            else {
+                                getStyleClass().remove("delinquent");
+                            }
+                        }
+                    }
+                }
+            };
+
+            return row;
+
+        });
 
         breakdownTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         breakdownQuantityColumn.setCellValueFactory(
@@ -1729,6 +1805,38 @@ public class Controller implements Initializable {
         titleOrderFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("RequestFirstName"));
         titleOrderQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("RequestQuantity"));
         titleOrderIssueColumn.setCellValueFactory(new PropertyValueFactory<>("RequestIssue"));
+        titleOrderDelinquentColumn.setCellValueFactory(new PropertyValueFactory<>("RequestDelinquency"));
+        titleOrderNotesColumn.setCellValueFactory(new PropertyValueFactory<>("RequestNotes"));
+        titleOrdersTable.setRowFactory(requesttableeof -> {
+            TableRow<RequestTable> row = new TableRow<RequestTable>() {
+                @Override
+                public void updateItem(RequestTable o, boolean empty) {
+                    super.updateItem(o, empty);
+                    // Manage style-class for rows with no requests; CSS will handle colors.
+                    for (Customer cust : getCustomerList()) {
+                        if (o == null ) {
+                            getStyleClass().remove("delinquent");
+                        }
+                        else if ((
+                                cust.getFirstName().equals(o.getRequestFirstName()) 
+                                && cust.getLastName().equals(o.getRequestLastName())
+                        )) {
+                            if (cust.getDelinquent()) {
+                                if (!getStyleClass().contains("delinquent")) {
+                                    getStyleClass().add("delinquent");
+                                }
+                            }
+                            else {
+                                getStyleClass().remove("delinquent");
+                            }
+                        }
+                    }
+                }
+            };
+
+            return row;
+
+        });
 
         // Load the data for the Reports tab
 
@@ -2425,8 +2533,8 @@ public class Controller implements Initializable {
                 window.setTitle("Edit Order");
                 window.setResizable(false);
 
-                window.setHeight(285);
-                window.setWidth(400);
+                //window.setHeight(285);
+                //window.setWidth(400);
 
                 window.setScene(new Scene(root));
                 window.setOnHidden(e -> {
@@ -4685,7 +4793,7 @@ public class Controller implements Initializable {
         try {
             s = conn.createStatement();
             ResultSet results = s.executeQuery(
-                    "SELECT ORDERS.CUSTOMERID, ORDERS.TITLEID, TITLES.title, ORDERS.QUANTITY, ORDERS.ISSUE FROM TITLES"
+                    "SELECT ORDERS.CUSTOMERID, ORDERS.TITLEID, TITLES.title, ORDERS.QUANTITY, ORDERS.ISSUE, ORDERS.NOTES FROM TITLES"
                             +
                             " INNER JOIN ORDERS ON Orders.titleID=TITLES.TitleId ORDER BY TITLE");
 
@@ -4695,8 +4803,9 @@ public class Controller implements Initializable {
                 String title = results.getString(3);
                 int quantity = results.getInt(4);
                 int issue = results.getInt(5);
+                String notes = results.getString(6);
 
-                storedOrders.add(new Order(customerId, titleId, title, quantity, issue));
+                storedOrders.add(new Order(customerId, titleId, title, quantity, issue, notes));
             }
             results.close();
             s.close();
@@ -4917,7 +5026,8 @@ public class Controller implements Initializable {
                 String title = results.getString("TITLE");
                 int quantity = results.getInt("QUANTITY");
                 int issue = results.getInt("ISSUE");
-                orders.add(new Order(customerId, titleId, title, quantity, issue));
+                String notes = results.getString("NOTES");
+                orders.add(new Order(customerId, titleId, title, quantity, issue, notes));
             }
             results.close();
             s.close();
@@ -4989,7 +5099,8 @@ public class Controller implements Initializable {
                 String firstname = results.getString("FIRSTNAME");
                 int quantity = results.getInt("QUANTITY");
                 int issue = results.getInt("ISSUE");
-                orders.add(new RequestTable(0, lastname, firstname, quantity, issue));
+                String notes = results.getString("NOTES");
+                orders.add(new RequestTable(0, lastname, firstname, quantity, issue, notes, this));
             }
             results.close();
             s.close();

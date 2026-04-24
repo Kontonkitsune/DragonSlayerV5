@@ -43,6 +43,7 @@ public class EditOrderController {
     @FXML private ComboBox<String> setTitle;
     @FXML private TextField setQuantity;
     @FXML private TextField setIssue;
+    @FXML private TextField setNotes;
 
     @FXML private Text orderTitleErrorText;
     @FXML private Text orderQuantityErrorText;
@@ -51,6 +52,7 @@ public class EditOrderController {
     private String prevTitle;
     private String prevIssue;
     private String prevQuantity;
+    private String prevNotes;
 
     private ObservableList<Title> titles  = FXCollections.observableArrayList();
     private ObservableList<String> titlesStr  = FXCollections.observableArrayList();
@@ -67,14 +69,14 @@ public class EditOrderController {
         if (Integer.parseInt(prevIssue) == 0) {
             sql = """
             UPDATE Orders
-            SET titleId = ?, quantity = ?, issue = ?
-            WHERE customerId = ? AND titleId = ? AND quantity = ? AND issue IS NULL
+            SET titleId = ?, quantity = ?, issue = ?, notes = ?
+            WHERE customerId = ? AND titleId = ? AND quantity = ? AND issue IS NULL AND notes = ?
             """;
         } else {
             sql = """
             UPDATE Orders
-            SET titleId = ?, quantity = ?, issue = ?
-            WHERE customerId = ? AND titleId = ? AND quantity = ? AND issue = ?
+            SET titleId = ?, quantity = ?, issue = ?, notes = ?
+            WHERE customerId = ? AND titleId = ? AND quantity = ? AND issue = ? AND notes = ?
             """;
         }
 
@@ -102,6 +104,7 @@ public class EditOrderController {
                     return;
                 }
             }
+            String notesText = setNotes.getText();
             String quantity = setQuantity.getText();
             int customerId = this.customerId;
             Statement get = null;
@@ -125,6 +128,7 @@ public class EditOrderController {
                                 return;
                             }
                     }
+                    String testNotes = result.getString("NOTES");
                 }
 
                 s = conn.prepareStatement(sql);
@@ -136,12 +140,17 @@ public class EditOrderController {
                     s.setString(2, quantity);
                 }
                 s.setObject(3, issueValue, Types.INTEGER);
+                s.setObject(4, notesText);
 
-                s.setString(4, prevCustomerId);
-                s.setString(5, prevTitle);
-                s.setString(6, prevQuantity);
+                s.setString(5, prevCustomerId);
+                s.setString(6, prevTitle);
+                s.setString(7, prevQuantity);
                 if (Integer.parseInt(prevIssue) != 0) {
-                    s.setObject(7, prevIssue, Types.INTEGER);
+                    s.setObject(8, prevIssue, Types.INTEGER);
+                    s.setObject(9, prevNotes);
+                }
+                else {
+                    s.setObject(8, prevNotes);
                 }
                 rowsAffected = s.executeUpdate();
                 s.close();
@@ -183,6 +192,7 @@ public class EditOrderController {
         this.prevTitle =  String.valueOf(order.getTitleId());
         this.prevIssue = String.valueOf(order.getIssue());
         this.prevQuantity = String.valueOf(order.getQuantity());
+        this.prevNotes = String.valueOf(order.getNotes());
 
         setTitle.setItems(this.titlesStr);
         setQuantity.setText(String.valueOf(order.getQuantity()));

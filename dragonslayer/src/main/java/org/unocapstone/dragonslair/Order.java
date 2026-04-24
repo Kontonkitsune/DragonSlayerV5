@@ -15,6 +15,7 @@ public class Order implements OrderDisplay {
     private int issue;
     private int customerId;
     private int titleId;
+    private String notes;
 
 
     /**
@@ -25,12 +26,13 @@ public class Order implements OrderDisplay {
      * @param quantity Number of copies of the title that are requested
      * @param issue Specific issue number to request
      */
-    public Order(int customerId, int titleId, String title, int quantity, int issue) {
+    public Order(int customerId, int titleId, String title, int quantity, int issue, String notes) {
         this.customerId = customerId;
         this.titleId = titleId;
         this.title = title;
         this.quantity = quantity;
         this.issue = issue;
+        this.notes = notes;
     }
 
     public ArrayList<Integer> getTargets(ObservableList<Title> titles) {
@@ -48,6 +50,13 @@ public class Order implements OrderDisplay {
      */
     public int getCustomerId(){
         return this.customerId;
+    }
+    /**
+     * Gets the notes of this order
+     * @return notes for this Order
+     */
+    public String getNotes(){
+        return this.notes;
     }
 
     /**

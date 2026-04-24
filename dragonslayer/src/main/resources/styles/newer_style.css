@@ -49,6 +49,17 @@
     -fx-fill: blue;
 }
 
+/* Rows with the no-requests marker (yellow background) */
+.table-row-cell.delinquent {
+    -fx-background-color: #f87878;
+}
+.table-row-cell.delinquent .text {
+    -fx-fill: black;
+}
+.table-row-cell.delinquent:delinquent .text {
+    -fx-fill: blue;
+}
+
 /* Add a full border around selected rows (scoped to customer/title tables).
    This creates a clear outline around the entire selected row. Include both
    -fx-* and standard properties for linter compatibility. */

@@ -49,6 +49,11 @@
                         <Insets right="5.0" />
                     </GridPane.margin>
                 </Label>
+                <Label text="Notes:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </Label>
 
                 <ComboBox fx:id="setName" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="CENTER">
                     <GridPane.margin>
@@ -73,9 +78,15 @@
                         <Insets left="5.0" />
                     </GridPane.margin>
                 </TextField>
-            <Text fx:id="orderCustomerErrorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a Customer" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Text fx:id="orderTitleErrorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a title" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Text fx:id="orderQuantityErrorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter a quantity" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+                <TextField fx:id="setNotes" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets left="5.0" />
+                    </GridPane.margin>
+                </TextField>
+            <Text fx:id="orderCustomerErrorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a Customer" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Text fx:id="orderTitleErrorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a title" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Text fx:id="orderQuantityErrorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter a quantity" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             
             </children>
         </GridPane>

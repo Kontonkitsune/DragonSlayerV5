@@ -43,6 +43,7 @@ public class NewOrderController implements Initializable{
     private int titleId;
     private String customer;
     private String title;
+    private String notes;
     private boolean noRequestsFlag;
 
     @FXML private Button addOrderButton;
@@ -50,6 +51,7 @@ public class NewOrderController implements Initializable{
     @FXML private ComboBox<String> setName;
     @FXML private TextField setQuantity;
     @FXML private TextField setIssue;
+    @FXML private TextField setNotes;
 
     @FXML private Text orderTitleErrorText;
     @FXML private Text orderCustomerErrorText;
@@ -83,7 +85,7 @@ public class NewOrderController implements Initializable{
     @FXML
     void newOrder(ActionEvent event) {
         PreparedStatement s = null;
-        String sql = "INSERT INTO Orders (customerId, titleId, quantity, issue) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Orders (customerId, titleId, quantity, issue, notes) VALUES (?, ?, ?, ?, ?)";
         orderQuantityErrorText.setVisible(false);
         orderTitleErrorText.setVisible(false);
         int chosenTitleID = getChoice(setTitle);
@@ -105,6 +107,7 @@ public class NewOrderController implements Initializable{
             int titleID = chosenTitleID;
             int customerID = chosenCustomerID;
             String issue = setIssue.getText();
+            String notes = setNotes.getText();
             
             //boolean noRequestsFlag = this.noRequestsFlag;
             if (issue.isBlank()) {
@@ -139,6 +142,7 @@ public class NewOrderController implements Initializable{
                 s.setString(2, Integer.toString(titleID));
                 s.setString(3, quantity);
                 s.setObject(4, issue == null ? issue : Integer.valueOf(setIssue.getText()), Types.INTEGER);
+                s.setObject(5, notes);
 
 
                 int rowsAffected = s.executeUpdate();
@@ -158,7 +162,7 @@ public class NewOrderController implements Initializable{
                     System.out.println("Succesfully added relationship!");
                 }
 
-                Log.LogEvent("New Order", "Added order - Customer: " + customer + " - Title: " + FxUtilTest.getComboBoxValue(setTitle) + " - Quantity: " + quantity + " - Issue: " + (issue == null ? null : Integer.valueOf(issue)));
+                Log.LogEvent("New Order", "Added order - Customer: " + customer + " - Title: " + FxUtilTest.getComboBoxValue(setTitle) + " - Quantity: " + quantity + " - Issue: " + (issue == null ? null : Integer.valueOf(issue)) + " - Notes " + notes);
             } catch (SQLException sqlExcept) {
                 Log.LogEvent("SQL Exception", sqlExcept.getMessage());
                 sqlExcept.printStackTrace();
