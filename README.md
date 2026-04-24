@@ -94,3 +94,15 @@ Run the command: `mvn clean package -DskipTests -Pdev`
 - Can now search by full name in FirstName LastName or Lastname, Firstname formats and both are accepted if Full name is selected under options
 ###### Bug fixes
 - Fixed the sizing of some windows: edit/add title, and search options.
+
+
+#### Version 5.4
+##### Features
+- TagOrders! You can now create special orders for customers which will include certain tags, which will dynamically update if titles are given said tags. Since they are auto-generated, they show up as Green to differentiate them from normal orders.
+- TagOrders can only be Added and Deleted from the customers menu. They cannot be edited, and if they are, this is untested.
+- Delinquent customers show up as red in the Customers, Titles, and Requests menus! You can mark customers as delinquent or remove their delinquency from the Customers tab.
+- Title and Customer search options now have select/deselect all
+- Orders now have a Notes section, useful for specialized information specific to a request.
+###### Bug fixes
+- Fixed the sizing of many windows.
+- I literally do not remember the rest of the bugfixes because I honestly was not paying attention and most of them were trivial enough I didn't bother writing it down. There were probably a lot of them.
