@@ -94,8 +94,15 @@ $(function(){initNavTree('classorg_1_1unocapstone_1_1dragonslair_1_1_order.html'
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad814f66fe18c87ee5db4cc7832824373" id="r_ad814f66fe18c87ee5db4cc7832824373"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad814f66fe18c87ee5db4cc7832824373">Order</a> (int customerId, int titleId, String title, int quantity, int issue)</td></tr>
+<tr class="memitem:aad59a56de4b73a1e8f189ac4412ddb34" id="r_aad59a56de4b73a1e8f189ac4412ddb34"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aad59a56de4b73a1e8f189ac4412ddb34">Order</a> (int customerId, int titleId, String title, int quantity, int issue, String notes, <a class="el" href="classorg_1_1unocapstone_1_1dragonslair_1_1_tag_order.html">TagOrder</a> fromTags)</td></tr>
+<tr class="memitem:adfff1f5a4f2ac4e19d9efd8cae0a5a5a" id="r_adfff1f5a4f2ac4e19d9efd8cae0a5a5a"><td class="memItemLeft"><a id="adfff1f5a4f2ac4e19d9efd8cae0a5a5a" name="adfff1f5a4f2ac4e19d9efd8cae0a5a5a"></a>
+ArrayList&lt; Integer &gt;&#160;</td><td class="memItemRight"><b>getTargets</b> (ObservableList&lt; <a class="el" href="classorg_1_1unocapstone_1_1dragonslair_1_1_title.html">Title</a> &gt; titles)</td></tr>
+<tr class="memitem:a8aaaaa9a542c21963bed6dc8d25ef7d8" id="r_a8aaaaa9a542c21963bed6dc8d25ef7d8"><td class="memItemLeft"><a id="a8aaaaa9a542c21963bed6dc8d25ef7d8" name="a8aaaaa9a542c21963bed6dc8d25ef7d8"></a>
+String&#160;</td><td class="memItemRight"><b>getTargetDisplay</b> ()</td></tr>
 <tr class="memitem:a9ce9e171fdc481dcd2c991a69a844888" id="r_a9ce9e171fdc481dcd2c991a69a844888"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9ce9e171fdc481dcd2c991a69a844888">getCustomerId</a> ()</td></tr>
+<tr class="memitem:a2bd3999e92af1a7c5630e7cfea2508e2" id="r_a2bd3999e92af1a7c5630e7cfea2508e2"><td class="memItemLeft">String&#160;</td><td class="memItemRight"><a class="el" href="#a2bd3999e92af1a7c5630e7cfea2508e2">getNotes</a> ()</td></tr>
+<tr class="memitem:a354c254bf2739d359c2411e25dcf8d77" id="r_a354c254bf2739d359c2411e25dcf8d77"><td class="memItemLeft"><a class="el" href="classorg_1_1unocapstone_1_1dragonslair_1_1_tag_order.html">TagOrder</a>&#160;</td><td class="memItemRight"><a class="el" href="#a354c254bf2739d359c2411e25dcf8d77">getTagOrder</a> ()</td></tr>
+<tr class="memitem:a61fe693a133107751c403f67102eb852" id="r_a61fe693a133107751c403f67102eb852"><td class="memItemLeft">boolean&#160;</td><td class="memItemRight"><a class="el" href="#a61fe693a133107751c403f67102eb852">getTagOrderStatus</a> ()</td></tr>
 <tr class="memitem:a3c4b848faf3bad27ee3a4fad201f1517" id="r_a3c4b848faf3bad27ee3a4fad201f1517"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3c4b848faf3bad27ee3a4fad201f1517">getTitleId</a> ()</td></tr>
 <tr class="memitem:aafcbfc1675f5e27f756df1287750b32b" id="r_aafcbfc1675f5e27f756df1287750b32b"><td class="memItemLeft">String&#160;</td><td class="memItemRight"><a class="el" href="#aafcbfc1675f5e27f756df1287750b32b">getTitleName</a> ()</td></tr>
 <tr class="memitem:ae6e33e1fbcc484f51faa8c55d81e737f" id="r_ae6e33e1fbcc484f51faa8c55d81e737f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ae6e33e1fbcc484f51faa8c55d81e737f">getQuantity</a> ()</td></tr>
@@ -105,8 +112,8 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>An <a class="el" href="classorg_1_1unocapstone_1_1dragonslair_1_1_order.html">Order</a> relating a <a class="el" href="classorg_1_1unocapstone_1_1dragonslair_1_1_title.html">Title</a> and a customer. Every order has a customer that is requesting it and a title that is to be requested. Every order must also have a specified quantity and issue #. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad814f66fe18c87ee5db4cc7832824373" name="ad814f66fe18c87ee5db4cc7832824373"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad814f66fe18c87ee5db4cc7832824373">&#9670;&#160;</a></span>Order()</h2>
+<a id="aad59a56de4b73a1e8f189ac4412ddb34" name="aad59a56de4b73a1e8f189ac4412ddb34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad59a56de4b73a1e8f189ac4412ddb34">&#9670;&#160;</a></span>Order()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -134,7 +141,17 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>issue</em></span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>issue</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>notes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classorg_1_1unocapstone_1_1dragonslair_1_1_tag_order.html">TagOrder</a></td>          <td class="paramname"><span class="paramname"><em>fromTags</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -188,6 +205,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a2bd3999e92af1a7c5630e7cfea2508e2" name="a2bd3999e92af1a7c5630e7cfea2508e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bd3999e92af1a7c5630e7cfea2508e2">&#9670;&#160;</a></span>getNotes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String org.unocapstone.dragonslair.Order.getNotes </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gets the notes of this order </p><dl class="section return"><dt>Returns</dt><dd>notes for this <a class="el" href="classorg_1_1unocapstone_1_1dragonslair_1_1_order.html">Order</a> </dd></dl>
+
+</div>
+</div>
 <a id="ae6e33e1fbcc484f51faa8c55d81e737f" name="ae6e33e1fbcc484f51faa8c55d81e737f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae6e33e1fbcc484f51faa8c55d81e737f">&#9670;&#160;</a></span>getQuantity()</h2>
 
@@ -203,6 +238,42 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Gets the quantity of copies for this order </p><dl class="section return"><dt>Returns</dt><dd>Quantity for this order </dd></dl>
+
+</div>
+</div>
+<a id="a354c254bf2739d359c2411e25dcf8d77" name="a354c254bf2739d359c2411e25dcf8d77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a354c254bf2739d359c2411e25dcf8d77">&#9670;&#160;</a></span>getTagOrder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classorg_1_1unocapstone_1_1dragonslair_1_1_tag_order.html">TagOrder</a> org.unocapstone.dragonslair.Order.getTagOrder </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gets the notes of this order </p><dl class="section return"><dt>Returns</dt><dd>notes for this <a class="el" href="classorg_1_1unocapstone_1_1dragonslair_1_1_order.html">Order</a> </dd></dl>
+
+</div>
+</div>
+<a id="a61fe693a133107751c403f67102eb852" name="a61fe693a133107751c403f67102eb852"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61fe693a133107751c403f67102eb852">&#9670;&#160;</a></span>getTagOrderStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean org.unocapstone.dragonslair.Order.getTagOrderStatus </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gets the notes of this order </p><dl class="section return"><dt>Returns</dt><dd>notes for this <a class="el" href="classorg_1_1unocapstone_1_1dragonslair_1_1_order.html">Order</a> </dd></dl>
 
 </div>
 </div>

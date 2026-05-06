@@ -1,10 +1,5 @@
 var searchData=
 [
-  ['version_204_200_200_0',['Version 4.0.0',['../md__r_e_a_d_m_e.html#autotoc_md4',1,'']]],
-  ['version_204_200_201_1',['Version 4.0.1',['../md__r_e_a_d_m_e.html#autotoc_md8',1,'']]],
-  ['version_204_201_200_2',['Version 4.1.0',['../md__r_e_a_d_m_e.html#autotoc_md11',1,'']]],
-  ['version_204_202_200_3',['Version 4.2.0',['../md__r_e_a_d_m_e.html#autotoc_md14',1,'']]],
-  ['version_205_200_4',['Version 5.0',['../md__r_e_a_d_m_e.html#autotoc_md17',1,'']]],
-  ['version_205_200_201_5',['Version 5.0.1',['../md__r_e_a_d_m_e.html#autotoc_md18',1,'']]],
-  ['version_205_201_6',['Version 5.1',['../md__r_e_a_d_m_e.html#autotoc_md20',1,'']]]
+  ['updates_0',['Major Updates',['../md__r_e_a_d_m_e.html#autotoc_md5',1,'']]],
+  ['use_3a_1',['How to use:',['../md__r_e_a_d_m_e.html#autotoc_md2',1,'']]]
 ];

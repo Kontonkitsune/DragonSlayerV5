@@ -11,6 +11,7 @@ var classorg_1_1unocapstone_1_1dragonslair_1_1_customer =
     [ "getNoRequests", "classorg_1_1unocapstone_1_1dragonslair_1_1_customer.html#ad9da814f441a053219d9d9afe8db5ada", null ],
     [ "getNotes", "classorg_1_1unocapstone_1_1dragonslair_1_1_customer.html#a6c3bfd8fa709cedbaaa4cf6f5258e0b6", null ],
     [ "getPhone", "classorg_1_1unocapstone_1_1dragonslair_1_1_customer.html#af6fad19f5fc4e6802a04fb8910a41293", null ],
+    [ "getRealName", "classorg_1_1unocapstone_1_1dragonslair_1_1_customer.html#a419026b4effc248881d42e3c6f64fac6", null ],
     [ "setDelinquent", "classorg_1_1unocapstone_1_1dragonslair_1_1_customer.html#a4c48a2dd25fa9396dd7b8e1bd23fc3b2", null ],
     [ "setEmail", "classorg_1_1unocapstone_1_1dragonslair_1_1_customer.html#a70240b69456f24dc74c3852e077497a1", null ],
     [ "setFirstName", "classorg_1_1unocapstone_1_1dragonslair_1_1_customer.html#a4dfc756455ccb62875f945894f17b7e2", null ],
