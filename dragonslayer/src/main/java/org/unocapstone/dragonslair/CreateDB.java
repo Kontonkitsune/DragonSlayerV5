@@ -65,6 +65,8 @@ public class CreateDB {
                         FLAGGED boolean default false not null,
                         DATE_FLAGGED date,
                         ISSUE_FLAGGED int,
+                        Tags varchar(1024),
+                        Aliases varchar(1024),
                         ProductId varchar(255),
                         DateCreated date,
                         PRIMARY KEY (TitleID)
@@ -91,6 +93,18 @@ public class CreateDB {
                         Issue int
                     )""");
             System.out.println("Created table Order");
+
+            s.execute("""
+                    CREATE TABLE TagOrders
+                    (
+                        CUSTOMERID int REFERENCES Customers(CustomerID),
+                        AND_INCLUDE_TAGS varchar(1024),
+                        OR_INCLUDE_TAGS varchar(1024),
+                        EXCLUDE_TAGS varchar(1024),
+                        Quantity int,
+                        Issue int
+                    )""");
+            System.out.println("Created table TagOrders");
 
             conn.commit();
             System.out.println("Committed the transaction");

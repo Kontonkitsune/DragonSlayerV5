@@ -170,8 +170,10 @@
                 <TableColumn fx:id="titleProductIdColumn" editable="false" prefWidth="100.0" text="Product ID" />
                 <TableColumn fx:id="titlePriceColumn" editable="false" prefWidth="100.0" text="Price" />
                 <TableColumn fx:id="titleDateCreatedColumn" editable="false" prefWidth="100.0" text="Date Created" />
-                <TableColumn fx:id="titleLastFlaggedColumn" editable="false" prefWidth="100.0" text="Last Flagged" />
-                <TableColumn fx:id="titleNotesColumn" editable="false" prefWidth="100.0" text="Notes" />
+                <TableColumn fx:id="titleLastFlaggedColumn" editable="false" prefWidth="50.0" text="Last Flagged" />
+                <TableColumn fx:id="titleAliasesColumn" editable="false" prefWidth="50.0" text="Aliases" />
+                <TableColumn fx:id="titleTagsColumn" editable="false" prefWidth="50.0" text="Tags" />
+                <TableColumn fx:id="titleNotesColumn" editable="false" prefWidth="50.0" text="Notes" />
               </columns>
             </TableView>
             <VBox alignment="CENTER" prefHeight="749.0" prefWidth="476.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -278,7 +280,8 @@
                 </HBox>
               </children>
             </VBox>
-            <TextField fx:id="TitleSearch" layoutX="10.0" layoutY="44.0" onKeyReleased="#handleTitleSearching" onMouseClicked="#handleTitleSearchDouble" prefHeight="26.0" prefWidth="690.0" promptText="Search..." />
+            <TextField fx:id="TitleSearch" layoutX="10.0" layoutY="44.0" onKeyReleased="#handleTitleSearching" onMouseClicked="#handleTitleSearchDouble" prefHeight="26.0" prefWidth="550.0" promptText="Search..." />
+            <Button fx:id="TitleSearchOptionsButton" layoutX="560.0" layoutY="44.0" onAction="#handleSearchOptions" prefHeight="26.0" prefWidth="50.0" promptText="Options" />
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0"
                   nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#passTitleKeyboardFocus"
                   prefHeight="30.0" prefWidth="690.0"

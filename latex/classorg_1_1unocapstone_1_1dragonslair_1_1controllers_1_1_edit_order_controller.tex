@@ -1,0 +1,79 @@
+\doxysection{org.\+unocapstone.\+dragonslair.\+controllers.\+Edit\+Order\+Controller Class Reference}
+\hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller}{}\label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller}\index{org.unocapstone.dragonslair.controllers.EditOrderController@{org.unocapstone.dragonslair.controllers.EditOrderController}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_aabfe209020064eb54a4a0e4c44562e81}{set\+Connection}} (Connection conn)
+\item 
+void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_aa7ce2dea8fe0db2490c27c197f213e59}{set\+Order}} (\doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_order}{Order}} order)
+\item 
+void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_aafae7c6094bdbff8840253e943a171ab}{populate}} (Observable\+List$<$ \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title}} $>$ get\+Titles)
+\item 
+int \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_acd53963d2c936ae6a25122bcd4792645}{get\+Choice}} (Combo\+Box$<$ String $>$ set\+Title)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_ae1e9aba1727116cec20e850d6fdd0d6c}\label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_ae1e9aba1727116cec20e850d6fdd0d6c} 
+boolean {\bfseries order\+Was\+Edited} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_controller}{Controller} controls the Edit \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title} window. It allows the window to get the text that is entered in the fields and save it in the database. 
+
+\label{doc-func-members}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_acd53963d2c936ae6a25122bcd4792645}\index{org.unocapstone.dragonslair.controllers.EditOrderController@{org.unocapstone.dragonslair.controllers.EditOrderController}!getChoice@{getChoice}}
+\index{getChoice@{getChoice}!org.unocapstone.dragonslair.controllers.EditOrderController@{org.unocapstone.dragonslair.controllers.EditOrderController}}
+\doxysubsubsection{\texorpdfstring{getChoice()}{getChoice()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_acd53963d2c936ae6a25122bcd4792645} 
+int org.\+unocapstone.\+dragonslair.\+controllers.\+Edit\+Order\+Controller.\+get\+Choice (\begin{DoxyParamCaption}\item[{Combo\+Box$<$ String $>$}]{set\+Title}{}\end{DoxyParamCaption})}
+
+Gets the user\textquotesingle{}s choice from the Combo\+Box 
+\begin{DoxyParams}{Parameters}
+{\em set\+Title} & The Combo\+Box to get the title from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The ID of the title chosen, or -\/1 if input value is not found 
+\end{DoxyReturn}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_aafae7c6094bdbff8840253e943a171ab}\index{org.unocapstone.dragonslair.controllers.EditOrderController@{org.unocapstone.dragonslair.controllers.EditOrderController}!populate@{populate}}
+\index{populate@{populate}!org.unocapstone.dragonslair.controllers.EditOrderController@{org.unocapstone.dragonslair.controllers.EditOrderController}}
+\doxysubsubsection{\texorpdfstring{populate()}{populate()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_aafae7c6094bdbff8840253e943a171ab} 
+void org.\+unocapstone.\+dragonslair.\+controllers.\+Edit\+Order\+Controller.\+populate (\begin{DoxyParamCaption}\item[{Observable\+List$<$ \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title}} $>$}]{get\+Titles}{}\end{DoxyParamCaption})}
+
+Takes an observable list of titles and creates an observable list of strings with just the title name 
+\begin{DoxyParams}{Parameters}
+{\em get\+Titles} & The observable list of titles \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_aabfe209020064eb54a4a0e4c44562e81}\index{org.unocapstone.dragonslair.controllers.EditOrderController@{org.unocapstone.dragonslair.controllers.EditOrderController}!setConnection@{setConnection}}
+\index{setConnection@{setConnection}!org.unocapstone.dragonslair.controllers.EditOrderController@{org.unocapstone.dragonslair.controllers.EditOrderController}}
+\doxysubsubsection{\texorpdfstring{setConnection()}{setConnection()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_aabfe209020064eb54a4a0e4c44562e81} 
+void org.\+unocapstone.\+dragonslair.\+controllers.\+Edit\+Order\+Controller.\+set\+Connection (\begin{DoxyParamCaption}\item[{Connection}]{conn}{}\end{DoxyParamCaption})}
+
+Sets the connection for this controller 
+\begin{DoxyParams}{Parameters}
+{\em conn} & The connection to set for this controller \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_aa7ce2dea8fe0db2490c27c197f213e59}\index{org.unocapstone.dragonslair.controllers.EditOrderController@{org.unocapstone.dragonslair.controllers.EditOrderController}!setOrder@{setOrder}}
+\index{setOrder@{setOrder}!org.unocapstone.dragonslair.controllers.EditOrderController@{org.unocapstone.dragonslair.controllers.EditOrderController}}
+\doxysubsubsection{\texorpdfstring{setOrder()}{setOrder()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_order_controller_aa7ce2dea8fe0db2490c27c197f213e59} 
+void org.\+unocapstone.\+dragonslair.\+controllers.\+Edit\+Order\+Controller.\+set\+Order (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_order}{Order}}}]{order}{}\end{DoxyParamCaption})}
+
+Sets the \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title} for this controller 
+\begin{DoxyParams}{Parameters}
+{\em order} & The title to set for this controller \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+dragonslayer/\+src/\+main/\+java/\+org/\+unocapstone/\+dragonslair/\+controllers/\+Edit\+Order\+Controller.\+java\end{DoxyCompactItemize}

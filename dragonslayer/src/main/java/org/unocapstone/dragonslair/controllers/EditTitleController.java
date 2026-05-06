@@ -33,6 +33,8 @@ public class EditTitleController{
     @FXML private TextField updateTitleTitle;
     @FXML private TextField updateTitlePrice;
     @FXML private TextField updateTitleNotes;
+    @FXML private TextField updateTitleTags;
+    @FXML private TextField updateTitleAliases;
     @FXML private TextField updateTitleProductId;
 
     @FXML private Text priceValidText;
@@ -47,6 +49,8 @@ public class EditTitleController{
 
         String titleText = updateTitleTitle.getText();
         String notes = updateTitleNotes.getText();
+        String tags = updateTitleTags.getText();
+        String aliases = updateTitleAliases.getText();
         String productId = updateTitleProductId.getText();
 
         if(isValidPrice(updateTitlePrice.getText())) {
@@ -56,7 +60,7 @@ public class EditTitleController{
             PreparedStatement update = null;
             String sql = """
             UPDATE TITLES
-            SET TITLE = ?, PRICE = ?, NOTES = ?, PRODUCTID = ?
+            SET TITLE = ?, PRICE = ?, NOTES = ?, PRODUCTID = ?, TAGS = ?, ALIASES = ?
             WHERE TITLEID = ?
             """;
 
@@ -67,7 +71,9 @@ public class EditTitleController{
                 update.setObject(2, dollarsToCents(price), Types.INTEGER);
                 update.setString(3, notes);
                 update.setString(4, productId);
-                update.setString(5, Integer.toString(title.getId()));
+                update.setString(5, tags);
+                update.setString(6, aliases);
+                update.setString(7, Integer.toString(title.getId()));
                 rowsAffected = update.executeUpdate();
 
                 update.close();
@@ -106,6 +112,8 @@ public class EditTitleController{
             updateTitlePrice.setText(title.getPriceDollars());
         }
         updateTitleNotes.setText(title.getNotes());
+        updateTitleTags.setText(title.getTags());
+        updateTitleAliases.setText(title.getAliases());
         updateTitleProductId.setText(title.getProductId());
     }
 

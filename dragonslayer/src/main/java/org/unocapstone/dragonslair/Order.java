@@ -1,4 +1,7 @@
 package org.unocapstone.dragonslair;
+import java.util.ArrayList;
+
+import javafx.collections.ObservableList;
 
 /**
  * An Order relating a Title and a customer. Every order has a customer
@@ -12,6 +15,8 @@ public class Order {
     private int issue;
     private int customerId;
     private int titleId;
+    private String notes;
+    private TagOrder fromTags;
 
 
     /**
@@ -22,20 +27,52 @@ public class Order {
      * @param quantity Number of copies of the title that are requested
      * @param issue Specific issue number to request
      */
-    public Order(int customerId, int titleId, String title, int quantity, int issue) {
+    public Order(int customerId, int titleId, String title, int quantity, int issue, String notes, TagOrder fromTags) {
         this.customerId = customerId;
         this.titleId = titleId;
         this.title = title;
         this.quantity = quantity;
         this.issue = issue;
+        this.notes = notes;
+        this.fromTags = fromTags;
     }
 
+    public ArrayList<Integer> getTargets(ObservableList<Title> titles) {
+        ArrayList<Integer> returnarr = new ArrayList<>();
+        returnarr.add(this.titleId);
+        return returnarr;
+    }
+
+    public String getTargetDisplay() {
+        return this.getTitleName();
+    }
     /**
      * Gets ID of Customer for this Order
      * @return Customer ID for this Order
      */
     public int getCustomerId(){
         return this.customerId;
+    }
+    /**
+     * Gets the notes of this order
+     * @return notes for this Order
+     */
+    public String getNotes(){
+        return this.notes;
+    }
+    /**
+     * Gets the notes of this order
+     * @return notes for this Order
+     */
+    public TagOrder getTagOrder(){
+        return this.fromTags;
+    }
+    /**
+     * Gets the notes of this order
+     * @return notes for this Order
+     */
+    public boolean getTagOrderStatus(){
+        return this.fromTags != null;
     }
 
     /**

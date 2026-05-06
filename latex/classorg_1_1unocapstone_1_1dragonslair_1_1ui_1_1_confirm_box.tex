@@ -1,0 +1,56 @@
+\doxysection{org.\+unocapstone.\+dragonslair.\+ui.\+Confirm\+Box Class Reference}
+\hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1ui_1_1_confirm_box}{}\label{classorg_1_1unocapstone_1_1dragonslair_1_1ui_1_1_confirm_box}\index{org.unocapstone.dragonslair.ui.ConfirmBox@{org.unocapstone.dragonslair.ui.ConfirmBox}}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static boolean \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1ui_1_1_confirm_box_ae437692157909ec781c210a7ab1dda00}{display}} (String title, String message)
+\item 
+static boolean \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1ui_1_1_confirm_box_a4425e3b6bb1c737c43d548bfe4f5c724}{display\+With\+Password}} (String title, String message, String required\+Password)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1ui_1_1_confirm_box}{Confirm\+Box} to display a window and get a yes or no answer from the user. 
+
+\label{doc-func-members}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1ui_1_1_confirm_box_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1ui_1_1_confirm_box_ae437692157909ec781c210a7ab1dda00}\index{org.unocapstone.dragonslair.ui.ConfirmBox@{org.unocapstone.dragonslair.ui.ConfirmBox}!display@{display}}
+\index{display@{display}!org.unocapstone.dragonslair.ui.ConfirmBox@{org.unocapstone.dragonslair.ui.ConfirmBox}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1ui_1_1_confirm_box_ae437692157909ec781c210a7ab1dda00} 
+boolean org.\+unocapstone.\+dragonslair.\+ui.\+Confirm\+Box.\+display (\begin{DoxyParamCaption}\item[{String}]{title}{, }\item[{String}]{message}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Displays the title as the window title, and the message as text inside the window. Prompts the users for yes or no confirmation and returns their answer. 
+\begin{DoxyParams}{Parameters}
+{\em title} & The title for the window \\
+\hline
+{\em message} & The message to display in the window \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True or false depending on the user\textquotesingle{}s selection 
+\end{DoxyReturn}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1ui_1_1_confirm_box_a4425e3b6bb1c737c43d548bfe4f5c724}\index{org.unocapstone.dragonslair.ui.ConfirmBox@{org.unocapstone.dragonslair.ui.ConfirmBox}!displayWithPassword@{displayWithPassword}}
+\index{displayWithPassword@{displayWithPassword}!org.unocapstone.dragonslair.ui.ConfirmBox@{org.unocapstone.dragonslair.ui.ConfirmBox}}
+\doxysubsubsection{\texorpdfstring{displayWithPassword()}{displayWithPassword()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1ui_1_1_confirm_box_a4425e3b6bb1c737c43d548bfe4f5c724} 
+boolean org.\+unocapstone.\+dragonslair.\+ui.\+Confirm\+Box.\+display\+With\+Password (\begin{DoxyParamCaption}\item[{String}]{title}{, }\item[{String}]{message}{, }\item[{String}]{required\+Password}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Displays a password-\/protected confirmation dialog. Prompts the user for a password to confirm the action. 
+\begin{DoxyParams}{Parameters}
+{\em title} & The title for the window \\
+\hline
+{\em message} & The message to display in the window \\
+\hline
+{\em required\+Password} & The password that must be entered to confirm \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the user entered the correct password, false otherwise 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+dragonslayer/\+src/\+main/\+java/\+org/\+unocapstone/\+dragonslair/\+ui/\+Confirm\+Box.\+java\end{DoxyCompactItemize}

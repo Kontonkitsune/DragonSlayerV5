@@ -1,0 +1,94 @@
+\chapter{Dragon\+Slayer\+V5 }
+\hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{DragonSlayerV5@{DragonSlayerV5}}
+\label{md__r_e_a_d_m_e_autotoc_md0}%
+\Hypertarget{md__r_e_a_d_m_e_autotoc_md0}%
+
+
+Capstone Project for UNO class CSCI4970.\hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{\texorpdfstring{Prerequisites:\+}{Prerequisites:\+}}\label{md__r_e_a_d_m_e_autotoc_md1}
+
+\begin{DoxyItemize}
+\item JDK21
+\item Apache Maven
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{\texorpdfstring{How to use:\+}{How to use:\+}}\label{md__r_e_a_d_m_e_autotoc_md2}
+Ensure that Maven is installed within your environmental variables.
+
+Run the command:\+ {\ttfamily mvn clean package -\/Dskip\+Tests -\/Pdev}
+\begin{DoxyItemize}
+\item This will create a standalone {\ttfamily .exe} for testing.
+\item It can be found within {\ttfamily \{installation\+Directory\}\textbackslash{}dragonslayer\textbackslash{}target\textbackslash{}distributable\textbackslash{}Dragonslayer}
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysection{\texorpdfstring{Changelog:\+}{Changelog:\+}}\label{md__r_e_a_d_m_e_autotoc_md3}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md4}{}\doxysubsubsection{\texorpdfstring{Version 4.\+0.\+0}{Version 4.\+0.\+0}}\label{md__r_e_a_d_m_e_autotoc_md4}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md5}{}\doxysubsubsubsubsection{\texorpdfstring{Major Updates}{Major Updates}}\label{md__r_e_a_d_m_e_autotoc_md5}
+
+\begin{DoxyItemize}
+\item Updated from Java 17 -\/-\/\texorpdfstring{$>$}{>} Java 21
+\item Updated from Java\+FX 18 -\/-\/\texorpdfstring{$>$}{>} Java\+FX 21.\+0.\+8
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md6}{}\doxysubsubsubsubsection{\texorpdfstring{Additions}{Additions}}\label{md__r_e_a_d_m_e_autotoc_md6}
+
+\begin{DoxyItemize}
+\item Included {\ttfamily Add} button on the Title tab for the customer.
+\item Added {\ttfamily Delete} button on the Title tab for the customer as well.
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md7}{}\doxysubsubsubsubsection{\texorpdfstring{Bug Fixes}{Bug Fixes}}\label{md__r_e_a_d_m_e_autotoc_md7}
+
+\begin{DoxyItemize}
+\item Fixed ghost title issue, where titles would randomly pop-\/up.
+\item Fixed flagging issues
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{Version 4.\+0.\+1}{Version 4.\+0.\+1}}\label{md__r_e_a_d_m_e_autotoc_md8}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md9}{}\doxysubsubsubsection{\texorpdfstring{Additions}{Additions}}\label{md__r_e_a_d_m_e_autotoc_md9}
+
+\begin{DoxyItemize}
+\item Added deletion confirmation message for customers within the title tab.
+\item Highlights new customers with no orders.
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md10}{}\doxysubsubsubsection{\texorpdfstring{Bug Fixes}{Bug Fixes}}\label{md__r_e_a_d_m_e_autotoc_md10}
+
+\begin{DoxyItemize}
+\item Fixed issue where sort by title was slow.
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md11}{}\doxysubsubsection{\texorpdfstring{Version 4.\+1.\+0}{Version 4.\+1.\+0}}\label{md__r_e_a_d_m_e_autotoc_md11}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md12}{}\doxysubsubsubsubsection{\texorpdfstring{Additions}{Additions}}\label{md__r_e_a_d_m_e_autotoc_md12}
+
+\begin{DoxyItemize}
+\item Included {\ttfamily Derby\+DB} folder button
+\item Changed {\ttfamily Derby\+DB} folder location to reflect APP\+\_\+\+Image distribution
+\item Added JUnit 5 + Simple Testing suite
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md13}{}\doxysubsubsubsubsection{\texorpdfstring{Bug fixes}{Bug fixes}}\label{md__r_e_a_d_m_e_autotoc_md13}
+
+\begin{DoxyItemize}
+\item Fixed title overflowing into other fields
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md14}{}\doxysubsubsection{\texorpdfstring{Version 4.\+2.\+0}{Version 4.\+2.\+0}}\label{md__r_e_a_d_m_e_autotoc_md14}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md15}{}\doxysubsubsubsubsection{\texorpdfstring{Additions}{Additions}}\label{md__r_e_a_d_m_e_autotoc_md15}
+
+\begin{DoxyItemize}
+\item Included Sort by Last flagged column
+\item Previous Customers Tab, along with associated junction table
+\item Added refresh button to refresh Database connection
+\item Changed icon
+\item Added save test in hopes of squashing the bug
+\item Added "{}\+Pending"{} stats in the flagged column
+\item Created a pop-\/up to save to two different stores
+\item Created "{}\+View-\/\+Only"{} mode.
+\item Included Show Previous Box to show titles with older customers
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md16}{}\doxysubsubsubsubsection{\texorpdfstring{Bug fixes}{Bug fixes}}\label{md__r_e_a_d_m_e_autotoc_md16}
+
+\begin{DoxyItemize}
+\item Added potential fix for exports not saving correctly
+\item Fixed bug where the customer wasn\textquotesingle{}t being added to a title
+\item Fixed performance searching performance issues
+\item Fixed edge-\/case where names with hyphens will break the SQL query
+\item Fixed titles not displaying after being created.
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md17}{}\doxysubsubsection{\texorpdfstring{Version 5.\+0}{Version 5.\+0}}\label{md__r_e_a_d_m_e_autotoc_md17}
+
+\begin{DoxyItemize}
+\item Changed management
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md18}{}\doxysubsubsection{\texorpdfstring{Version 5.\+0.\+1}{Version 5.\+0.\+1}}\label{md__r_e_a_d_m_e_autotoc_md18}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md19}{}\doxysubsubsubsubsection{\texorpdfstring{Bug Fixes}{Bug Fixes}}\label{md__r_e_a_d_m_e_autotoc_md19}
+
+\begin{DoxyItemize}
+\item Fixed bug where the view-\/only mode could access Edit, Delete, Add, and other features.
+\item Removed the ability to flag titles in View-\/only mode (It still checks, but this is a visual bug)
+\item Fixed the issue where deleting a title after a request for it is made will not delete the title due to SQL foreign key constraint.
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md20}{}\doxysubsubsection{\texorpdfstring{Version 5.\+1}{Version 5.\+1}}\label{md__r_e_a_d_m_e_autotoc_md20}
+
+\begin{DoxyItemize}
+\item Added fields for Tags and Aliases
+\item Added search options for titles (search by tag, title, id, aliases, etc.) 
+\end{DoxyItemize}

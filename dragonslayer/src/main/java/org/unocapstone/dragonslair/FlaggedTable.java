@@ -11,6 +11,8 @@ public class FlaggedTable {
     private int flaggedQuantity;
     private int titleId;
     private int flaggedNumRequests;
+    private int flaggedNonDelinquentQuantity;
+    private int flaggedNumNonDelinquentRequests;
 
 
     /**
@@ -79,9 +81,21 @@ public class FlaggedTable {
     public int getFlaggedQuantity(){ return this.flaggedQuantity; }
 
     /**
+     * Gets the quantity for this FlaggedTable
+     * @return the quantity for this FlaggedTable
+     */
+    public int getFlaggedNonDelinquentQuantity(){ return this.flaggedNonDelinquentQuantity; }
+
+    /**
      * Gets the number of requests for this FlaggedTable
      * @return the number of requests for this FlaggedTable
      */
     public int getFlaggedNumRequests(){ return this.flaggedNumRequests; }
+
+    /**
+     * Gets the number of non delinquent requests for this FlaggedTable
+     * @return the number of non delinquent requests for this FlaggedTable
+     */
+    public int getFlaggedNumNonDelinquentRequests(){ return this.flaggedNumNonDelinquentRequests; }
 }
 

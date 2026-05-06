@@ -42,7 +42,7 @@
                 <TableColumn fx:id="customerFirstNameColumn" prefWidth="100.0" text="First Name" />
                 <TableColumn fx:id="customerPhoneColumn" prefWidth="125.0" text="Phone Number" />
                 <TableColumn fx:id="customerEmailColumn" prefWidth="165.0" text="Email" />
-                <TableColumn fx:id="customerNotesColumn" prefWidth="200.0" text="Notes" />
+                <TableColumn fx:id="customerNotesColumn" prefWidth="150.0" text="Notes" />
               </columns>
             </TableView>
             <VBox alignment="CENTER" prefHeight="749.0" prefWidth="476.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -86,14 +86,23 @@
                   <children>
                     <TableView fx:id="customerOrderTable" prefHeight="317.0" prefWidth="375.0">
                       <columns>
-                        <TableColumn fx:id="customerOrderReqItemsColumn" prefWidth="157.0" text="Requested Items" />
-                        <TableColumn fx:id="customerOrderQuantityColumn" prefWidth="89.0" text="Quantity" />
-                        <TableColumn fx:id="customerOrderIssueColumn" prefWidth="75.0" text="Issue" />
+                        <TableColumn fx:id="customerOrderReqItemsColumn" prefWidth="180.0" text="Request" />
+                        <TableColumn fx:id="customerOrderQuantityColumn" prefWidth="40.0" text="Qty" />
+                        <TableColumn fx:id="customerOrderIssueColumn" prefWidth="40.0" text="Issue" />
+                        <TableColumn fx:id="customerOrderNotesColumn" prefWidth="150.0" text="Notes" />
                       </columns>
                     </TableView>
                     <VBox alignment="TOP_CENTER" onMouseClicked="#passCustomerKeyboardFocus" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
                       <children>
-                        <Button fx:id="newOrderButton" mnemonicParsing="false" onAction="#handleNewOrder" prefWidth="100.0" text="Add Request" wrapText="true">
+                        <Button fx:id="newOrderButton" mnemonicParsing="false" onAction="#handleNewOrderFromCustomer" prefWidth="100.0" text="Add Request" wrapText="true">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                        </Button>
+                        <Button fx:id="newTagOrderButton" mnemonicParsing="false" onAction="#handleNewTagOrderFromCustomer" prefWidth="100.0" text="Add Tag Request" wrapText="true">
                           <VBox.margin>
                             <Insets />
                           </VBox.margin>
@@ -134,7 +143,8 @@
                 </HBox>
               </children>
             </VBox>
-            <TextField fx:id="CustomerSearch" layoutX="10.0" layoutY="44.0" onKeyReleased="#handleCustomerSearching" prefHeight="26.0" prefWidth="690.0" promptText="Search..." />
+            <TextField fx:id="CustomerSearch" layoutX="10.0" layoutY="44.0" onKeyReleased="#handleCustomerSearching" prefHeight="26.0" prefWidth="590.0" promptText="Search..." />
+            <Button fx:id="CustomerSearchOptionsButton" mnemonicParsing="false" layoutX="600.0" layoutY="44.0" onAction="#handleCustomerSearchOptions" prefHeight="26.0" prefWidth="100.0" text="Options" />
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" onMouseClicked="#passCustomerKeyboardFocus" prefHeight="30.0" prefWidth="690.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
               <children>
                 <Button fx:id="addCustomerButtonMain" mnemonicParsing="false" onAction="#handleAddCustomer" text="Add New Customer" />
@@ -166,12 +176,14 @@
             <TableView fx:id="titleTable" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="80.0">
               <columns>
                 <TableColumn fx:id="titleFlaggedColumn" prefWidth="51.0" text="Flagged" />
-                <TableColumn fx:id="titleTitleColumn" editable="false" prefWidth="239.0" text="Title" />
-                <TableColumn fx:id="titleProductIdColumn" editable="false" prefWidth="100.0" text="Product ID" />
-                <TableColumn fx:id="titlePriceColumn" editable="false" prefWidth="100.0" text="Price" />
-                <TableColumn fx:id="titleDateCreatedColumn" editable="false" prefWidth="100.0" text="Date Created" />
-                <TableColumn fx:id="titleLastFlaggedColumn" editable="false" prefWidth="100.0" text="Last Flagged" />
-                <TableColumn fx:id="titleNotesColumn" editable="false" prefWidth="100.0" text="Notes" />
+                <TableColumn fx:id="titleTitleColumn" editable="false" prefWidth="139.0" text="Title" />
+                <TableColumn fx:id="titleProductIdColumn" editable="false" prefWidth="80.0" text="Product ID" />
+                <TableColumn fx:id="titlePriceColumn" editable="false" prefWidth="80.0" text="Price" />
+                <TableColumn fx:id="titleDateCreatedColumn" editable="false" prefWidth="80.0" text="Date Created" />
+                <TableColumn fx:id="titleLastFlaggedColumn" editable="false" prefWidth="80.0" text="Last Flagged" />
+                <TableColumn fx:id="titleAliasesColumn" editable="false" prefWidth="80.0" text="Aliases" />
+                <TableColumn fx:id="titleTagsColumn" editable="false" prefWidth="80.0" text="Tags" />
+                <TableColumn fx:id="titleNotesColumn" editable="false" prefWidth="150.0" text="Notes" />
               </columns>
             </TableView>
             <VBox alignment="CENTER" prefHeight="749.0" prefWidth="476.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -217,10 +229,12 @@
                   <children>
                     <TableView fx:id="titleOrdersTable" prefHeight="317.0" prefWidth="375.0">
                       <columns>
-                        <TableColumn fx:id="titleOrderLastNameColumn" prefWidth="120.0" text="Last Name" />
-                        <TableColumn fx:id="titleOrderFirstNameColumn" prefWidth="115.0" text="First Name" />
-                        <TableColumn fx:id="titleOrderQuantityColumn" prefWidth="60.0" text="Quantity" />
-                        <TableColumn fx:id="titleOrderIssueColumn" text="Issue" />
+                        <TableColumn fx:id="titleOrderLastNameColumn" prefWidth="80.0" text="Last Name" />
+                        <TableColumn fx:id="titleOrderFirstNameColumn" prefWidth="80.0" text="First Name" />
+                        <TableColumn fx:id="titleOrderQuantityColumn" prefWidth="40.0" text="Qty" />
+                        <TableColumn fx:id="titleOrderIssueColumn" prefWidth="40.0" text="Issue" />
+                        <TableColumn fx:id="titleOrderDelinquentColumn" prefWidth="50.0" text="Status" />
+                        <TableColumn fx:id="titleOrderNotesColumn" prefWidth="150.0" text="Notes" />
                       </columns>
                     </TableView>
                      <VBox onMouseClicked="#passTitleKeyboardFocus" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
@@ -231,7 +245,7 @@
                                        text="Add"
                                        prefWidth="100.0"
                                        mnemonicParsing="false"
-                                       onAction="#handleAddRequest">
+                                       onAction="#handleNewOrderFromTitle">
                                     <font>
                                        <Font size="11.0"/>
                                     </font>
@@ -276,7 +290,8 @@
                 </HBox>
               </children>
             </VBox>
-            <TextField fx:id="TitleSearch" layoutX="10.0" layoutY="44.0" onKeyReleased="#handleTitleSearching" onMouseClicked="#handleTitleSearchDouble" prefHeight="26.0" prefWidth="690.0" promptText="Search..." />
+            <TextField fx:id="TitleSearch" layoutX="10.0" layoutY="44.0" onKeyReleased="#handleTitleSearching" onMouseClicked="#handleTitleSearchDouble" prefHeight="26.0" prefWidth="590.0" promptText="Search..." />
+            <Button fx:id="TitleSearchOptionsButton" mnemonicParsing="false" layoutX="600.0" layoutY="44.0" onAction="#handleTitleSearchOptions" prefHeight="26.0" prefWidth="100.0" text="Options" />
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#passTitleKeyboardFocus" prefHeight="30.0" prefWidth="690.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                 <children>
                     <Button fx:id="addTitleButtonMain" mnemonicParsing="false" onAction="#handleAddTitle" prefWidth="94.0" text="Add New Title" />
@@ -397,9 +412,12 @@
                                             </HBox>
                                             <TableView fx:id="requestsTable" prefHeight="498.0" prefWidth="482.0">
                                                 <columns>
-                                                    <TableColumn fx:id="requestLastNameColumn" prefWidth="171.54254150390625" text="Last Name" />
-                                                    <TableColumn fx:id="requestFirstNameColumn" prefWidth="174.45745849609375" text="First Name" />
-                                                    <TableColumn fx:id="requestQuantityColumn" prefWidth="63.6175537109375" text="Quantity" />
+                                                    <TableColumn fx:id="requestLastNameColumn" prefWidth="90" text="Last Name" />
+                                                    <TableColumn fx:id="requestFirstNameColumn" prefWidth="90" text="First Name" />
+                                                    <TableColumn fx:id="requestQuantityColumn" prefWidth="40" text="Qty" />
+                                                    <TableColumn fx:id="requestIssueColumn" prefWidth="40" text="Issue" />
+                                                    <TableColumn fx:id="requestDelinquencyColumn" prefWidth="50" text="Status" />
+                                                    <TableColumn fx:id="requestNotesColumn" prefWidth="150" text="Notes" />
                                                 </columns>
                                             </TableView>
                                         </children>
