@@ -3,7 +3,7 @@
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a4f266edd43bdf041460376a0affa7714}{Request\+Table}} (int order\+Id, String request\+Last\+Name, String request\+First\+Name, int request\+Quantity, int issue\+Number)
+\doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a394f2b29fde49d42e70a4ed475542279}{Request\+Table}} (int order\+Id, String request\+Last\+Name, String request\+First\+Name, int request\+Quantity, int issue\+Number, String request\+Notes, \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_controller}{Controller}} parent, \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_tag_order}{Tag\+Order}} from\+Tags)
 \item 
 int \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_ab2e71265745a3a2954b5c12d1bbdb3d7}{get\+Order\+Id}} ()
 \item 
@@ -14,6 +14,16 @@ String \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_request_t
 String \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a2e0fde3a7b5255ff07a12a5b9beb5413}{get\+Request\+Quantity}} ()
 \item 
 String \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a7065bbb6447c601acf2d9d4b09b8b130}{get\+Request\+Issue}} ()
+\item 
+String \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a642906012633f012b00baa9ef0a0554a}{get\+Request\+Notes}} ()
+\item 
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a328a47c7dff00eefa691753b9482115e}\label{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a328a47c7dff00eefa691753b9482115e} 
+boolean {\bfseries get\+Tag\+Order\+Status} ()
+\item 
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a58f133088c601fc4aa31b2a366e69bad}\label{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a58f133088c601fc4aa31b2a366e69bad} 
+\doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_tag_order}{Tag\+Order}} {\bfseries get\+Tag\+Order} ()
+\item 
+String \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_ae20b8fd5f1bdb53ba79fe33f16db3459}{get\+Request\+Delinquency}} ()
 \item 
 void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a8c2187cfe0af9a46940e816e464b922e}{set\+Request\+Quantity}} (int quantity)
 \item 
@@ -26,7 +36,7 @@ int {\bfseries get\+Issue} ()
 int {\bfseries get\+Quantity} ()
 \item 
 \Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_afee4bb7401d43ff6ff07ce718e0c671e}\label{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_afee4bb7401d43ff6ff07ce718e0c671e} 
-boolean {\bfseries equals} (\doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a4f266edd43bdf041460376a0affa7714}{Request\+Table}} t)
+boolean {\bfseries equals} (\doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a394f2b29fde49d42e70a4ed475542279}{Request\+Table}} t)
 \end{DoxyCompactItemize}
 
 
@@ -36,11 +46,11 @@ Helper class to create and display customer requests in a table
 \label{doc-constructors}
 \Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_doc-constructors}
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a4f266edd43bdf041460376a0affa7714}\index{org.unocapstone.dragonslair.RequestTable@{org.unocapstone.dragonslair.RequestTable}!RequestTable@{RequestTable}}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a394f2b29fde49d42e70a4ed475542279}\index{org.unocapstone.dragonslair.RequestTable@{org.unocapstone.dragonslair.RequestTable}!RequestTable@{RequestTable}}
 \index{RequestTable@{RequestTable}!org.unocapstone.dragonslair.RequestTable@{org.unocapstone.dragonslair.RequestTable}}
 \doxysubsubsection{\texorpdfstring{RequestTable()}{RequestTable()}}
-{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a4f266edd43bdf041460376a0affa7714} 
-org.\+unocapstone.\+dragonslair.\+Request\+Table.\+Request\+Table (\begin{DoxyParamCaption}\item[{int}]{order\+Id}{, }\item[{String}]{request\+Last\+Name}{, }\item[{String}]{request\+First\+Name}{, }\item[{int}]{request\+Quantity}{, }\item[{int}]{issue\+Number}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a394f2b29fde49d42e70a4ed475542279} 
+org.\+unocapstone.\+dragonslair.\+Request\+Table.\+Request\+Table (\begin{DoxyParamCaption}\item[{int}]{order\+Id}{, }\item[{String}]{request\+Last\+Name}{, }\item[{String}]{request\+First\+Name}{, }\item[{int}]{request\+Quantity}{, }\item[{int}]{issue\+Number}{, }\item[{String}]{request\+Notes}{, }\item[{\doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_controller}{Controller}}}]{parent}{, }\item[{\doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_tag_order}{Tag\+Order}}}]{from\+Tags}{}\end{DoxyParamCaption})}
 
 Creates a \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table}{Request\+Table} object based on the parameters provided 
 \begin{DoxyParams}{Parameters}
@@ -64,6 +74,15 @@ int org.\+unocapstone.\+dragonslair.\+Request\+Table.\+get\+Order\+Id (\begin{Do
 
 Gets the order\+Id of the person for the selected title. \begin{DoxyReturn}{Returns}
 the customer\textquotesingle{}s order\+Id for the selected title. 
+\end{DoxyReturn}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_ae20b8fd5f1bdb53ba79fe33f16db3459}\index{org.unocapstone.dragonslair.RequestTable@{org.unocapstone.dragonslair.RequestTable}!getRequestDelinquency@{getRequestDelinquency}}
+\index{getRequestDelinquency@{getRequestDelinquency}!org.unocapstone.dragonslair.RequestTable@{org.unocapstone.dragonslair.RequestTable}}
+\doxysubsubsection{\texorpdfstring{getRequestDelinquency()}{getRequestDelinquency()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_ae20b8fd5f1bdb53ba79fe33f16db3459} 
+String org.\+unocapstone.\+dragonslair.\+Request\+Table.\+get\+Request\+Delinquency (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Gets the delinquency status for the customer \begin{DoxyReturn}{Returns}
+the issue of the title of the customer\textquotesingle{}s order 
 \end{DoxyReturn}
 \Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a1357ee650062af9f9da548ce930e2fd9}\index{org.unocapstone.dragonslair.RequestTable@{org.unocapstone.dragonslair.RequestTable}!getRequestFirstName@{getRequestFirstName}}
 \index{getRequestFirstName@{getRequestFirstName}!org.unocapstone.dragonslair.RequestTable@{org.unocapstone.dragonslair.RequestTable}}
@@ -91,6 +110,15 @@ String org.\+unocapstone.\+dragonslair.\+Request\+Table.\+get\+Request\+Last\+Na
 
 Gets the last name of the customer for this object \begin{DoxyReturn}{Returns}
 the customer\textquotesingle{}s last name 
+\end{DoxyReturn}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a642906012633f012b00baa9ef0a0554a}\index{org.unocapstone.dragonslair.RequestTable@{org.unocapstone.dragonslair.RequestTable}!getRequestNotes@{getRequestNotes}}
+\index{getRequestNotes@{getRequestNotes}!org.unocapstone.dragonslair.RequestTable@{org.unocapstone.dragonslair.RequestTable}}
+\doxysubsubsection{\texorpdfstring{getRequestNotes()}{getRequestNotes()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a642906012633f012b00baa9ef0a0554a} 
+String org.\+unocapstone.\+dragonslair.\+Request\+Table.\+get\+Request\+Notes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Gets the notes on the order object \begin{DoxyReturn}{Returns}
+the notes of the order 
 \end{DoxyReturn}
 \Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1_request_table_a2e0fde3a7b5255ff07a12a5b9beb5413}\index{org.unocapstone.dragonslair.RequestTable@{org.unocapstone.dragonslair.RequestTable}!getRequestQuantity@{getRequestQuantity}}
 \index{getRequestQuantity@{getRequestQuantity}!org.unocapstone.dragonslair.RequestTable@{org.unocapstone.dragonslair.RequestTable}}

@@ -87,8 +87,46 @@ Run the command:\+ {\ttfamily mvn clean package -\/Dskip\+Tests -\/Pdev}
 \item Removed the ability to flag titles in View-\/only mode (It still checks, but this is a visual bug)
 \item Fixed the issue where deleting a title after a request for it is made will not delete the title due to SQL foreign key constraint.
 \end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md20}{}\doxysubsubsection{\texorpdfstring{Version 5.\+1}{Version 5.\+1}}\label{md__r_e_a_d_m_e_autotoc_md20}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md21}{}\doxysubsubsubsection{\texorpdfstring{Features}{Features}}\label{md__r_e_a_d_m_e_autotoc_md21}
 
 \begin{DoxyItemize}
-\item Added fields for Tags and Aliases
-\item Added search options for titles (search by tag, title, id, aliases, etc.) 
+\item Added Tags and Aliases to Titles.
+\item Added an options menu for title-\/searching. You can now search by title, ID, tag, notes, and aliases all at once or separately.
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md22}{}\doxysubsubsection{\texorpdfstring{Version 5.\+2}{Version 5.\+2}}\label{md__r_e_a_d_m_e_autotoc_md22}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md23}{}\doxysubsubsubsection{\texorpdfstring{Features}{Features}}\label{md__r_e_a_d_m_e_autotoc_md23}
+
+\begin{DoxyItemize}
+\item Changed the Add Order menu to allow for changing the customer after selecting it from a customer.
+\item Changed the Add Order submenu from the Titles Tab to execute the same menu as the one from the Customers Tab, rather than outdated code.
+\item Set the Add order menu to autofill customer or title, depending on where you\textquotesingle{}re adding the order from.
+\item You can now just press "{}\+Enter"{} to confirm the password box for edit mode. 
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md24}{}\doxysubsubsubsubsection{\texorpdfstring{Bug Fixes}{Bug Fixes}}\label{md__r_e_a_d_m_e_autotoc_md24}
+
+\begin{DoxyItemize}
+\item Fixed "{}\+Reset all flags"{} causing pretty much every feature of the Titles tab to break... probably.
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md25}{}\doxysubsubsection{\texorpdfstring{Version 5.\+3}{Version 5.\+3}}\label{md__r_e_a_d_m_e_autotoc_md25}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md26}{}\doxysubsubsubsection{\texorpdfstring{Features}{Features}}\label{md__r_e_a_d_m_e_autotoc_md26}
+
+\begin{DoxyItemize}
+\item The program is now compatible with earlier versions of the database, and will add the Aliases and Tags column if the database doesn\textquotesingle{}t already have them.
+\item Parity for the title searching feature for the Customers tab. New search options menu!
+\item Can now search by full name in First\+Name Last\+Name or Lastname, Firstname formats and both are accepted if Full name is selected under options 
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md27}{}\doxysubsubsubsubsection{\texorpdfstring{Bug fixes}{Bug fixes}}\label{md__r_e_a_d_m_e_autotoc_md27}
+
+\begin{DoxyItemize}
+\item Fixed the sizing of some windows:\+ edit/\+add title, and search options.
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md28}{}\doxysubsubsection{\texorpdfstring{Version 5.\+4}{Version 5.\+4}}\label{md__r_e_a_d_m_e_autotoc_md28}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md29}{}\doxysubsubsubsection{\texorpdfstring{Features}{Features}}\label{md__r_e_a_d_m_e_autotoc_md29}
+
+\begin{DoxyItemize}
+\item Tag\+Orders! You can now create special orders for customers which will include certain tags, which will dynamically update if titles are given said tags. Since they are auto-\/generated, they show up as Green to differentiate them from normal orders.
+\item Tag\+Orders can only be Added and Deleted from the customers menu. They cannot be edited, and if they are, this is untested.
+\item Delinquent customers show up as red in the Customers, Titles, and Requests menus! You can mark customers as delinquent or remove their delinquency from the Customers tab.
+\item Title and Customer search options now have select/\+deselect all
+\item Orders now have a Notes section, useful for specialized information specific to a request. 
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md30}{}\doxysubsubsubsubsection{\texorpdfstring{Bug fixes}{Bug fixes}}\label{md__r_e_a_d_m_e_autotoc_md30}
+
+\begin{DoxyItemize}
+\item Fixed the sizing of many windows.
+\item I literally do not remember the rest of the bugfixes because I honestly was not paying attention and most of them were trivial enough I didn\textquotesingle{}t bother writing it down. There were probably a lot of them. 
 \end{DoxyItemize}

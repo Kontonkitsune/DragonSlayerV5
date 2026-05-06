@@ -1,0 +1,141 @@
+\doxysection{org.\+unocapstone.\+dragonslair.\+controllers.\+New\+Tag\+Order\+Controller Class Reference}
+\hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller}{}\label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller}\index{org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}}
+Inheritance diagram for org.\+unocapstone.\+dragonslair.\+controllers.\+New\+Tag\+Order\+Controller:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_ab205c608f69757d3f2e25731dfb15c9e}\label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_ab205c608f69757d3f2e25731dfb15c9e} 
+void {\bfseries initialize} (URL location, Resource\+Bundle resources)
+\item 
+void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a6d8978ba182919c7f90b1d512d1b157a}{set\+New\+Order\+Customers}} ()
+\item 
+void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a8daf6d7802627e4515138a5eee3e6dc7}{set\+Connection}} (Connection conn)
+\item 
+void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a3ffc18f1a5cf8134ecab8b8e7c97d7dd}{set\+Customer\+ID}} (int id)
+\item 
+void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a9f07ce82777f460fb7afcf5922c07cf4}{set\+Customer}} (String customer)
+\item 
+void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_afb40129ecb2169f2b558ab62f76bcdaa}{populate}} (Observable\+List$<$ \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title}} $>$ get\+Titles)
+\item 
+void \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a81114a28aa857661d05cda0818aa6cc8}{populate\+Customers}} (Observable\+List$<$ \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_customer}{Customer}} $>$ get\+Names)
+\item 
+int \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a413e008b5cd0999580f2220c1281edfa}{get\+Choice}} (Combo\+Box$<$ String $>$ set\+Title)
+\item 
+int \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_aed1eb3d0793c21c6135831e38587b362}{get\+Choice2}} (Combo\+Box$<$ String $>$ set\+Name)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a4ad7b5010ccdc1b96577a2fa3674e074}\label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a4ad7b5010ccdc1b96577a2fa3674e074} 
+boolean {\bfseries order\+Was\+Added} = false
+\item 
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a5d9fb7aa2a8187179dc9ff04eae918ad}\label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a5d9fb7aa2a8187179dc9ff04eae918ad} 
+int {\bfseries last\+Title\+Added}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_controller}{Controller} controls the New \doxylink{classorg_1_1unocapstone_1_1dragonslair_1_1_order}{Order} window. It allows the window to get the text that is entered in the fields and save it in the database. 
+
+\label{doc-func-members}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a413e008b5cd0999580f2220c1281edfa}\index{org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}!getChoice@{getChoice}}
+\index{getChoice@{getChoice}!org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}}
+\doxysubsubsection{\texorpdfstring{getChoice()}{getChoice()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a413e008b5cd0999580f2220c1281edfa} 
+int org.\+unocapstone.\+dragonslair.\+controllers.\+New\+Tag\+Order\+Controller.\+get\+Choice (\begin{DoxyParamCaption}\item[{Combo\+Box$<$ String $>$}]{set\+Title}{}\end{DoxyParamCaption})}
+
+Gets the choice from the Combo\+Box 
+\begin{DoxyParams}{Parameters}
+{\em set\+Title} & Combo\+Box containing the title value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the ID of the title selected 
+\end{DoxyReturn}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_aed1eb3d0793c21c6135831e38587b362}\index{org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}!getChoice2@{getChoice2}}
+\index{getChoice2@{getChoice2}!org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}}
+\doxysubsubsection{\texorpdfstring{getChoice2()}{getChoice2()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_aed1eb3d0793c21c6135831e38587b362} 
+int org.\+unocapstone.\+dragonslair.\+controllers.\+New\+Tag\+Order\+Controller.\+get\+Choice2 (\begin{DoxyParamCaption}\item[{Combo\+Box$<$ String $>$}]{set\+Name}{}\end{DoxyParamCaption})}
+
+Gets the choice from the Combo\+Box 
+\begin{DoxyParams}{Parameters}
+{\em set\+Title} & Combo\+Box containing the title value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the ID of the title selected 
+\end{DoxyReturn}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_afb40129ecb2169f2b558ab62f76bcdaa}\index{org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}!populate@{populate}}
+\index{populate@{populate}!org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}}
+\doxysubsubsection{\texorpdfstring{populate()}{populate()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_afb40129ecb2169f2b558ab62f76bcdaa} 
+void org.\+unocapstone.\+dragonslair.\+controllers.\+New\+Tag\+Order\+Controller.\+populate (\begin{DoxyParamCaption}\item[{Observable\+List$<$ \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_title}{Title}} $>$}]{get\+Titles}{}\end{DoxyParamCaption})}
+
+Populates titles\+Str based off of an Observable\+List of Titles 
+\begin{DoxyParams}{Parameters}
+{\em get\+Titles} & Observable\+List of Titles to add to titles\+Str \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a81114a28aa857661d05cda0818aa6cc8}\index{org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}!populateCustomers@{populateCustomers}}
+\index{populateCustomers@{populateCustomers}!org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}}
+\doxysubsubsection{\texorpdfstring{populateCustomers()}{populateCustomers()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a81114a28aa857661d05cda0818aa6cc8} 
+void org.\+unocapstone.\+dragonslair.\+controllers.\+New\+Tag\+Order\+Controller.\+populate\+Customers (\begin{DoxyParamCaption}\item[{Observable\+List$<$ \doxymbox{\hyperlink{classorg_1_1unocapstone_1_1dragonslair_1_1_customer}{Customer}} $>$}]{get\+Names}{}\end{DoxyParamCaption})}
+
+Populates customer\+Names based off of an Observable\+List of Titles 
+\begin{DoxyParams}{Parameters}
+{\em get\+Names} & Observable\+List of Customers to add to customer\+Names \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a8daf6d7802627e4515138a5eee3e6dc7}\index{org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}!setConnection@{setConnection}}
+\index{setConnection@{setConnection}!org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}}
+\doxysubsubsection{\texorpdfstring{setConnection()}{setConnection()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a8daf6d7802627e4515138a5eee3e6dc7} 
+void org.\+unocapstone.\+dragonslair.\+controllers.\+New\+Tag\+Order\+Controller.\+set\+Connection (\begin{DoxyParamCaption}\item[{Connection}]{conn}{}\end{DoxyParamCaption})}
+
+Sets the connection for this controller 
+\begin{DoxyParams}{Parameters}
+{\em conn} & the connection for this controller \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a9f07ce82777f460fb7afcf5922c07cf4}\index{org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}!setCustomer@{setCustomer}}
+\index{setCustomer@{setCustomer}!org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}}
+\doxysubsubsection{\texorpdfstring{setCustomer()}{setCustomer()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a9f07ce82777f460fb7afcf5922c07cf4} 
+void org.\+unocapstone.\+dragonslair.\+controllers.\+New\+Tag\+Order\+Controller.\+set\+Customer (\begin{DoxyParamCaption}\item[{String}]{customer}{}\end{DoxyParamCaption})}
+
+Sets the customer for this controller 
+\begin{DoxyParams}{Parameters}
+{\em customer} & name of the customer to set \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a3ffc18f1a5cf8134ecab8b8e7c97d7dd}\index{org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}!setCustomerID@{setCustomerID}}
+\index{setCustomerID@{setCustomerID}!org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}}
+\doxysubsubsection{\texorpdfstring{setCustomerID()}{setCustomerID()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a3ffc18f1a5cf8134ecab8b8e7c97d7dd} 
+void org.\+unocapstone.\+dragonslair.\+controllers.\+New\+Tag\+Order\+Controller.\+set\+Customer\+ID (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})}
+
+Sets the customer ID for this controller 
+\begin{DoxyParams}{Parameters}
+{\em id} & ID of the customer to set \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a6d8978ba182919c7f90b1d512d1b157a}\index{org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}!setNewOrderCustomers@{setNewOrderCustomers}}
+\index{setNewOrderCustomers@{setNewOrderCustomers}!org.unocapstone.dragonslair.controllers.NewTagOrderController@{org.unocapstone.dragonslair.controllers.NewTagOrderController}}
+\doxysubsubsection{\texorpdfstring{setNewOrderCustomers()}{setNewOrderCustomers()}}
+{\footnotesize\ttfamily \label{classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller_a6d8978ba182919c7f90b1d512d1b157a} 
+void org.\+unocapstone.\+dragonslair.\+controllers.\+New\+Tag\+Order\+Controller.\+set\+New\+Order\+Customers (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Populate the Combo\+Box with the titles in titles\+Str, add listener to handle typing over selection 
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+dragonslayer/\+src/\+main/\+java/\+org/\+unocapstone/\+dragonslair/\+controllers/\+New\+Tag\+Order\+Controller.\+java\end{DoxyCompactItemize}
