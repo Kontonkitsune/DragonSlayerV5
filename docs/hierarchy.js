@@ -22,7 +22,9 @@ var hierarchy =
       [ "org.unocapstone.dragonslair.controllers.EditCustomerController", "classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_edit_customer_controller.html", null ],
       [ "org.unocapstone.dragonslair.controllers.NewCustomerController", "classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_customer_controller.html", null ],
       [ "org.unocapstone.dragonslair.controllers.NewOrderController", "classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_order_controller.html", null ],
+      [ "org.unocapstone.dragonslair.controllers.NewTagOrderController", "classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_tag_order_controller.html", null ],
       [ "org.unocapstone.dragonslair.controllers.PreviousCustomersController", "classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_previous_customers_controller.html", null ],
+      [ "org.unocapstone.dragonslair.controllers.SearchCustomerOptionsController", "classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_search_customer_options_controller.html", null ],
       [ "org.unocapstone.dragonslair.controllers.SearchTitleOptionsController", "classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_search_title_options_controller.html", null ]
     ] ],
     [ "org.unocapstone.dragonslair.Launcher", "classorg_1_1unocapstone_1_1dragonslair_1_1_launcher.html", null ],
@@ -30,8 +32,12 @@ var hierarchy =
     [ "org.unocapstone.dragonslair.NewCustomerTitleManager", "classorg_1_1unocapstone_1_1dragonslair_1_1_new_customer_title_manager.html", null ],
     [ "org.unocapstone.dragonslair.controllers.NewTitleController", "classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_title_controller.html", null ],
     [ "org.unocapstone.dragonslair.Order", "classorg_1_1unocapstone_1_1dragonslair_1_1_order.html", null ],
+    [ "org.unocapstone.dragonslair.OrderDisplay", "interfaceorg_1_1unocapstone_1_1dragonslair_1_1_order_display.html", [
+      [ "org.unocapstone.dragonslair.TagOrder", "classorg_1_1unocapstone_1_1dragonslair_1_1_tag_order.html", null ]
+    ] ],
     [ "org.unocapstone.dragonslair.RequestTable", "classorg_1_1unocapstone_1_1dragonslair_1_1_request_table.html", null ],
     [ "org.unocapstone.dragonslair.Settings", "classorg_1_1unocapstone_1_1dragonslair_1_1_settings.html", null ],
+    [ "org.unocapstone.dragonslair.TagRequestTable", "classorg_1_1unocapstone_1_1dragonslair_1_1_tag_request_table.html", null ],
     [ "org.unocapstone.dragonslair.Timer", "classorg_1_1unocapstone_1_1dragonslair_1_1_timer.html", null ],
     [ "org.unocapstone.dragonslair.Title", "classorg_1_1unocapstone_1_1dragonslair_1_1_title.html", null ],
     [ "UnaryOperator", null, [

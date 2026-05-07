@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['main_0',['Main',['../classorg_1_1unocapstone_1_1dragonslair_1_1_main.html',1,'org::unocapstone::dragonslair']]],
-  ['major_20updates_1',['Major Updates',['../md__r_e_a_d_m_e.html#autotoc_md5',1,'']]]
+  ['launcher_0',['Launcher',['../classorg_1_1unocapstone_1_1dragonslair_1_1_launcher.html',1,'org::unocapstone::dragonslair']]],
+  ['log_1',['Log',['../classorg_1_1unocapstone_1_1dragonslair_1_1_log.html',1,'org::unocapstone::dragonslair']]],
+  ['logevent_2',['LogEvent',['../classorg_1_1unocapstone_1_1dragonslair_1_1_log.html#abed349d9d9979c830605fa91770807c7',1,'org::unocapstone::dragonslair::Log']]],
+  ['logmessage_3',['LogMessage',['../classorg_1_1unocapstone_1_1dragonslair_1_1_log.html#a164ae6e6671e85e80bc8d5b22fd5f677',1,'org::unocapstone::dragonslair::Log']]]
 ];

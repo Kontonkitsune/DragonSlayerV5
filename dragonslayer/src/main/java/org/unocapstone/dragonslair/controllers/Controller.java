@@ -332,6 +332,8 @@ public class Controller implements Initializable {
     @FXML
     private Button addRequestButton;
     @FXML
+    private Button newTagOrderButton;
+    @FXML
     private Label titleTitleText;
     @FXML
     private Button addCustomerButtonMain;
@@ -372,6 +374,7 @@ public class Controller implements Initializable {
         // Add buttons
         addCustomerButtonMain.setDisable(viewMode);
         addRequestButton.setDisable(viewMode);
+        newTagOrderButton.setDisable(viewMode);
         addTitleButtonMain.setDisable(viewMode);
 
         // Delete buttons
@@ -2119,6 +2122,7 @@ public class Controller implements Initializable {
                         delinqNoticeText.setVisible(false);
 
                     newOrderButton.setDisable(viewMode);
+                    newTagOrderButton.setDisable(viewMode);
                     editOrderButton.setDisable(viewMode);
                     deleteOrderButton.setDisable(viewMode);
                     exportSingleCustomerListButton.setDisable(false);
@@ -2134,6 +2138,7 @@ public class Controller implements Initializable {
                 customerNotesText.setText("-----");
 
                 newOrderButton.setDisable(true);
+                newTagOrderButton.setDisable(viewMode);
                 editOrderButton.setDisable(true);
                 deleteOrderButton.setDisable(true);
                 exportSingleCustomerListButton.setDisable(true);

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['initialize_0',['initialize',['../classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_controller.html#a1731b7cdf5e73362e44fffbce15d89c7',1,'org.unocapstone.dragonslair.controllers.Controller.initialize()'],['../classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_new_customer_controller.html#abe74df18db04db8aaa439225847b2fd5',1,'org.unocapstone.dragonslair.controllers.NewCustomerController.initialize()'],['../classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_previous_customers_controller.html#a658be76e5cb38fc5e73d9abc65ee695c',1,'org.unocapstone.dragonslair.controllers.PreviousCustomersController.initialize()'],['../classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_search_title_options_controller.html#a6f3a5551d00c5f2c737efbbd6938c039',1,'org.unocapstone.dragonslair.controllers.SearchTitleOptionsController.initialize()']]],
-  ['isflagged_1',['isFlagged',['../classorg_1_1unocapstone_1_1dragonslair_1_1_title.html#a39204ba540f1df7a72973155e1413edd',1,'org::unocapstone::dragonslair::Title']]],
-  ['isunsaved_2',['isUnsaved',['../classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_controller.html#a73d92a645132c7bfd20c1ccb496c850f',1,'org::unocapstone::dragonslair::controllers::Controller']]],
-  ['isviewmode_3',['isViewMode',['../classorg_1_1unocapstone_1_1dragonslair_1_1controllers_1_1_controller.html#ae26a44eba2ca1b5b572dd5d700af95dc',1,'org::unocapstone::dragonslair::controllers::Controller']]]
+  ['handlenewcustomertitleorder_0',['handleNewCustomerTitleOrder',['../classorg_1_1unocapstone_1_1dragonslair_1_1_new_customer_title_manager.html#acfb4757b6009f511939f712fb5b1472e',1,'org::unocapstone::dragonslair::NewCustomerTitleManager']]],
+  ['helpers_1',['Helpers',['../classorg_1_1unocapstone_1_1dragonslair_1_1_helpers.html',1,'org::unocapstone::dragonslair']]],
+  ['how_20to_20use_3a_2',['How to use:',['../md__r_e_a_d_m_e.html#autotoc_md2',1,'']]]
 ];
